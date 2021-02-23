@@ -14,7 +14,7 @@ public class Game extends Window {
 
 	public Game() {
 		
-		super("Epic Adventure Game", 0, 0, 300, 300, panel);
+		super("Epic Adventure Game", 0, 0, 300, 300, panel);		//HI NIK IS HIER!!
 		
 		panel.setBackground(Color.BLACK);
 		
