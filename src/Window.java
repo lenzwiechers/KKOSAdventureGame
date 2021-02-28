@@ -34,5 +34,13 @@ public class Window extends JFrame {
 		this.getContentPane().setLayout(null);
 	}
 	
+	public int getSize(char coordinate) {
+		if(coordinate == 'x') {
+			return frameXPos;
+		} else if (coordinate == 'y') {
+			return frameYPos;
+		}
+		return -1; // Wenn coordinate weder x noch y ist
+	}
 
 }
