@@ -15,6 +15,8 @@ public class Game extends Window {
 	private long lastT;
 	
 	ObjectHandler handler;
+	
+	Wand wand;
 
 	public Game() {
 
@@ -24,16 +26,30 @@ public class Game extends Window {
 
 		player = new Player();
 		
-		handler = new ObjectHandler();
-
 		this.addKeyListener(player);
 
 		panel.add(player);
 
 		player.setVisible(true);
 
-		player.setBounds(100, 100, 50, 80); // xPos, yPos, xSize, ySize
-
+		// player.setBounds(100, 100, 50, 80); // xPos, yPos, xSize, ySize
+		
+		handler = new ObjectHandler();
+		
+		handler.addObject(player);
+		
+		wand = new Wand();
+		
+		handler.addObject(wand);
+		
+		panel.add(wand);
+		
+		wand.setPos('x', 200);
+		wand.setPos('y', 200);
+		
+		wand.setSize('x', 100);
+		wand.setSize('y', 100);
+		
 		lastT = System.nanoTime(); // delta time
 
 		while (true) {
@@ -46,8 +62,6 @@ public class Game extends Window {
 			// System.out.println(player.velX*dt);
 			
 			handler.tick(player, dt);
-			
-			handler.addObject(player);
 			
 			handler.renderAll();
 		

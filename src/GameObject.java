@@ -46,6 +46,14 @@ public abstract class GameObject extends Picture {
 		}
 	}
 	
+	public void setSize(char coordinate, int newVal) {
+		if (coordinate == 'x' || coordinate == 'X') {
+			width = newVal;
+		} else if (coordinate == 'y' || coordinate == 'Y') {
+			height = newVal;
+		}
+	}
+	
 	public void render() {
 		this.setBounds(posX, posY, width, height);
 	}
