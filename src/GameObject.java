@@ -1,7 +1,8 @@
-import javax.swing.JLabel;
+public abstract class GameObject extends Picture {
 
-public class GameObject extends Picture {
-
+	
+	private static final long serialVersionUID = 5520024489816059648L;
+	
 	protected int posX;
 	protected int posY;
 	protected int width;
@@ -43,6 +44,14 @@ public class GameObject extends Picture {
 			System.out.println("ERROR, WRONG INPUT");
 			return -1;
 		}
+	}
+	
+	public void render() {
+		this.setBounds(posX, posY, width, height);
+	}
+	
+	public void tick() {
+		
 	}
 
 }

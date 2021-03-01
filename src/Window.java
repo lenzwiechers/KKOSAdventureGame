@@ -36,9 +36,9 @@ public class Window extends JFrame {
 	
 	public int getSize(char coordinate) {
 		if(coordinate == 'x') {
-			return frameXPos;
+			return frameXSize;
 		} else if (coordinate == 'y') {
-			return frameYPos;
+			return frameYSize;
 		}
 		return -1; // Wenn coordinate weder x noch y ist
 	}

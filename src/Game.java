@@ -13,6 +13,8 @@ public class Game extends Window {
 	// Delta time: siehe https://en.wikipedia.org/wiki/Delta_timing
 	private long dt;
 	private long lastT;
+	
+	ObjectHandler handler;
 
 	public Game() {
 
@@ -21,6 +23,8 @@ public class Game extends Window {
 		// panel.setBackground(Color.RED);
 
 		player = new Player();
+		
+		handler = new ObjectHandler();
 
 		this.addKeyListener(player);
 
@@ -37,15 +41,15 @@ public class Game extends Window {
 			dt = System.nanoTime() - lastT; // delta time
 			lastT = System.nanoTime(); // delta time
 			
-			if(player.left) {
-				player.setPos('x', player.getPos('x') - (int) (player.velX*dt));
-			} else if(player.right) {
-				player.setPos('x', player.getPos('x') + (int) (player.velX*dt));
-			}
+			
 			
 			// System.out.println(player.velX*dt);
 			
-			render(player);
+			handler.tick(player, dt);
+			
+			handler.addObject(player);
+			
+			handler.renderAll();
 		
 			// System.out.println("a");
 			
@@ -53,9 +57,7 @@ public class Game extends Window {
 		}
 	}
 
-	private void render(GameObject obj) {
-		obj.setBounds(obj.getPos('x'), obj.getPos('y'), obj.getSize('x'), obj.getSize('y'));
-	}
+	
 
 	// Methode zum verzögern (warten) in ms
 	private void delay(int time) {

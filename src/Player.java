@@ -27,11 +27,11 @@ public class Player extends GameObject implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 	
 		if(e.getKeyCode() == 39) {
-			System.out.println("right");
+			// System.out.println("right");
 			right = true;
 			left = false;
 		} else if(e.getKeyCode() == 37) {
-			System.out.println("left");
+			// System.out.println("left");
 			left = true;
 			right = false;
 		}
