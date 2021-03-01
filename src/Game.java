@@ -43,7 +43,7 @@ public class Game extends Window {
 				player.setPos('x', player.getPos('x') + (int) (player.velX*dt));
 			}
 			
-			System.out.println(player.velX*dt);
+			// System.out.println(player.velX*dt);
 			
 			render(player);
 		
