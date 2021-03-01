@@ -23,8 +23,10 @@ public class Game extends Window {
 		super("Epic Adventure Game", 0, 0, 1300, 700, panel);
 
 		// panel.setBackground(Color.RED);
+		
+		handler = new ObjectHandler();
 
-		player = new Player();
+		player = new Player(handler);
 		
 		this.addKeyListener(player);
 
@@ -34,7 +36,7 @@ public class Game extends Window {
 
 		// player.setBounds(100, 100, 50, 80); // xPos, yPos, xSize, ySize
 		
-		handler = new ObjectHandler();
+		
 		
 		handler.addObject(player);
 		

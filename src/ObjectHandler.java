@@ -4,7 +4,9 @@ public class ObjectHandler {
 	
 	private Player player;
 	
-	private LinkedList<GameObject> objects = new LinkedList<GameObject>();
+	LinkedList<GameObject> objects = new LinkedList<GameObject>();
+	
+	LinkedList<Wand> wände = new LinkedList<Wand>();
 	
 	public ObjectHandler() {
 		
@@ -22,10 +24,16 @@ public class ObjectHandler {
 		if(obj instanceof Player) {
 			player = (Player) obj;
 			if(player.left) {
-				obj.setPos('x', player.getPos('x') - (int) (player.velX*dt));
+				player.setPos('x', player.getPos('x') - (int) (player.velX*dt));
 			} else if(player.right) {
 				player.setPos('x', player.getPos('x') + (int) (player.velX*dt));
 			}
+			if(player.down) {
+				player.setPos('y', player.getPos('y') + (int) (player.velY*dt));
+			}
+			
+			// System.out.println(player.velY*dt);
+			player.tick();
 		} else {
 			
 		}
@@ -33,6 +41,9 @@ public class ObjectHandler {
 	
 	public void addObject(GameObject obj) {
 		objects.add(obj);
+		if(obj instanceof Wand) {
+			wände.add((Wand) obj);
+		}
 	}
 	
 }
