@@ -1,6 +1,5 @@
 public abstract class GameObject extends Picture {
 
-	
 	private static final long serialVersionUID = 5520024489816059648L;
 	
 	protected int posX;
