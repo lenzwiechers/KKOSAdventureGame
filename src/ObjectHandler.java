@@ -21,7 +21,9 @@ public class ObjectHandler {
 	}
 	
 	public void tick() {
-		player.tick();
+		for(int i = 0; i < objects.size(); i++) {
+			objects.get(i).tick();
+		}
 	}
 	
 	public void tick(GameObject obj, long dt) {
@@ -52,5 +54,4 @@ public class ObjectHandler {
 			wände.add((Wand) obj);
 		}
 	}
-	
 }

@@ -12,6 +12,8 @@ public class Player extends GameObject implements KeyListener {
 	public boolean down = false;
 
 	ObjectHandler handler;
+	
+	boolean collide;
 
 	public Player(ObjectHandler newHandler) {
 
@@ -26,6 +28,7 @@ public class Player extends GameObject implements KeyListener {
 		this.posY = 100;
 
 		handler = newHandler;
+		
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -55,7 +58,7 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public boolean collision() {
-		boolean collide = false;
+		collide = false;
 
 		for (int i = 0; i < handler.wände.size(); i++) {
 			if (this.getBounds().intersects(handler.wände.get(i).getBounds())) {
