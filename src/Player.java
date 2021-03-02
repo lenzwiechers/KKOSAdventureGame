@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -53,28 +54,35 @@ public class Player extends GameObject implements KeyListener {
 
 	}
 
-	public void tick() {
+	public boolean collision() {
+		boolean collide = false;
+
 		for (int i = 0; i < handler.wände.size(); i++) {
-			
-			// Kollision player - Wände y - Koordinate:
-			if (this.posY + this.height >= handler.wände.get(i).posY
-					&& this.posY <= handler.wände.get(i).posY + handler.wände.get(i).height
-					&& this.posX + this.width >= handler.wände.get(i).posX
-					&& this.posX <= handler.wände.get(i).posX + handler.wände.get(i).width) {
-				down = false;
-				this.posY = handler.wände.get(i).posY - this.height;
-				
-			} else {
-				down = true;
+			if (this.getBounds().intersects(handler.wände.get(i).getBounds())) {
+				collide = true;
+				return collide;
 			}
-			// ------------------------
-			
-			// Kollision player - Wände x - Koordinate:
-			
-			// if(this.posX + this.width >= handler.wände.get(i).posX && this.) {
-				
-			// }
 		}
+
+		return collide;
 	}
 
+	public void tick() {
+		if (right) {
+			posX += velX;
+			while (collision()) {
+				posX -= Math.signum(velX);
+			}
+		} else if (left) {
+			posX -= velX;
+			while (collision()) {
+				posX += Math.signum(velX);
+			}
+		}
+		
+		posY += velY;
+		while(collision()) {
+			posY -= Math.signum(velY);
+		}
+	}
 }

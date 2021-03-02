@@ -69,6 +69,8 @@ public class Game extends Window {
 			
 			handler.tick(player, dt);
 			
+			handler.tick();
+			
 			handler.renderAll();
 		
 			// System.out.println("a");

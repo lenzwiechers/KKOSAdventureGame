@@ -1,3 +1,5 @@
+import java.awt.Rectangle;
+
 public abstract class GameObject extends Picture {
 
 	private static final long serialVersionUID = 5520024489816059648L;
@@ -24,6 +26,10 @@ public abstract class GameObject extends Picture {
 			System.out.println("ERROR, WRONG INPUT");
 			return -1;
 		}
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(posX, posY, width, height);
 	}
 
 	public void setPos(char coordinate, int newVal) {

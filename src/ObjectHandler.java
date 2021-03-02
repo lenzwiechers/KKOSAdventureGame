@@ -20,8 +20,14 @@ public class ObjectHandler {
 		}
 	}
 	
+	public void tick() {
+		player.tick();
+	}
+	
 	public void tick(GameObject obj, long dt) {
-		if(obj instanceof Player) {
+		/*
+		 * if(obj instanceof Player) {
+		 
 			player = (Player) obj;
 			if(player.left) {
 				player.setPos('x', player.getPos('x') - (int) (player.velX*dt));
@@ -37,6 +43,7 @@ public class ObjectHandler {
 		} else {
 			
 		}
+		*/
 	}
 	
 	public void addObject(GameObject obj) {
