@@ -24,7 +24,7 @@ public class Player extends GameObject implements KeyListener {
 
 		this.width = 50;
 		this.height = 80;
-		this.posX = 150;
+		this.posX = 170;
 		this.posY = 100;
 
 		handler = newHandler;
@@ -70,22 +70,22 @@ public class Player extends GameObject implements KeyListener {
 		return collide;
 	}
 
-	public void tick() {
+	public void tick(long dt) {
 		if (right) {
-			posX += velX;
+			posX += velX * dt;
 			while (collision()) {
-				posX -= Math.signum(velX);
+				posX -= 1;
 			}
 		} else if (left) {
-			posX -= velX;
+			posX -= velX * dt;
 			while (collision()) {
-				posX += Math.signum(velX);
+				posX += 1;
 			}
 		}
 		
-		posY += velY;
+		posY += velY * dt;
 		while(collision()) {
-			posY -= Math.signum(velY);
+			posY -= 1;
 		}
 	}
 }

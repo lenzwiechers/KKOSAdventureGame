@@ -63,7 +63,7 @@ public abstract class GameObject extends Picture {
 		this.setBounds(posX, posY, width, height);
 	}
 	
-	public void tick() {
+	public void tick(long dt) {
 		
 	}
 

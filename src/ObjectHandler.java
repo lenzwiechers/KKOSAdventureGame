@@ -20,9 +20,9 @@ public class ObjectHandler {
 		}
 	}
 	
-	public void tick() {
+	public void tick(long dt) {
 		for(int i = 0; i < objects.size(); i++) {
-			objects.get(i).tick();
+			objects.get(i).tick(dt);
 		}
 	}
 	
