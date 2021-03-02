@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 public abstract class GameObject extends Picture {
 
 	private static final long serialVersionUID = 5520024489816059648L;
-	
+
 	protected int posX;
 	protected int posY;
 	protected int width;
@@ -27,7 +27,7 @@ public abstract class GameObject extends Picture {
 			return -1;
 		}
 	}
-	
+
 	public Rectangle getBounds() {
 		return new Rectangle(posX, posY, width, height);
 	}
@@ -39,7 +39,7 @@ public abstract class GameObject extends Picture {
 			posY = newVal;
 		}
 	}
-	
+
 	public int getSize(char coordinate) {
 		if (coordinate == 'x' || coordinate == 'X') {
 			return width;
@@ -50,7 +50,7 @@ public abstract class GameObject extends Picture {
 			return -1;
 		}
 	}
-	
+
 	public void setSize(char coordinate, int newVal) {
 		if (coordinate == 'x' || coordinate == 'X') {
 			width = newVal;
@@ -58,13 +58,13 @@ public abstract class GameObject extends Picture {
 			height = newVal;
 		}
 	}
-	
+
 	public void render() {
 		this.setBounds(posX, posY, width, height);
 	}
-	
+
 	public void tick(long dt) {
-		
+
 	}
 
 }

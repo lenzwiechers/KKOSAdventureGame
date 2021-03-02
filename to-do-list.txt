@@ -1,0 +1,28 @@
+player:
+	movement (sprinten + jumpen)
+	gravitiation (nicht linear)			
+	stats	-->
+	abilities --> abhängig von LK
+items:
+	shortrange (knife / sword)
+	midrange (shotgun/ pistol)
+	longrage (sniper)
+	usables (healing/ strength/ regen/ ammo)
+	grabling hook?
+stages:
+	map
+	räume
+	türen
+	shop
+	tutorial
+Launcher:
+	spielstand saven + laden
+	neues spiel starten
+	LKs auswählen am Anfang
+NPCs:
+	Gegner (Boss (DIREKTORIN!!!))
+	Companion (z.B. Biene die Gegner angreift)
+
+Tutorial:
+	sprechblasen
+	extra level

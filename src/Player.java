@@ -12,7 +12,7 @@ public class Player extends GameObject implements KeyListener {
 	public boolean down = false;
 
 	ObjectHandler handler;
-	
+
 	boolean collide;
 
 	public Player(ObjectHandler newHandler) {
@@ -28,7 +28,7 @@ public class Player extends GameObject implements KeyListener {
 		this.posY = 100;
 
 		handler = newHandler;
-		
+
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -82,9 +82,9 @@ public class Player extends GameObject implements KeyListener {
 				posX += 1;
 			}
 		}
-		
+
 		posY += velY * dt;
-		while(collision()) {
+		while (collision()) {
 			posY -= 1;
 		}
 	}
