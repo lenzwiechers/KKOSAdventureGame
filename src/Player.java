@@ -17,7 +17,7 @@ public class Player extends GameObject implements KeyListener {
 		super("player");
 
 		this.velX = 0.00000025f;
-		this.velY = 0.000000125f;
+		this.velY = 0.00000025f;
 
 		this.width = 50;
 		this.height = 80;
@@ -55,14 +55,25 @@ public class Player extends GameObject implements KeyListener {
 
 	public void tick() {
 		for (int i = 0; i < handler.wände.size(); i++) {
+			
+			// Kollision player - Wände y - Koordinate:
 			if (this.posY + this.height >= handler.wände.get(i).posY
 					&& this.posY <= handler.wände.get(i).posY + handler.wände.get(i).height
 					&& this.posX + this.width >= handler.wände.get(i).posX
 					&& this.posX <= handler.wände.get(i).posX + handler.wände.get(i).width) {
 				down = false;
+				this.posY = handler.wände.get(i).posY - this.height;
+				
 			} else {
 				down = true;
 			}
+			// ------------------------
+			
+			// Kollision player - Wände x - Koordinate:
+			
+			// if(this.posX + this.width >= handler.wände.get(i).posX && this.) {
+				
+			// }
 		}
 	}
 

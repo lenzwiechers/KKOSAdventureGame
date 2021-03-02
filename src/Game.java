@@ -16,7 +16,7 @@ public class Game extends Window {
 	
 	ObjectHandler handler;
 	
-	Wand wand;
+	Wand wände[] = new Wand[2];
 
 	public Game() {
 
@@ -40,17 +40,21 @@ public class Game extends Window {
 		
 		handler.addObject(player);
 		
-		wand = new Wand();
+		for(int i = 0; i < wände.length; i++) {
+			wände[i] = new Wand();
+			handler.addObject(wände[i]);
+			panel.add(wände[i]);
+			wände[i].setSize('x', 100);
+			wände[i].setSize('y', 100);
+		}
 		
-		handler.addObject(wand);
+		wände[0].setPos('x', 200);
+		wände[0].setPos('y', 200);
 		
-		panel.add(wand);
+		wände[1].setPos('x', 100);
+		wände[1].setPos('y', 300);
+		wände[1].setSize('x', 300);
 		
-		wand.setPos('x', 200);
-		wand.setPos('y', 200);
-		
-		wand.setSize('x', 100);
-		wand.setSize('y', 100);
 		
 		lastT = System.nanoTime(); // delta time
 
