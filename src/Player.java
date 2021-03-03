@@ -1,4 +1,3 @@
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -10,6 +9,13 @@ public class Player extends GameObject implements KeyListener {
 	public boolean left = false;
 	public boolean up = false;
 	public boolean down = false;
+
+	public boolean jump = false;
+
+	public boolean inAir = false;
+	public int airTime = 0;
+
+	public double gravity;
 
 	ObjectHandler handler;
 
@@ -33,23 +39,25 @@ public class Player extends GameObject implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 
-		if (e.getKeyCode() == 39) {
+		if (e.getKeyCode() == 68) {
 			// System.out.println("right");
 			right = true;
-			left = false;
-		} else if (e.getKeyCode() == 37) {
+		} else if (e.getKeyCode() == 65) {
 			// System.out.println("left");
 			left = true;
-			right = false;
+		} else if (e.getKeyCode() == 87) {
+			jump = true;
 		}
 
 	}
 
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == 37) {
+		if (e.getKeyCode() == 65) {
 			left = false;
-		} else if (e.getKeyCode() == 39) {
+		} else if (e.getKeyCode() == 68) {
 			right = false;
+		} else if (e.getKeyCode() == 87) {
+			jump = false;
 		}
 	}
 
@@ -57,7 +65,7 @@ public class Player extends GameObject implements KeyListener {
 
 	}
 
-	public boolean collision() {
+	public boolean wallCollision() {
 		collide = false;
 
 		for (int i = 0; i < handler.wände.size(); i++) {
@@ -70,22 +78,53 @@ public class Player extends GameObject implements KeyListener {
 		return collide;
 	}
 
+	public boolean onWall() {
+		boolean onWall = false;
+
+		posY += 1;
+
+		if (wallCollision()) {
+			onWall = true;
+		}
+
+		posY -= 1;
+
+		return onWall;
+	}
+
+	public void addGravity() {
+		velY += 0.000000025f;
+	}
+
 	public void tick(long dt) {
-		if (right) {
+
+		if (right && !left) {
 			posX += velX * dt;
-			while (collision()) {
+			while (wallCollision()) {
 				posX -= 1;
 			}
-		} else if (left) {
+		}
+		if (left && !right) {
 			posX -= velX * dt;
-			while (collision()) {
+			while (wallCollision()) {
 				posX += 1;
 			}
 		}
 
-		posY += velY * dt;
-		while (collision()) {
-			posY -= 1;
+		if (jump && onWall()) {
+			velY = -0.0000006f;
 		}
+
+		posY += velY * dt;
+		while (wallCollision()) {
+			posY -= Math.signum(velY);
+		}
+
+		addGravity();
+
+		if (onWall()) {
+			velY = 0;
+		}
+
 	}
 }

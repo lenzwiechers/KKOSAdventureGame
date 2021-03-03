@@ -14,6 +14,12 @@ public class Game extends Window {
 	private long dt;
 	private long lastT;
 
+	// Frames
+	int targetFPS = 60;
+	long frameTime = 1000 / targetFPS;
+
+	long timer;
+
 	ObjectHandler handler;
 
 	Wand wände[] = new Wand[2];
@@ -56,6 +62,7 @@ public class Game extends Window {
 		lastT = System.nanoTime(); // delta time
 
 		while (true) {
+			timer = System.currentTimeMillis();
 
 			dt = System.nanoTime() - lastT; // delta time
 			lastT = System.nanoTime(); // delta time
@@ -68,8 +75,15 @@ public class Game extends Window {
 
 			handler.renderAll();
 
-			delay(10);
+			if (frameTime - ((System.currentTimeMillis() - timer)) > 0) {
+				try {
+					Thread.sleep(frameTime - (System.currentTimeMillis() - timer));
+				} catch (InterruptedException ex) {
+					Thread.currentThread().interrupt();
+				}
+			}
 		}
+
 	}
 
 	// Methode zum verzögern (warten) in ms
