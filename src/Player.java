@@ -92,6 +92,20 @@ public class Player extends GameObject implements KeyListener {
 		return onWall;
 	}
 
+	public boolean belowWall() {
+		boolean belowWall = false;
+
+		posY -= 1;
+
+		if (wallCollision()) {
+			belowWall = true;
+		}
+
+		posY += 1;
+
+		return belowWall;
+	}
+
 	public void addGravity() {
 		velY += 0.000000025f;
 	}
@@ -112,19 +126,40 @@ public class Player extends GameObject implements KeyListener {
 		}
 
 		if (jump && onWall()) {
-			velY = -0.0000006f;
-		}
-
-		posY += velY * dt;
-		while (wallCollision()) {
-			posY -= Math.signum(velY);
+			velY = -0.0000016f;
 		}
 
 		addGravity();
+
+		posY += velY * dt;
+		boolean inWall = false;
+		if (wallCollision()) {
+			inWall = true;
+		}
+		while (wallCollision()) {
+			posY -= Math.signum(velY);
+
+		}
+
+		if (inWall) {
+			velY = 0;
+		}
 
 		if (onWall()) {
 			velY = 0;
 		}
 
+		if (posX > 1300) {
+			posX = -50;
+		}
+		if (posY > 700) {
+			posY = -80;
+		}
+		if (posX < -50) {
+			posX = 1300;
+		}
+		if (posY < -80) {
+			posY = 700;
+		}
 	}
 }

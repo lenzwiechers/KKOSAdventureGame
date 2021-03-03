@@ -58,6 +58,30 @@ public class Game extends Window {
 		wände[1].setPos('x', 100);
 		wände[1].setPos('y', 300);
 		wände[1].setSize('x', 300);
+		
+		Wand wand1 = new Wand();
+		wand1.setPos('x', 400);
+		wand1.setPos('y', 300);
+		wand1.setSize('x', 500);
+		wand1.setSize('y', 100);
+		handler.addObject(wand1);
+		panel.add(wand1);
+		
+		Wand wand2 = new Wand();
+		wand2.setPos('x', 400);
+		wand2.setPos('y', 500);
+		wand2.setSize('x', 500);
+		wand2.setSize('y', 100);
+		handler.addObject(wand2);
+		panel.add(wand2);
+		
+		Wand wand3 = new Wand();
+		wand3.setPos('x', 1000);
+		wand3.setPos('y', 400);
+		wand3.setSize('x', 100);
+		wand3.setSize('y', 100);
+		handler.addObject(wand3);
+		panel.add(wand3);
 
 		lastT = System.nanoTime(); // delta time
 

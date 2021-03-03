@@ -20,7 +20,7 @@ public class Window extends JFrame {
 		this.frameXSize = frameXSize;
 		this.frameYSize = frameYSize;
 		
-		this.setLocation(frameXPos, frameYPos);
+		this.setLocation(frameXPos, frameYPos); 
 		this.setSize(frameXSize, frameYSize);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
