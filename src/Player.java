@@ -27,7 +27,7 @@ public class Player extends GameObject implements KeyListener {
 
 		super("player");
 
-		this.velX = 0.00000016f;
+		this.velX = 0.00000024f;
 		this.velY = 0.00000025f;
 
 		this.width = 50;
@@ -47,8 +47,9 @@ public class Player extends GameObject implements KeyListener {
 			left = true;
 		} else if (e.getKeyCode() == 32) { // Space bar
 			jump = true;
+			this.velX = 0.00000045f;
 		} else if (e.getKeyCode() == 17) { // Ctrl
-			this.velX = 0.00000027f;
+			this.velX = 0.00000032f;
 		}
 		
 		
@@ -62,6 +63,7 @@ public class Player extends GameObject implements KeyListener {
 			right = false;
 		} else if (e.getKeyCode() == 32) {
 			jump = false;
+			this.velX = 0.00000016f;
 		} else if (e.getKeyCode() == 17) {
 			this.velX = 0.00000016f;
 		}
