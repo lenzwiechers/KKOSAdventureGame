@@ -22,7 +22,7 @@ public class Game extends Window {
 
 	ObjectHandler handler;
 
-	Wand wände[] = new Wand[2];
+	Wand wände[] = new Wand[4];
 
 	public Game() {
 
@@ -43,45 +43,16 @@ public class Game extends Window {
 		// player.setBounds(100, 100, 50, 80); // xPos, yPos, xSize, ySize
 
 		handler.addObject(player);
+		
+		wände[0]  = new Wand(200, 200, 100, 100);
+		wände[1]  = new Wand(100, 300, 300, 100);
+		wände[2]  = new Wand(400, 500, 500, 100);
+		wände[3]  = new Wand(1000, 400, 100, 100);
 
 		for (int i = 0; i < wände.length; i++) {
-			wände[i] = new Wand();
 			handler.addObject(wände[i]);
 			panel.add(wände[i]);
-			wände[i].setSize('x', 100);
-			wände[i].setSize('y', 100);
 		}
-
-		wände[0].setPos('x', 200);
-		wände[0].setPos('y', 200);
-
-		wände[1].setPos('x', 100);
-		wände[1].setPos('y', 300);
-		wände[1].setSize('x', 300);
-		
-		Wand wand1 = new Wand();
-		wand1.setPos('x', 400);
-		wand1.setPos('y', 300);
-		wand1.setSize('x', 500);
-		wand1.setSize('y', 100);
-		handler.addObject(wand1);
-		panel.add(wand1);
-		
-		Wand wand2 = new Wand();
-		wand2.setPos('x', 400);
-		wand2.setPos('y', 500);
-		wand2.setSize('x', 500);
-		wand2.setSize('y', 100);
-		handler.addObject(wand2);
-		panel.add(wand2);
-		
-		Wand wand3 = new Wand();
-		wand3.setPos('x', 1000);
-		wand3.setPos('y', 400);
-		wand3.setSize('x', 100);
-		wand3.setSize('y', 100);
-		handler.addObject(wand3);
-		panel.add(wand3);
 
 		lastT = System.nanoTime(); // delta time
 

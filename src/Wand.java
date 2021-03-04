@@ -9,11 +9,14 @@ public class Wand extends GameObject {
 		
 	}
 	
-	/*public Wand(int x, int y, int w, int h) {
+	public Wand(int x, int y, int w, int h) {
+		
+		super("wand");
+		
 		this.posX = x;
 		this.posY = y;
 		this.width = w;
 		this.height = h;
-	} */
+	}
 
 }
