@@ -15,7 +15,7 @@ public class Player extends GameObject implements KeyListener {
 	public int dashlength = 10;
 	public int dashcounter = dashlength;
 	public float dashspeed = 0.00000200f;
-	public int dashcooldown = 60;
+	public int dashcooldown = 180;
 	public int cooldowncounter = dashcooldown;
 	
 	public boolean inAir = false;
