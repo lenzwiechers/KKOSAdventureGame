@@ -10,8 +10,6 @@ public class ObjectHandler {
 
 	public ObjectHandler() {
 
-		super();
-
 	}
 
 	public void renderAll() {

@@ -32,7 +32,7 @@ public class Game extends Window {
 
 		handler = new ObjectHandler();
 
-		player = new Player(handler);
+		player = new Player(handler, this);
 
 		this.addKeyListener(player);
 

@@ -22,8 +22,12 @@ public class Player extends GameObject implements KeyListener {
 	private boolean collide;
 	private boolean onWall;
 	private boolean belowWall;
+	
+	Window window;
+	
+	Inventory inventory;
 
-	public Player(ObjectHandler newHandler) {
+	public Player(ObjectHandler newHandler, Window window) {
 
 		super("player");
 
@@ -37,6 +41,9 @@ public class Player extends GameObject implements KeyListener {
 
 		handler = newHandler;
 
+		this.window = window;
+		
+		inventory = new Inventory(window);
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -49,6 +56,8 @@ public class Player extends GameObject implements KeyListener {
 			jump = true;
 		} else if (e.getKeyCode() == 17) { // Ctrl
 			this.velX = 0.00000027f;
+		} else if (e.getKeyCode() == 69) { // e
+			inventory.showInv();
 		}
 		
 		
