@@ -105,7 +105,6 @@ public class Game extends Window {
 		}
 
 	}
-
 	// Methode zum verzögern (warten) in ms
 	private void delay(int time) {
 

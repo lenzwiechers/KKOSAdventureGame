@@ -113,7 +113,10 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public void addGravity() {
-		velY += 0.000000030f;
+		
+		if(velY < 0.0000020f) {
+			velY += 0.000000030f;
+		}
 	}
 
 	public void tick(long dt) {
@@ -160,18 +163,10 @@ public class Player extends GameObject implements KeyListener {
 		if (onWall()) {
 			velY = 0;
 		}
-
-		if (posX > 1300) {
-			posX = -50;
-		}
-		if (posY > 700) {
-			posY = -80;
-		}
 		if (posX < -50) {
-			posX = 1300;
+			posX = 1299;
 		}
-		if (posY < -80) {
-			posY = 700;
-		}
+		posY = posY % 700;
+		posX = posX % 1300;
 	}
 }
