@@ -114,12 +114,18 @@ public class Player extends GameObject implements KeyListener {
 	public void tick(long dt) {
 
 		if (right && !left) {
+			if(this.name == "player_inverted") {
+				this.changeName("player");
+			}
 			posX += velX * dt;
 			while (wallCollision()) {
 				posX -= 1;
 			}
 		}
 		if (left && !right) {
+			if(this.name == "player") {
+				this.changeName("player_inverted");
+			}
 			posX -= velX * dt;
 			while (wallCollision()) {
 				posX += 1;
