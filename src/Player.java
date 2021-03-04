@@ -44,6 +44,15 @@ public class Player extends GameObject implements KeyListener {
 		this.window = window;
 		
 		inventory = new Inventory(window);
+		
+		Item [][] items = new Item[5][5];
+		
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j < 5; j++) {
+				items[i][j] = new Item();
+				inventory.addItem(items[i][j]);
+			}
+		}
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -59,7 +68,6 @@ public class Player extends GameObject implements KeyListener {
 		} else if (e.getKeyCode() == 69) { // e
 			inventory.showInv();
 		}
-		
 		
 		// System.out.println(e.getKeyCode());
 	}

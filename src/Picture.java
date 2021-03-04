@@ -13,7 +13,7 @@ public class Picture extends JLabel { // Die übergeordnete Klasse ist JLabel
 
 	private static final long serialVersionUID = 3916370092871263037L;
 
-	BufferedImage pic; // pic ist das eingelesene Bild 
+	static BufferedImage pic; // pic ist das eingelesene Bild 
 	
 	String name;
 
