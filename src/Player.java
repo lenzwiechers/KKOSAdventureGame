@@ -12,9 +12,11 @@ public class Player extends GameObject implements KeyListener {
 
 	public boolean jump = false;
 
-	public int dashlength = 15;
+	public int dashlength = 10;
 	public int dashcounter = dashlength;
 	public float dashspeed = 0.00000200f;
+	public int dashcooldown = 60;
+	public int cooldowncounter = dashcooldown;
 	
 	public boolean inAir = false;
 	public int airTime = 0;
@@ -55,8 +57,9 @@ public class Player extends GameObject implements KeyListener {
 		} else if (e.getKeyCode() == 17) { // Ctrl
 			this.velX = 0.00000032f;
 		} else if (e.getKeyCode() == 81) { // q
-			if(dashcounter == dashlength) {
+			if(dashcounter == dashlength && cooldowncounter == dashcooldown) {
 				dashcounter = 0;
+				cooldowncounter = 0;
 			}
 		}	
 		
@@ -137,6 +140,9 @@ public class Player extends GameObject implements KeyListener {
 				this.velX = 0.00000024f;
 			}
 		}
+		if (cooldowncounter < dashcooldown ) {
+			cooldowncounter ++;
+		}	
 		if (right && !left) {
 			if(this.name == "player_inverted") {
 				this.changeName("player");
