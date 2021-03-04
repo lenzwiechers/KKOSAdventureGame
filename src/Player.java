@@ -19,7 +19,9 @@ public class Player extends GameObject implements KeyListener {
 
 	ObjectHandler handler;
 
-	boolean collide;
+	private boolean collide;
+	private boolean onWall;
+	private boolean belowWall;
 
 	public Player(ObjectHandler newHandler) {
 
@@ -39,24 +41,23 @@ public class Player extends GameObject implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 
-		if (e.getKeyCode() == 68) {
+		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) {
 			// System.out.println("right");
 			right = true;
-		} else if (e.getKeyCode() == 65) {
+		} else if (e.getKeyCode() == 65 || e.getKeyCode() == 37) {
 			// System.out.println("left");
 			left = true;
-		} else if (e.getKeyCode() == 87) {
+		} else if (e.getKeyCode() == 32) { // Space bar
 			jump = true;
 		}
-
 	}
 
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == 65) {
+		if (e.getKeyCode() == 65 || e.getKeyCode() == 37) {
 			left = false;
-		} else if (e.getKeyCode() == 68) {
+		} else if (e.getKeyCode() == 68 || e.getKeyCode() == 39) {
 			right = false;
-		} else if (e.getKeyCode() == 87) {
+		} else if (e.getKeyCode() == 32) {
 			jump = false;
 		}
 	}
@@ -79,7 +80,7 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public boolean onWall() {
-		boolean onWall = false;
+		onWall = false;
 
 		posY += 1;
 
@@ -93,7 +94,7 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public boolean belowWall() {
-		boolean belowWall = false;
+		belowWall = false;
 
 		posY -= 1;
 
@@ -107,7 +108,7 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public void addGravity() {
-		velY += 0.000000025f;
+		velY += 0.000000030f;
 	}
 
 	public void tick(long dt) {
@@ -126,7 +127,7 @@ public class Player extends GameObject implements KeyListener {
 		}
 
 		if (jump && onWall()) {
-			velY = -0.0000016f;
+			velY = -0.0000008f;
 		}
 
 		addGravity();
