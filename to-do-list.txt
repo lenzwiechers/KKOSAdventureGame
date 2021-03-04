@@ -25,4 +25,4 @@ NPCs:
 
 Tutorial:
 	sprechblasen
-	extra level bla
+	extra level
