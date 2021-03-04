@@ -91,10 +91,6 @@ public class Game extends Window {
 			dt = System.nanoTime() - lastT; // delta time
 			lastT = System.nanoTime(); // delta time
 
-			// System.out.println(player.velX*dt);
-
-			handler.tick(player, dt);
-
 			handler.tick(dt);
 
 			handler.renderAll();

@@ -28,22 +28,6 @@ public class ObjectHandler {
 		}
 	}
 
-	public void tick(GameObject obj, long dt) {
-		/*
-		 * if(obj instanceof Player) {
-		 * 
-		 * player = (Player) obj; if(player.left) { player.setPos('x',
-		 * player.getPos('x') - (int) (player.velX*dt)); } else if(player.right) {
-		 * player.setPos('x', player.getPos('x') + (int) (player.velX*dt)); }
-		 * if(player.down) { player.setPos('y', player.getPos('y') + (int)
-		 * (player.velY*dt)); }
-		 * 
-		 * // System.out.println(player.velY*dt); player.tick(); } else {
-		 * 
-		 * }
-		 */
-	}
-
 	public void addObject(GameObject obj) {
 		objects.add(obj);
 		if (obj instanceof Wand) {

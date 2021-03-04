@@ -27,7 +27,7 @@ public class Player extends GameObject implements KeyListener {
 
 		super("player");
 
-		this.velX = 0.00000025f;
+		this.velX = 0.00000016f;
 		this.velY = 0.00000025f;
 
 		this.width = 50;
@@ -41,15 +41,18 @@ public class Player extends GameObject implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 
-		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) {
-			// System.out.println("right");
+		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) { // d/right arrow
 			right = true;
-		} else if (e.getKeyCode() == 65 || e.getKeyCode() == 37) {
-			// System.out.println("left");
+		} else if (e.getKeyCode() == 65 || e.getKeyCode() == 37) { // a/left arrow
 			left = true;
 		} else if (e.getKeyCode() == 32) { // Space bar
 			jump = true;
+		} else if (e.getKeyCode() == 17) { // Ctrl
+			this.velX = 0.00000027f;
 		}
+		
+		
+		// System.out.println(e.getKeyCode());
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -59,6 +62,8 @@ public class Player extends GameObject implements KeyListener {
 			right = false;
 		} else if (e.getKeyCode() == 32) {
 			jump = false;
+		} else if (e.getKeyCode() == 17) {
+			this.velX = 0.00000016f;
 		}
 	}
 
