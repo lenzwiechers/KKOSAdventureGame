@@ -3,6 +3,8 @@ import java.util.LinkedList;
 public class ObjectHandler {
 
 	private Player player;
+	private Item item_t;
+	private HUD hud;
 
 	LinkedList<GameObject> objects = new LinkedList<GameObject>();
 
@@ -21,6 +23,9 @@ public class ObjectHandler {
 	public void tick(long dt) {
 		for (int i = 0; i < objects.size(); i++) {
 			if (objects.get(i) instanceof Player) {
+				objects.get(i).tick(dt);
+			}
+			if (objects.get(i) instanceof Item) {
 				objects.get(i).tick(dt);
 			}
 		}

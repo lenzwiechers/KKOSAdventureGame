@@ -12,6 +12,12 @@ public class Player extends GameObject implements KeyListener {
 
 	public boolean jump = false;
 
+	public int dashlength = 10;
+	public int dashcounter = dashlength;
+	public float dashspeed = 0.00000200f;
+	public int dashcooldown = 180;
+	public int cooldowncounter = dashcooldown;
+	
 	public boolean inAir = false;
 	public int airTime = 0;
 
@@ -31,7 +37,7 @@ public class Player extends GameObject implements KeyListener {
 
 		super("player");
 
-		this.velX = 0.00000016f;
+		this.velX = 0.00000024f;
 		this.velY = 0.00000025f;
 
 		this.width = 50;
@@ -63,13 +69,17 @@ public class Player extends GameObject implements KeyListener {
 			left = true;
 		} else if (e.getKeyCode() == 32) { // Space bar
 			jump = true;
+			this.velX = 0.00000045f;
 		} else if (e.getKeyCode() == 17) { // Ctrl
 			this.velX = 0.00000027f;
 		} else if (e.getKeyCode() == 69) { // e
 			inventory.showInv();
-		}
-		
-		// System.out.println(e.getKeyCode());
+		}else if (e.getKeyCode() == 81) { // q
+			if(dashcounter == dashlength && cooldowncounter == dashcooldown) {
+				dashcounter = 0;
+				cooldowncounter = 0;
+			}
+		}	
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -79,6 +89,7 @@ public class Player extends GameObject implements KeyListener {
 			right = false;
 		} else if (e.getKeyCode() == 32) {
 			jump = false;
+			this.velX = 0.00000016f;
 		} else if (e.getKeyCode() == 17) {
 			this.velX = 0.00000016f;
 		}
@@ -91,8 +102,8 @@ public class Player extends GameObject implements KeyListener {
 	public boolean wallCollision() {
 		collide = false;
 
-		for (int i = 0; i < handler.wände.size(); i++) {
-			if (this.getBounds().intersects(handler.wände.get(i).getBounds())) {
+		for (int i = 0; i < handler.wÃ¤nde.size(); i++) {
+			if (this.getBounds().intersects(handler.wÃ¤nde.get(i).getBounds())) {
 				collide = true;
 				return collide;
 			}
@@ -137,7 +148,17 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public void tick(long dt) {
-
+		
+		if (dashcounter < dashlength ) {
+			this.velX = dashspeed;
+			dashcounter ++;
+			if (dashcounter == dashlength) {
+				this.velX = 0.00000024f;
+			}
+		}
+		if (cooldowncounter < dashcooldown ) {
+			cooldowncounter ++;
+		}	
 		if (right && !left) {
 			if(this.name == "player_inverted") {
 				this.changeName("player");
