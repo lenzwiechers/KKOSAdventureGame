@@ -1,4 +1,4 @@
-public class Item extends GameObject{
+public class Item extends GameObject {
 
 	private static final long serialVersionUID = 2917881703989759480L;
 
@@ -13,7 +13,7 @@ public class Item extends GameObject{
 	private boolean onWall;
 	private boolean belowWall;
 
-	public Item (ObjectHandler newHandler) {
+	public Item(ObjectHandler newHandler) {
 
 		super("item_t");
 
@@ -71,8 +71,8 @@ public class Item extends GameObject{
 	}
 
 	public void addGravity() {
-		
-		if(velY < 0.0000020f) {
+
+		if (velY < 0.0000020f) {
 			velY += 0.000000030f;
 		}
 	}
