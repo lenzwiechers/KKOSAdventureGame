@@ -55,7 +55,7 @@ public class Player extends GameObject implements KeyListener {
 		
 		for(int i = 0; i < 5; i++) {
 			for(int j = 0; j < 5; j++) {
-				items[i][j] = new Item();
+				items[i][j] = new Item(handler);
 				inventory.addItem(items[i][j]);
 			}
 		}
@@ -102,8 +102,8 @@ public class Player extends GameObject implements KeyListener {
 	public boolean wallCollision() {
 		collide = false;
 
-		for (int i = 0; i < handler.wÃ¤nde.size(); i++) {
-			if (this.getBounds().intersects(handler.wÃ¤nde.get(i).getBounds())) {
+		for (int i = 0; i < handler.wände.size(); i++) {
+			if (this.getBounds().intersects(handler.wände.get(i).getBounds())) {
 				collide = true;
 				return collide;
 			}

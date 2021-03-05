@@ -32,8 +32,8 @@ public class Item extends GameObject{
 	public boolean wallCollision() {
 		collide = false;
 
-		for (int i = 0; i < handler.wÃ¤nde.size(); i++) {
-			if (this.getBounds().intersects(handler.wÃ¤nde.get(i).getBounds())) {
+		for (int i = 0; i < handler.wände.size(); i++) {
+			if (this.getBounds().intersects(handler.wände.get(i).getBounds())) {
 				collide = true;
 				return collide;
 			}
