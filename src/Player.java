@@ -28,8 +28,12 @@ public class Player extends GameObject implements KeyListener {
 	private boolean collide;
 	private boolean onWall;
 	private boolean belowWall;
+	
+	Window window;
+	
+	Inventory inventory;
 
-	public Player(ObjectHandler newHandler) {
+	public Player(ObjectHandler newHandler, Window window) {
 
 		super("player");
 
@@ -43,6 +47,18 @@ public class Player extends GameObject implements KeyListener {
 
 		handler = newHandler;
 
+		this.window = window;
+		
+		inventory = new Inventory(window);
+		
+		Item [][] items = new Item[5][5];
+		
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j < 5; j++) {
+				items[i][j] = new Item();
+				inventory.addItem(items[i][j]);
+			}
+		}
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -55,15 +71,15 @@ public class Player extends GameObject implements KeyListener {
 			jump = true;
 			this.velX = 0.00000045f;
 		} else if (e.getKeyCode() == 17) { // Ctrl
-			this.velX = 0.00000032f;
-		} else if (e.getKeyCode() == 81) { // q
+			this.velX = 0.00000027f;
+		} else if (e.getKeyCode() == 69) { // e
+			inventory.showInv();
+		}else if (e.getKeyCode() == 81) { // q
 			if(dashcounter == dashlength && cooldowncounter == dashcooldown) {
 				dashcounter = 0;
 				cooldowncounter = 0;
 			}
 		}	
-		
-		// System.out.println(e.getKeyCode());
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -86,8 +102,8 @@ public class Player extends GameObject implements KeyListener {
 	public boolean wallCollision() {
 		collide = false;
 
-		for (int i = 0; i < handler.wände.size(); i++) {
-			if (this.getBounds().intersects(handler.wände.get(i).getBounds())) {
+		for (int i = 0; i < handler.wÃ¤nde.size(); i++) {
+			if (this.getBounds().intersects(handler.wÃ¤nde.get(i).getBounds())) {
 				collide = true;
 				return collide;
 			}
