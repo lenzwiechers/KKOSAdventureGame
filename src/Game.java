@@ -29,7 +29,7 @@ public class Game extends Window {
 
 	ObjectHandler handler;
 
-	Wand w�nde[] = new Wand[4];
+	Wand waende[] = new Wand[4];
 	
 	Camera cam;
 
@@ -41,7 +41,7 @@ public class Game extends Window {
 
 		handler = new ObjectHandler();
 
-		player = new Player(handler, this);
+		player = new Player(handler, this, panel);
 		player.setPos('x', (screenWidth / 2) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
 		
@@ -67,14 +67,14 @@ public class Game extends Window {
 
 		handler.addObject(item_t);
 
-		w�nde[0] = new Wand(200, 200, 100, 100);
-		w�nde[1] = new Wand(100, 300, 300, 100);
-		w�nde[2] = new Wand(400, 500, 500, 100);
-		w�nde[3] = new Wand(1000, 400, 100, 100);
+		waende[0] = new Wand(200, 200, 100, 100);
+		waende[1] = new Wand(100, 300, 300, 100);
+		waende[2] = new Wand(400, 500, 500, 100);
+		waende[3] = new Wand(1000, 400, 100, 100);
 
-		for (int i = 0; i < w�nde.length; i++) {
-			handler.addObject(w�nde[i]);
-			panel.add(w�nde[i]);
+		for (int i = 0; i < waende.length; i++) {
+			handler.addObject(waende[i]);
+			panel.add(waende[i]);
 		}
 		
 		player.render();

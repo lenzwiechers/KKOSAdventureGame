@@ -2,6 +2,8 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JPanel;
+
 public class Player extends GameObject implements KeyListener {
 
 	private static final long serialVersionUID = 2917881703989759480L;
@@ -27,6 +29,7 @@ public class Player extends GameObject implements KeyListener {
 	public double gravity;
 
 	ObjectHandler handler;
+	JPanel panel;
 
 	private boolean collide;
 	private boolean onWall;
@@ -36,7 +39,7 @@ public class Player extends GameObject implements KeyListener {
 
 	Inventory inventory;
 
-	public Player(ObjectHandler newHandler, Window window) {
+	public Player(ObjectHandler newHandler, Window window, JPanel newPanel) {
 
 		super("player");
 
@@ -49,7 +52,8 @@ public class Player extends GameObject implements KeyListener {
 		this.posY = 100;
 
 		handler = newHandler;
-
+		panel = newPanel;
+		
 		this.window = window;
 
 		inventory = new Inventory(window);
@@ -58,7 +62,7 @@ public class Player extends GameObject implements KeyListener {
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
-				items[i][j] = new Item(handler);
+				items[i][j] = new Item(handler, this, panel);
 				inventory.addItem(items[i][j]);
 			}
 		}
@@ -109,8 +113,8 @@ public class Player extends GameObject implements KeyListener {
 	public boolean wallCollision() {
 		collide = false;
 
-		for (int i = 0; i < handler.w�nde.size(); i++) {
-			if (this.getBounds().intersects(handler.w�nde.get(i).getBounds())) {
+		for (int i = 0; i < handler.waende.size(); i++) {
+			if (this.getBounds().intersects(handler.waende.get(i).getBounds())) {
 				collide = true;
 				return collide;
 			}

@@ -4,7 +4,7 @@ public class ObjectHandler {
 
 	LinkedList<GameObject> objects = new LinkedList<GameObject>();
 
-	LinkedList<Wand> wände = new LinkedList<Wand>();
+	LinkedList<Wand> waende = new LinkedList<Wand>();
 
 	public ObjectHandler() {
 		
@@ -23,7 +23,7 @@ public class ObjectHandler {
 	public void addObject(GameObject obj) {
 		objects.add(obj);
 		if (obj instanceof Wand) {
-			wände.add((Wand) obj);
+			waende.add((Wand) obj);
 		}
 	}
 	
