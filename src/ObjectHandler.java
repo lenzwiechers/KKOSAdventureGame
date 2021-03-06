@@ -39,4 +39,8 @@ public class ObjectHandler {
 			wände.add((Wand) obj);
 		}
 	}
+	
+	public void removeObject(GameObject obj) {
+		objects.remove(obj);
+	}
 }

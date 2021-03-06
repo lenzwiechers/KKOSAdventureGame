@@ -53,7 +53,7 @@ public class Game extends Window {
 		
 		// player.setBounds(100, 100, 50, 80); // xPos, yPos, xSize, ySize
 
-		item_t = new Item(handler);
+		item_t = new Item(handler, player, panel);
 		
 		panel.add(item_t);
 

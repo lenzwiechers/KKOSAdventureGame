@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -11,10 +12,12 @@ public class Player extends GameObject implements KeyListener {
 	public boolean down = false;
 
 	public boolean jump = false;
+	
+	public boolean itemT = false;
 
-	public int dashlength = 10;
+	public int dashlength = 5;
 	public int dashcounter = dashlength;
-	public float dashspeed = 0.00000200f;
+	public float dashspeed = 0.00000150f;
 	public int dashcooldown = 180;
 	public int cooldowncounter = dashcooldown;
 	
@@ -45,6 +48,10 @@ public class Player extends GameObject implements KeyListener {
 
 	}
 
+	public Rectangle getBounds() {
+		return new Rectangle(posX, posY, width, height);
+	}
+	
 	public void keyPressed(KeyEvent e) {
 
 		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) { // d/right arrow
@@ -143,6 +150,7 @@ public class Player extends GameObject implements KeyListener {
 		if (cooldowncounter < dashcooldown ) {
 			cooldowncounter ++;
 		}	
+	
 		if (right && !left) {
 			if(this.name == "player_inverted") {
 				this.changeName("player");
@@ -167,7 +175,7 @@ public class Player extends GameObject implements KeyListener {
 		}
 
 		addGravity();
-
+		
 		posY += velY * dt;
 		boolean inWall = false;
 		if (wallCollision()) {

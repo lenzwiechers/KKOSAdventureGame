@@ -1,3 +1,6 @@
+import java.awt.Rectangle;
+
+import javax.swing.JPanel;
 
 public class Item extends GameObject{
 
@@ -7,14 +10,22 @@ public class Item extends GameObject{
 	public int airTime = 0;
 
 	public double gravity;
+	
+	Player player;
 
 	ObjectHandler handler;
+	
+	JPanel panel;
 
 	private boolean collide;
 	private boolean onWall;
 	private boolean belowWall;
 
-	public Item (ObjectHandler newHandler) {
+	boolean picked = false;
+	
+	
+	
+	public Item (ObjectHandler newHandler, Player newPlayer, JPanel newPanel) {
 
 		super("item_t");
 
@@ -26,10 +37,16 @@ public class Item extends GameObject{
 		this.posX = 500;
 		this.posY = 100;
 
-		handler = newHandler;
+		this.player = newPlayer;
+		this.handler = newHandler;
+		this.panel = newPanel;
 
 	}
 
+	public Rectangle getBounds() {
+		return new Rectangle(posX, posY, 30, 30);
+	}
+	
 	public boolean wallCollision() {
 		collide = false;
 
@@ -71,6 +88,14 @@ public class Item extends GameObject{
 		return belowWall;
 	}
 
+	public void collision(Player player) {
+		if(getBounds().intersects(player.getBounds())) {
+			picked = true;
+			player.itemT = true;
+			//System.out.println("ya");
+		}
+	}
+	
 	public void addGravity() {
 		
 		if(velY < 0.0000020f) {
@@ -84,6 +109,13 @@ public class Item extends GameObject{
 
 		addGravity();
 
+		collision(player);
+		if(picked) {
+			System.out.println("ye");
+			handler.removeObject(this);
+			panel.remove(this);
+		}
+		
 		posY += velY * dt;
 		boolean inWall = false;
 		if (wallCollision()) {
