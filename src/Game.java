@@ -30,6 +30,8 @@ public class Game extends Window {
 	ObjectHandler handler;
 
 	Wand wände[] = new Wand[4];
+	
+	Camera cam;
 
 	public Game() {
 
@@ -40,6 +42,12 @@ public class Game extends Window {
 		handler = new ObjectHandler();
 
 		player = new Player(handler, this);
+		player.setPos('x', (screenWidth / 2) - (player.getSize('x') / 2));
+		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
+		
+		System.out.println(player.getPos('x'));
+		
+		cam = new Camera(handler, player);
 
 		hud = new HUD(player);
 
@@ -70,7 +78,9 @@ public class Game extends Window {
 			handler.addObject(wände[i]);
 			panel.add(wände[i]);
 		}
-
+		
+		player.render();
+		
 		lastT = System.nanoTime(); // delta time
 
 		while (true) {
@@ -83,7 +93,11 @@ public class Game extends Window {
 
 			hud.tick();
 
-			handler.renderAll();
+			// handler.renderAll();
+			
+			// System.out.println(player.getPos('y'));
+			
+			cam.tick();
 
 			hud.render(getGraphics());
 
@@ -95,7 +109,6 @@ public class Game extends Window {
 				}
 			}
 		}
-
 	}
 
 	// Methode zum verzögern (warten) in ms
