@@ -11,29 +11,38 @@ public class Camera {
 
 	GameObject object;
 
-	public Camera(ObjectHandler handler, Player player) {
+	public Camera(ObjectHandler handler, Player player, int frameXSize, int frameYSize) {
 
 		this.handler = handler;
 		this.player = player;
 
+		this.frameXSize = frameXSize;
+		this.frameYSize = frameYSize;
+
 	}
 
 	public boolean isInScreen(GameObject obj) {
+
+		if (obj.getPos('x') + obj.getSize('x') >= xPos && obj.getPos('x') <= xPos + frameXSize
+				&& obj.getPos('y') + obj.getSize('y') >= yPos && obj.getPos('y') <= yPos + frameYSize) {
+			return true;
+		}
+
 		return false;
 	}
 
 	public void tick() {
-		
+
 		xPos = player.getPos('x') - (frameXSize / 2) + (player.getSize('x') / 2);
 		yPos = player.getPos('y') - (frameYSize / 2) + (player.getSize('y') / 2);
-		
-		for(int i = 0; i < handler.objects.size(); i++) {
-			if(!(handler.objects.get(i) instanceof Player)) {
-				object = handler.objects.get(i);
-				object.setBounds(object.getPos('x') - xPos, object.getPos('y') - yPos, object.getSize('x'), object.getSize('y'));
-				System.out.println(player.getPos('x'));
+
+		for (int i = 0; i < handler.objects.size(); i++) {
+			object = handler.objects.get(i);
+			if (!(object instanceof Player) && isInScreen(object)) {
+				object.setBounds(object.getPos('x') - xPos, object.getPos('y') - yPos, object.getSize('x'),
+						object.getSize('y'));
 			}
 		}
-		
+
 	}
 }

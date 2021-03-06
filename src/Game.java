@@ -47,7 +47,7 @@ public class Game extends Window {
 		
 		System.out.println(player.getPos('x'));
 		
-		cam = new Camera(handler, player);
+		cam = new Camera(handler, player, screenWidth, screenHeight);
 
 		hud = new HUD(player);
 
@@ -58,8 +58,6 @@ public class Game extends Window {
 		player.setVisible(true);
 
 		handler.addObject(player);
-
-		// player.setBounds(100, 100, 50, 80); // xPos, yPos, xSize, ySize
 
 		item_t = new Item(handler);
 
@@ -92,10 +90,6 @@ public class Game extends Window {
 			handler.tick(dt);
 
 			hud.tick();
-
-			// handler.renderAll();
-			
-			// System.out.println(player.getPos('y'));
 			
 			cam.tick();
 
