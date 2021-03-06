@@ -50,8 +50,8 @@ public class Item extends GameObject{
 	public boolean wallCollision() {
 		collide = false;
 
-		for (int i = 0; i < handler.wände.size(); i++) {
-			if (this.getBounds().intersects(handler.wände.get(i).getBounds())) {
+		for (int i = 0; i < handler.wï¿½nde.size(); i++) {
+			if (this.getBounds().intersects(handler.wï¿½nde.get(i).getBounds())) {
 				collide = true;
 				return collide;
 			}
@@ -97,8 +97,8 @@ public class Item extends GameObject{
 	}
 	
 	public void addGravity() {
-		
-		if(velY < 0.0000020f) {
+
+		if (velY < 0.0000020f) {
 			velY += 0.000000030f;
 		}
 	}

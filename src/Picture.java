@@ -13,8 +13,8 @@ public class Picture extends JLabel { // Die übergeordnete Klasse ist JLabel
 
 	private static final long serialVersionUID = 3916370092871263037L;
 
-	BufferedImage pic; // pic ist das eingelesene Bild 
-	
+	static BufferedImage pic; // pic ist das eingelesene Bild
+
 	String name;
 
 	public Picture(String name) { // Erstellen des Konstruktors mit der Eingabe source --> Name der jeweiligen
@@ -23,7 +23,7 @@ public class Picture extends JLabel { // Die übergeordnete Klasse ist JLabel
 		super(); // Aufrufen der übergeordneten Klasse
 
 		this.name = name;
-		
+
 		try {
 
 			pic = ImageIO.read(new File("assets/" + name + ".png")); // Einlesen der Datei aus dem "assets" - Ordner
@@ -45,7 +45,7 @@ public class Picture extends JLabel { // Die übergeordnete Klasse ist JLabel
 	public void changeName(String name) {
 
 		this.name = name;
-		
+
 		try {
 
 			pic = ImageIO.read(new File("assets/" + name + ".png"));

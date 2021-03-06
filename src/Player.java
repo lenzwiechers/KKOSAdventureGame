@@ -20,7 +20,7 @@ public class Player extends GameObject implements KeyListener {
 	public float dashspeed = 0.00000150f;
 	public int dashcooldown = 180;
 	public int cooldowncounter = dashcooldown;
-	
+
 	public boolean inAir = false;
 	public int airTime = 0;
 
@@ -32,7 +32,11 @@ public class Player extends GameObject implements KeyListener {
 	private boolean onWall;
 	private boolean belowWall;
 
-	public Player(ObjectHandler newHandler) {
+	Window window;
+
+	Inventory inventory;
+
+	public Player(ObjectHandler newHandler, Window window) {
 
 		super("player");
 
@@ -46,6 +50,18 @@ public class Player extends GameObject implements KeyListener {
 
 		handler = newHandler;
 
+		this.window = window;
+
+		inventory = new Inventory(window);
+
+		Item[][] items = new Item[5][5];
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				items[i][j] = new Item(handler);
+				inventory.addItem(items[i][j]);
+			}
+		}
 	}
 
 	public Rectangle getBounds() {
@@ -62,15 +78,15 @@ public class Player extends GameObject implements KeyListener {
 			jump = true;
 			this.velX = 0.00000045f;
 		} else if (e.getKeyCode() == 17) { // Ctrl
-			this.velX = 0.00000032f;
+			this.velX = 0.00000027f;
+		} else if (e.getKeyCode() == 69) { // e
+			inventory.showInv();
 		} else if (e.getKeyCode() == 81) { // q
-			if(dashcounter == dashlength && cooldowncounter == dashcooldown) {
+			if (dashcounter == dashlength && cooldowncounter == dashcooldown) {
 				dashcounter = 0;
 				cooldowncounter = 0;
 			}
-		}	
-		
-		// System.out.println(e.getKeyCode());
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -93,8 +109,8 @@ public class Player extends GameObject implements KeyListener {
 	public boolean wallCollision() {
 		collide = false;
 
-		for (int i = 0; i < handler.wände.size(); i++) {
-			if (this.getBounds().intersects(handler.wände.get(i).getBounds())) {
+		for (int i = 0; i < handler.wï¿½nde.size(); i++) {
+			if (this.getBounds().intersects(handler.wï¿½nde.get(i).getBounds())) {
 				collide = true;
 				return collide;
 			}
@@ -132,17 +148,17 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public void addGravity() {
-		
-		if(velY < 0.0000020f) {
+
+		if (velY < 0.0000020f) {
 			velY += 0.000000030f;
 		}
 	}
 
 	public void tick(long dt) {
-		
-		if (dashcounter < dashlength ) {
+
+		if (dashcounter < dashlength) {
 			this.velX = dashspeed;
-			dashcounter ++;
+			dashcounter++;
 			if (dashcounter == dashlength) {
 				this.velX = 0.00000024f;
 			}
@@ -152,7 +168,7 @@ public class Player extends GameObject implements KeyListener {
 		}	
 	
 		if (right && !left) {
-			if(this.name == "player_inverted") {
+			if (this.name == "player_inverted") {
 				this.changeName("player");
 			}
 			posX += velX * dt;
@@ -161,7 +177,7 @@ public class Player extends GameObject implements KeyListener {
 			}
 		}
 		if (left && !right) {
-			if(this.name == "player") {
+			if (this.name == "player") {
 				this.changeName("player_inverted");
 			}
 			posX -= velX * dt;
