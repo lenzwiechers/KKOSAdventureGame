@@ -69,6 +69,7 @@ public class Inventory extends Window {
 			for (int j = 0; j < items.length; j++) {
 				if (items[i][j] == null) {
 					items[i][j] = item;
+					return;
 				}
 			}
 		}
