@@ -23,8 +23,8 @@ public class Camera {
 
 	public boolean isInScreen(GameObject obj) {
 
-		if (obj.getPos('x') + obj.getSize('x') >= xPos && obj.getPos('x') <= xPos + frameXSize
-				&& obj.getPos('y') + obj.getSize('y') >= yPos && obj.getPos('y') <= yPos + frameYSize) {
+		if (obj.getPos('x') + obj.getSize('x') + 10 >= xPos && obj.getPos('x') <= xPos + frameXSize + 10
+				&& obj.getPos('y') + obj.getSize('y') + 10 >= yPos && obj.getPos('y') <= yPos + frameYSize + 10) {
 			return true;
 		}
 

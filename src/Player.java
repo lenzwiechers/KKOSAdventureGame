@@ -80,9 +80,8 @@ public class Player extends GameObject implements KeyListener {
 			left = true;
 		} else if (e.getKeyCode() == 32) { // Space bar
 			jump = true;
-			this.velX = 0.00000045f;
 		} else if (e.getKeyCode() == 17) { // Ctrl
-			this.velX = 0.00000027f;
+			this.velX = 0.0000004f;
 		} else if (e.getKeyCode() == 69) { // e
 			inventory.showInv();
 		} else if (e.getKeyCode() == 81) { // q
@@ -100,9 +99,8 @@ public class Player extends GameObject implements KeyListener {
 			right = false;
 		} else if (e.getKeyCode() == 32) {
 			jump = false;
-			this.velX = 0.00000016f;
 		} else if (e.getKeyCode() == 17) {
-			this.velX = 0.00000016f;
+			this.velX = 0.00000024f;
 		}
 	}
 
@@ -217,6 +215,6 @@ public class Player extends GameObject implements KeyListener {
 			posX = 1299;
 		}
 		posY = posY % 700;
-		posX = posX % 1300;
+		// posX = posX % 1300;
 	}
 }
