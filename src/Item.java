@@ -27,7 +27,7 @@ public class Item extends GameObject{
 	
 	public Item (ObjectHandler newHandler, Player newPlayer, JPanel newPanel) {
 
-		super("item_t");
+		super("item_t", newHandler);
 
 		this.velX = 0.00000024f;
 		this.velY = 0.00000025f;
@@ -41,51 +41,6 @@ public class Item extends GameObject{
 		this.handler = newHandler;
 		this.panel = newPanel;
 
-	}
-
-	public Rectangle getBounds() {
-		return new Rectangle(posX, posY, 30, 30);
-	}
-	
-	public boolean wallCollision() {
-		collide = false;
-
-		for (int i = 0; i < handler.waende.size(); i++) {
-			if (this.getBounds().intersects(handler.waende.get(i).getBounds())) {
-				collide = true;
-				return collide;
-			}
-		}
-
-		return collide;
-	}
-
-	public boolean onWall() {
-		onWall = false;
-
-		posY += 1;
-
-		if (wallCollision()) {
-			onWall = true;
-		}
-
-		posY -= 1;
-
-		return onWall;
-	}
-
-	public boolean belowWall() {
-		belowWall = false;
-
-		posY -= 1;
-
-		if (wallCollision()) {
-			belowWall = true;
-		}
-
-		posY += 1;
-
-		return belowWall;
 	}
 
 	public void collision(Player player) {
@@ -122,7 +77,7 @@ public class Item extends GameObject{
 			inWall = true;
 		}
 		while (wallCollision()) {
-			posY -= Math.signum(velY);
+			posY --;
 
 		}
 

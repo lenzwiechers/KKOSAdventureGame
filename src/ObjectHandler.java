@@ -3,6 +3,8 @@ import java.util.LinkedList;
 public class ObjectHandler {
 
 	LinkedList<GameObject> objects = new LinkedList<GameObject>();
+	
+	LinkedList<Enemy> enemies = new LinkedList<Enemy>();
 
 	LinkedList<Wand> waende = new LinkedList<Wand>();
 
@@ -16,6 +18,8 @@ public class ObjectHandler {
 				objects.get(i).tick(dt);
 			} else if (objects.get(i) instanceof Item) {
 				objects.get(i).tick(dt);
+			} else if(objects.get(i) instanceof Enemy) {
+				objects.get(i).tick(dt);
 			}
 		}
 	}
@@ -24,6 +28,8 @@ public class ObjectHandler {
 		objects.add(obj);
 		if (obj instanceof Wand) {
 			waende.add((Wand) obj);
+		} else if (obj instanceof Enemy) {
+			enemies.add((Enemy) obj);
 		}
 	}
 	

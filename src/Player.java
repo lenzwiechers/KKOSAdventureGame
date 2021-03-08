@@ -8,32 +8,32 @@ public class Player extends GameObject implements KeyListener {
 
 	private static final long serialVersionUID = 2917881703989759480L;
 
-	public boolean right = false;
-	public boolean left = false;
-	public boolean up = false;
-	public boolean down = false;
+	private boolean right = false;
+	private boolean left = false;
+	private boolean up = false;
+	private boolean down = false;
 
-	public boolean jump = false;
+	private boolean jump = false;
 	
 	public boolean itemT = false;
 
-	public int dashlength = 5;
-	public int dashcounter = dashlength;
-	public float dashspeed = 0.00000150f;
-	public int dashcooldown = 180;
-	public int cooldowncounter = dashcooldown;
+	private int dashlength = 5;
+	private int dashcounter = dashlength;
+	private float dashspeed = 0.00000150f;
+	private int dashcooldown = 180;
+	private int cooldowncounter = dashcooldown;
 
-	public boolean inAir = false;
-	public int airTime = 0;
+	private boolean inAir = false;
+	private int airTime = 0;
 
-	public double gravity;
+	private double gravity;
+	
+	private long enemyContactCounter;
 
 	ObjectHandler handler;
 	JPanel panel;
 
-	private boolean collide;
-	private boolean onWall;
-	private boolean belowWall;
+	private boolean inWall;
 
 	Window window;
 
@@ -41,7 +41,7 @@ public class Player extends GameObject implements KeyListener {
 
 	public Player(ObjectHandler newHandler, Window window, JPanel newPanel) {
 
-		super("player");
+		super("player", newHandler);
 
 		this.velX = 0.00000024f;
 		this.velY = 0.00000025f;
@@ -66,10 +66,6 @@ public class Player extends GameObject implements KeyListener {
 				inventory.addItem(items[i][j]);
 			}
 		}
-	}
-
-	public Rectangle getBounds() {
-		return new Rectangle(posX, posY, width, height);
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -108,53 +104,9 @@ public class Player extends GameObject implements KeyListener {
 
 	}
 
-	public boolean wallCollision() {
-		collide = false;
+	
 
-		for (int i = 0; i < handler.waende.size(); i++) {
-			if (this.getBounds().intersects(handler.waende.get(i).getBounds())) {
-				collide = true;
-				return collide;
-			}
-		}
-
-		return collide;
-	}
-
-	public boolean onWall() {
-		onWall = false;
-
-		posY += 1;
-
-		if (wallCollision()) {
-			onWall = true;
-		}
-
-		posY -= 1;
-
-		return onWall;
-	}
-
-	public boolean belowWall() {
-		belowWall = false;
-
-		posY -= 1;
-
-		if (wallCollision()) {
-			belowWall = true;
-		}
-
-		posY += 1;
-
-		return belowWall;
-	}
-
-	public void addGravity() {
-
-		if (velY < 0.0000020f) {
-			velY += 0.000000030f;
-		}
-	}
+	
 
 	public void tick(long dt) {
 
@@ -195,14 +147,24 @@ public class Player extends GameObject implements KeyListener {
 		addGravity();
 		
 		posY += velY * dt;
-		boolean inWall = false;
+		inWall = false;
 		if (wallCollision()) {
 			inWall = true;
 		}
 		while (wallCollision()) {
-			posY -= Math.signum(velY);
+			posY --;
 
 		}
+		
+		for(int i = 0; i < handler.enemies.size(); i++) {
+			if(this.getBounds().intersects(handler.enemies.get(i).getBounds())) {
+				if(System.currentTimeMillis() - enemyContactCounter > 1000) {
+					HUD.HEALTH -= 20;
+					enemyContactCounter = System.currentTimeMillis();
+				}
+			}
+		}
+		
 
 		if (inWall) {
 			velY = 0;
