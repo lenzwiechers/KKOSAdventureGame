@@ -44,7 +44,7 @@ public class Game extends Window {
 		handler = new ObjectHandler();
 
 		player = new Player(handler, this, panel);
-		player.setPos('x', (screenWidth / 4) - (player.getSize('x') / 2));
+		player.setPos('x', (screenWidth / 2) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
 		
 		System.out.println(player.getPos('x'));
@@ -71,7 +71,7 @@ public class Game extends Window {
 
 		waende[0] = new Wand(200, 200, 100, 100, handler);
 		waende[1] = new Wand(100, 300, 300, 100, handler);
-		waende[2] = new Wand(400, 500, 500, 100, handler);
+		waende[2] = new Wand(400, 500, 1000, 100, handler);
 		waende[3] = new Wand(1000, 400, 100, 100, handler);
 
 		for (int i = 0; i < waende.length; i++) {
