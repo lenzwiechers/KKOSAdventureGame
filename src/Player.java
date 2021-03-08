@@ -127,7 +127,7 @@ public class Player extends GameObject implements KeyListener {
 			}
 			posX += velX * dt;
 			while (wallCollision()) {
-				posX -= 1;
+				posX --;
 			}
 		}
 		if (left && !right) {
@@ -136,7 +136,7 @@ public class Player extends GameObject implements KeyListener {
 			}
 			posX -= velX * dt;
 			while (wallCollision()) {
-				posX += 1;
+				posX ++;
 			}
 		}
 
@@ -152,7 +152,7 @@ public class Player extends GameObject implements KeyListener {
 			inWall = true;
 		}
 		while (wallCollision()) {
-			posY --;
+			posY -= Math.signum(velY);
 
 		}
 		
