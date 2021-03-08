@@ -173,7 +173,5 @@ public class Player extends GameObject implements KeyListener {
 		if (onWall()) {
 			velY = 0;
 		}
-		posY = posY % 700;
-		// posX = posX % 1300;
 	}
 }

@@ -6,8 +6,8 @@ public class Camera {
 
 	private int xPos, yPos = 0;
 
-	private int frameXSize = 1300;
-	private int frameYSize = 700;
+	private int frameXSize;
+	private int frameYSize;
 
 	GameObject object;
 

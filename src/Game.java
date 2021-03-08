@@ -1,6 +1,8 @@
 import java.awt.Color;
+import java.awt.Toolkit;
 
 import javax.swing.JPanel;
+
 
 public class Game extends Window {
 
@@ -18,8 +20,8 @@ public class Game extends Window {
 	private long dt;
 	private long lastT;
 
-	static int screenWidth = 1300;
-	static int screenHeight = 700;
+	static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+	static int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 	// Frames
 	int targetFPS = 60;
@@ -42,7 +44,7 @@ public class Game extends Window {
 		handler = new ObjectHandler();
 
 		player = new Player(handler, this, panel);
-		player.setPos('x', (screenWidth / 2) - (player.getSize('x') / 2));
+		player.setPos('x', (screenWidth / 4) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
 		
 		System.out.println(player.getPos('x'));
