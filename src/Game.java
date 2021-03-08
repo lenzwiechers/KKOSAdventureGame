@@ -67,10 +67,10 @@ public class Game extends Window {
 
 		handler.addObject(item_t);
 
-		waende[0] = new Wand(200, 200, 100, 100);
-		waende[1] = new Wand(100, 300, 300, 100);
-		waende[2] = new Wand(400, 500, 500, 100);
-		waende[3] = new Wand(1000, 400, 100, 100);
+		waende[0] = new Wand(200, 200, 100, 100, handler);
+		waende[1] = new Wand(100, 300, 300, 100, handler);
+		waende[2] = new Wand(400, 500, 500, 100, handler);
+		waende[3] = new Wand(1000, 400, 100, 100, handler);
 
 		for (int i = 0; i < waende.length; i++) {
 			handler.addObject(waende[i]);
@@ -78,6 +78,14 @@ public class Game extends Window {
 		}
 		
 		player.render();
+		
+		Enemy enemy1 = new Enemy ("item_t", handler);
+		handler.addObject(enemy1);
+		panel.add(enemy1);
+		enemy1.setPos('x', 100);
+		enemy1.setPos('y', 100);
+		enemy1.setSize('x', 100);
+		enemy1.setSize('y', 100);
 		
 		lastT = System.nanoTime(); // delta time
 
@@ -92,24 +100,22 @@ public class Game extends Window {
 			hud.tick();
 			
 			cam.tick();
+			
+			
 
 			hud.render(getGraphics());
 
 			if (frameTime - ((System.currentTimeMillis() - timer)) > 0) {
-				try {
-					Thread.sleep(frameTime - (System.currentTimeMillis() - timer));
-				} catch (InterruptedException ex) {
-					Thread.currentThread().interrupt();
-				}
+				delay(frameTime - (System.currentTimeMillis() - timer));
 			}
 		}
 	}
 
-	// Methode zum verzï¿½gern (warten) in ms
-	private void delay(int time) {
+	// Methode zum verzögern (warten) in ms
+	private void delay(long l) {
 
 		try {
-			Thread.sleep(time);
+			Thread.sleep(l);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
