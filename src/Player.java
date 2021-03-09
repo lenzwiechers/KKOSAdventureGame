@@ -85,6 +85,8 @@ public class Player extends GameObject implements KeyListener {
 				dashcounter = 0;
 				cooldowncounter = 0;
 			}
+		}else if (e.getKeyCode() == 70) {
+			enterDoor(atDoor());
 		}
 	}
 
@@ -101,9 +103,7 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public void keyTyped(KeyEvent e) {
-		if (e.getKeyCode() == 69) {
-			enterDoor(atDoor());
-		}
+		
 	}
 
 	public Door atDoor() {
@@ -170,7 +170,7 @@ public class Player extends GameObject implements KeyListener {
 			inWall = true;
 		}
 		while (wallCollision()) {
-			posY--;
+			posY -= Math.signum(velY);
 
 		}
 

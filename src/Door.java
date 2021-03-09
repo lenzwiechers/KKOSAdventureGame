@@ -1,8 +1,6 @@
 import java.awt.Rectangle;
 
 public class Door extends GameObject {
-	public int x, y;
-	public int width, height;
 	public Door exitDoor;
 	public int exitX, exitY;
 	public int tpPosX, tpPosY;
@@ -11,39 +9,37 @@ public class Door extends GameObject {
 		super("Door", handler);
 	}
 
-	public Door(int x, int y, int width, int height, ObjectHandler handler, Door exit) {
+	public Door(int x, int y, int width, int height, ObjectHandler handler) {
 		super("Door", handler);
 
-		this.x = x;
-		this.y = y;
+		this.posX = x;
+		this.posY = y;
 		this.width = width;
 		this.height = height;
-
-		this.exitDoor = exit;
-
-		this.tpPosX = x + width / 2;
-		this.tpPosY = y + height / 2;
+		
+		setTpPos();
 	}
 
 	public Rectangle getTpBounds() {
-		return new Rectangle(x + handler.player.get(0).getSize('x'), y + handler.player.get(0).getSize('y'),
-				width - 2 * handler.player.get(0).getSize('x'), height - handler.player.get(0).getSize('y'));
+		return new Rectangle(posX + 10, posY + 10,
+				width - 20, height - 10);
 	}
-
-	public void setX(int x) {
-		this.x = x;
+	
+	public void setTpPos() {
+		this.tpPosX = posX + width / 2 - handler.player.get(0).getSize('x') / 2;
+		this.tpPosY = posY + height - (handler.player.get(0).getSize('y'));
 	}
-
-	public void setY(int y) {
-		this.x = y;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
+	
+	public void connectExit(Door exit) {
+		this.exitDoor = exit;
+		
+		this.exitX = exit.tpPosX;
+		this.exitY = exit.tpPosY;
+		
+		exit.exitDoor = this;
+		
+		exit.exitX = this.tpPosX;
+		exit.exitY = this.tpPosY;
 	}
 
 	public void setExit(Door exit) {
@@ -63,11 +59,11 @@ public class Door extends GameObject {
 	}
 
 	public void setTpPosX() {
-		this.tpPosX = x + width / 2;
+		this.tpPosX = posX + width / 2;
 	}
 
 	public void setTpPosY() {
-		this.tpPosY = y + width / 2;
+		this.tpPosY = posY + width / 2;
 	}
 
 	public int getExitX() {
