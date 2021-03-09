@@ -33,6 +33,9 @@ public class Game extends Window {
 
 	Wand waende[] = new Wand[4];
 	
+	Door door1;
+	Door door2;
+	
 	Camera cam;
 
 	public Game() {
@@ -78,6 +81,13 @@ public class Game extends Window {
 			handler.addObject(waende[i]);
 			panel.add(waende[i]);
 		}
+		
+		Door door1 = new Door(500, 400, 100, 100, handler, door2);
+		Door door2 = new Door (900, 100, 100, 100, handler, door1);
+		door1.setExitX();
+		door1.setExitY();
+		door1.setTpPosX();
+		door1.setTpPosY();
 		
 		player.render();
 		

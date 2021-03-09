@@ -7,6 +7,10 @@ public class ObjectHandler {
 	LinkedList<Enemy> enemies = new LinkedList<Enemy>();
 
 	LinkedList<Wand> waende = new LinkedList<Wand>();
+	
+	LinkedList<Door> tueren = new LinkedList<Door>();
+	
+	LinkedList<Player> player = new LinkedList<Player>();
 
 	public ObjectHandler() {
 		
@@ -30,6 +34,10 @@ public class ObjectHandler {
 			waende.add((Wand) obj);
 		} else if (obj instanceof Enemy) {
 			enemies.add((Enemy) obj);
+		}else if (obj instanceof Door) {
+			tueren.add((Door)obj);
+		}else if (obj instanceof Player) {
+			player.add((Player)obj);
 		}
 	}
 	
