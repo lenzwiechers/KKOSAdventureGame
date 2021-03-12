@@ -85,7 +85,7 @@ public class Game extends Window {
 		door1 = new Door(200, 100, 100, 100, handler);
 		door2 = new Door (800, 400, 100, 100, handler);
 		
-		door3 = new Door(500, 200, 100, 100, handler);
+		door3 = new Door(2000, 200, 100, 100, handler);
 		door4 = new Door (1100, 100, 100, 100, handler);
 		
 		handler.addObject(door1);;

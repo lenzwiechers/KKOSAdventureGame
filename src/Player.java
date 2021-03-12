@@ -85,7 +85,7 @@ public class Player extends GameObject implements KeyListener {
 				dashcounter = 0;
 				cooldowncounter = 0;
 			}
-		}else if (e.getKeyCode() == 70) {
+		}else if (e.getKeyCode() == 70) { // f
 			enterDoor(atDoor());
 		}
 	}
@@ -123,6 +123,7 @@ public class Player extends GameObject implements KeyListener {
 		if (door != null) {
 			this.setPos('x', door.getExitX());
 			this.setPos('y', door.getExitY());
+			Camera.renderAll();
 		}
 	}
 
