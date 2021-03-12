@@ -4,6 +4,8 @@ public class Enemy extends GameObject {
 	private static final long serialVersionUID = 4573246985108449527L;
 	
 	private boolean inWall;
+	
+	private boolean playerContact;
 
 	public Enemy(String picName, ObjectHandler handler) {
 		
@@ -15,6 +17,7 @@ public class Enemy extends GameObject {
 	}
 	
 	public void tick(long dt) {
+		
 		addGravity();
 		
 		posY += velY * dt;

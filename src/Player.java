@@ -14,7 +14,7 @@ public class Player extends GameObject implements KeyListener {
 	private boolean down = false;
 
 	private boolean jump = false;
-	
+
 	public boolean itemT = false;
 
 	private int dashlength = 5;
@@ -27,7 +27,7 @@ public class Player extends GameObject implements KeyListener {
 	private int airTime = 0;
 
 	private double gravity;
-	
+
 	private long enemyContactCounter;
 
 	ObjectHandler handler;
@@ -53,7 +53,7 @@ public class Player extends GameObject implements KeyListener {
 
 		handler = newHandler;
 		panel = newPanel;
-		
+
 		this.window = window;
 
 		inventory = new Inventory(window);
@@ -67,7 +67,7 @@ public class Player extends GameObject implements KeyListener {
 			}
 		}
 	}
-	
+
 	public void keyPressed(KeyEvent e) {
 
 		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) { // d/right arrow
@@ -85,6 +85,8 @@ public class Player extends GameObject implements KeyListener {
 				dashcounter = 0;
 				cooldowncounter = 0;
 			}
+		}else if (e.getKeyCode() == 70) { // f
+			enterDoor(atDoor());
 		}
 	}
 
@@ -101,12 +103,29 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public void keyTyped(KeyEvent e) {
-
+		
 	}
 
-	
+	public Door atDoor() {
+		Door door = null;
 
-	
+		for (int i = 0; i < handler.tueren.size(); i++) {
+			if (this.getBounds().intersects(handler.tueren.get(i).getTpBounds())) {
+				door = handler.tueren.get(i);
+				return door;
+			}
+		}
+
+		return door;
+	}
+
+	public void enterDoor(Door door) {
+		if (door != null) {
+			this.setPos('x', door.getExitX());
+			this.setPos('y', door.getExitY());
+			Camera.renderAll();
+		}
+	}
 
 	public void tick(long dt) {
 
@@ -117,10 +136,10 @@ public class Player extends GameObject implements KeyListener {
 				this.velX = 0.00000024f;
 			}
 		}
-		if (cooldowncounter < dashcooldown ) {
-			cooldowncounter ++;
-		}	
-	
+		if (cooldowncounter < dashcooldown) {
+			cooldowncounter++;
+		}
+
 		if (right && !left) {
 			if (this.name == "player_inverted") {
 				this.changeName("player");
@@ -145,7 +164,7 @@ public class Player extends GameObject implements KeyListener {
 		}
 
 		addGravity();
-		
+
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {
@@ -155,16 +174,15 @@ public class Player extends GameObject implements KeyListener {
 			posY -= Math.signum(velY);
 
 		}
-		
-		for(int i = 0; i < handler.enemies.size(); i++) {
-			if(this.getBounds().intersects(handler.enemies.get(i).getBounds())) {
-				if(System.currentTimeMillis() - enemyContactCounter > 1000) {
+
+		for (int i = 0; i < handler.enemies.size(); i++) {
+			if (this.getBounds().intersects(handler.enemies.get(i).getBounds())) {
+				if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 					HUD.HEALTH -= 20;
 					enemyContactCounter = System.currentTimeMillis();
 				}
 			}
 		}
-		
 
 		if (inWall) {
 			velY = 0;

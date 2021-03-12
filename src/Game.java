@@ -31,7 +31,9 @@ public class Game extends Window {
 
 	ObjectHandler handler;
 
-	Wand waende[] = new Wand[4];
+	Wand waende[] = new Wand[5];
+	
+	Door door1, door2, door3, door4;
 	
 	Camera cam;
 
@@ -73,11 +75,32 @@ public class Game extends Window {
 		waende[1] = new Wand(100, 300, 300, 100, handler);
 		waende[2] = new Wand(400, 500, 1000, 100, handler);
 		waende[3] = new Wand(1000, 400, 100, 100, handler);
+		waende[4] = new Wand(500, 400, 100, 100, handler);
 
 		for (int i = 0; i < waende.length; i++) {
 			handler.addObject(waende[i]);
 			panel.add(waende[i]);
 		}
+		
+		door1 = new Door(200, 100, 100, 100, handler);
+		door2 = new Door (800, 400, 100, 100, handler);
+		
+		door3 = new Door(2000, 200, 100, 100, handler);
+		door4 = new Door (1100, 100, 100, 100, handler);
+		
+		handler.addObject(door1);;
+		handler.addObject(door2);
+		panel.add(door1);
+		panel.add(door2);
+		
+		handler.addObject(door3);;
+		handler.addObject(door4);
+		panel.add(door3);
+		panel.add(door4);
+		
+		door1.connectExit(door2);
+		
+		door3.connectExit(door4);
 		
 		player.render();
 		
