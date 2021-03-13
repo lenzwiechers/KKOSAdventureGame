@@ -40,7 +40,9 @@ public abstract class generateMap {
 		waende.add(new Wand(1700, 400, 200, 100, handler));
 		waende.add(new Wand(1400, 200, 100, 100, handler));
 		
-		enemies.add(new Enemy(350, 600, handler));
+		enemies.add(new Enemy(750, 400, handler));
+		enemies.add(new Enemy(1150, 100, handler));
+		enemies.add(new Enemy(350, 300, handler));
 
 		items.add(new Item(1000, -100, handler));
 
@@ -56,6 +58,18 @@ public abstract class generateMap {
 		tueren.add(door3);
 		
 		//Ebene 1 Generierung
+		
+		
+		
+		//Ebene 2 Generierung
+		
+		
+		
+		//Ebene 3 Generierung
+		
+		
+		
+		//Ebene 4 Generierung
 		
 		
 		

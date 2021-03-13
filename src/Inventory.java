@@ -23,6 +23,13 @@ public class Inventory extends Window {
 
 	public Inventory(Window window) {
 		super("Inventory", 0, 0, 500, 500, panel);
+		
+		/*for (int i = 0; i < 5; i ++) {
+			for (int e = 0; e < 5; e ++) {
+				items[i][e] = new Item(new ObjectHandler());
+				items[i][e].setVisible(true);
+			}
+		}*/
 
 		this.setVisible(false);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -30,6 +37,8 @@ public class Inventory extends Window {
 		this.window = window;
 
 		background = new Picture("inv_background");
+		
+		panel.setLayout(null);
 
 		panel.add(background);
 		background.setBounds(0, 0, 1000, 1000);
@@ -37,6 +46,7 @@ public class Inventory extends Window {
 		button = new JButton("Go back");
 		panel.add(button);
 		button.setBounds(20, 400, 330, 20);
+		button.setVisible(true);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				discardInv();
@@ -51,8 +61,8 @@ public class Inventory extends Window {
 			for (int j = 0; j < items.length; j++) {
 				if (items[i][j] != null) {
 					itemButtons[i][j] = new JButton(items[i][j].getIcon());
-					itemButtons[i][j].setBounds(20 + i * 70, 20 + j * 70, 50, 50);
 					panel.add(itemButtons[i][j]);
+					itemButtons[i][j].setBounds(20 + i * 70, 20 + j * 70, 50, 50);
 				}
 			}
 		}

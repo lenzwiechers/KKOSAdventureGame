@@ -30,15 +30,38 @@ public class Window extends JFrame {
 		this.setResizable(false);
 		
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		
 		this.setUndecorated(true);
 
-		this.setVisible(true);
+		//this.setVisible(true);
 
 		// Der Inhalt des Panels wird auf dem Frame angezeigt:
 		this.setContentPane(panel);
 		this.getContentPane().setLayout(null);
 		
 		// this.getContentPane().add(panel, null);
+		
+		this.panel = panel;
+	}
+	
+	public Window(String title, int frameXPos, int frameYPos, int frameXSize, int frameYSize) {
+
+		super(title);
+
+		this.frameXPos = frameXPos;
+		this.frameYPos = frameYPos;
+		this.frameXSize = frameXSize;
+		this.frameYSize = frameYSize;
+
+		this.setLocation(frameXPos, frameYPos);
+		this.setSize(frameXSize, frameYSize);
+		
+		this.setUndecorated(true);
+
+		this.setResizable(false);
+		
+		if (title != "Pause menu")
+		this.setVisible(true);
 	}
 
 	public int getSize(char coordinate) {
