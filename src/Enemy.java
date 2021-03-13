@@ -11,7 +11,7 @@ public class Enemy extends GameObject {
 	public static int x1, x2, y1, y2;
 
 	Line2D[] l = new Line2D[3];
-	
+
 	public boolean isInScreen = false;
 
 	public Enemy(String picName, ObjectHandler handler) {
@@ -25,6 +25,8 @@ public class Enemy extends GameObject {
 		this.posY = 300;
 		this.width = 100;
 		this.height = 100;
+		
+		this.velX = 0.0000001f;
 
 		if (picName == "gollum") {
 			this.velX = 0.0000004f;
@@ -46,8 +48,8 @@ public class Enemy extends GameObject {
 
 		this.posX = posX;
 		this.posY = posY;
-		this.width = 100;
-		this.height = 100;
+		this.width = 99;
+		this.height = 99;
 
 		/*
 		 * if (picName == "gollum") { this.velX = 0.0000004f; } else if (picName ==
@@ -61,7 +63,30 @@ public class Enemy extends GameObject {
 
 	public void tick(long dt) {
 
-		addGravity();
+		l[0].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + 1);
+		l[1].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
+		l[2].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
+
+		if (checkContact()) {
+			if (posX < handler.player.get(0).getPos('x')) {
+				posX += velX * dt;
+				while (wallCollision()) {
+					posX -= 1;
+				}
+			} else if(posX > handler.player.get(0).getPos('x')) {
+				posX -= velX * dt;
+				while (wallCollision()) {
+					posX += 1;
+				}
+			}
+		}
+		
 
 		posY += velY * dt;
 		inWall = false;
@@ -79,15 +104,7 @@ public class Enemy extends GameObject {
 			this.velY = 0;
 		}
 
-		l[0].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + 1);
-		l[1].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
-		l[2].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
+		addGravity();
 	}
 
 	public boolean checkContact() {
@@ -98,7 +115,7 @@ public class Enemy extends GameObject {
 					playerContact = false;
 				}
 			}
-			if(playerContact) {
+			if (playerContact) {
 				return playerContact;
 			}
 		}
