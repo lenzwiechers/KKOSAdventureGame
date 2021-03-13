@@ -69,6 +69,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		this.window = window;
 
 		inventory = new Inventory(window);
+		addKeyListener(this);
+		addMouseListener(this);
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -109,22 +111,21 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		
 	}
 	
-	public void mouseClicked(MouseEvent e) {
-		if(gun){
-			System.out.println("pew pew");
-			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(mx, my)));
-		}
+	public void mouseClicked(MouseEvent m) {
+		
 		
 	}
 	
-	public void mousePressed(MouseEvent e) {
-		/*if(gun){
+	public void mousePressed(MouseEvent m) {
+		if(gun){
 			System.out.println("pew pew");
-			handler.addObject(new Shot(1700, 200, handler));
-		}*/
+			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));
+		}
+		//System.out.println(m.getX()+this.getPos('x'));
+		//System.out.println(m.getY()+this.getPos('y'));
 	}
 	
-	public void mouseReleased(MouseEvent e) {
+	public void mouseReleased(MouseEvent m) {
 		
 	}
 	
@@ -155,11 +156,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		a = MouseInfo.getPointerInfo().getLocation();
 		mx = (float) a.getX();
 		my = (float) a.getY();
-		
-		System.out.println(mx);
-
-
-		System.out.println(my);
 
 		if (dashcounter < dashlength) {
 			this.velX = dashspeed;
@@ -229,12 +225,12 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	
 
-	public void mouseEntered(MouseEvent e) {
+	public void mouseEntered(MouseEvent m) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void mouseExited(MouseEvent e) {
+	public void mouseExited(MouseEvent m) {
 		// TODO Auto-generated method stub
 		
 	}

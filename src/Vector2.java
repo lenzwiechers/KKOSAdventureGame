@@ -15,11 +15,13 @@ public class Vector2 { // Mathematischer Vektor mit Standard komponentenweiser M
 	}
 
 	public void norm() {
-		x = x / this.getLength();
+		float mag = this.getLength();
+		x = x / mag;
+		y = y / mag;
 	}
 
 	public float getLength() { // euklidische Norm
-		return (float) Math.sqrt(x * x + y * y);
+		return (float) Math.sqrt((x * x) + (y * y));
 	}
 
 	public static Vector2 add(Vector2 a, Vector2 b) {

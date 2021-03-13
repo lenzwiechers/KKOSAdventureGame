@@ -57,7 +57,7 @@ public class Game extends Window {
 
 	long timer;
 
-	Camera cam;
+	static Camera cam;
 
 	public Game() {
 
