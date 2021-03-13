@@ -115,7 +115,7 @@ public abstract class GameObject extends Picture {
 
 		return belowWall;
 	}
-
+	
 	public void addGravity() {
 
 		if (velY < 0.0000020f && !(this instanceof Wand)) {

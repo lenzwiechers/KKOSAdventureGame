@@ -29,9 +29,9 @@ public class ObjectHandler {
 	}
 
 	public ObjectHandler(JPanel panel, int screenWidth, int screenHeight) {
-		
+
 		this.panel = panel;
-		
+
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 	}
@@ -43,11 +43,18 @@ public class ObjectHandler {
 				obj.tick(dt);
 			} else if (obj instanceof Item) {
 				obj.tick(dt);
+			} else if (obj instanceof Gun) {
+				obj.tick(dt);
+			} else if (obj instanceof Shot) {
+				obj.tick(dt);
 			} else if (obj instanceof Enemy) {
 				if (player.get(0).getPos('x') + player.get(0).getSize('x') - (1.5 * screenWidth) <= obj.getPos('x')
-						&& player.get(0).getPos('x') + player.get(0).getSize('x') + (1.5 * screenWidth) >= obj.getPos('x')
-						&& player.get(0).getPos('y') + player.get(0).getSize('y') - (1.5 * screenHeight) <= obj.getPos('y')
-						&& player.get(0).getPos('y') + player.get(0).getSize('y') + (1.5 * screenHeight) >= obj.getPos('y')) {
+						&& player.get(0).getPos('x') + player.get(0).getSize('x') + (1.5 * screenWidth) >= obj
+								.getPos('x')
+						&& player.get(0).getPos('y') + player.get(0).getSize('y') - (1.5 * screenHeight) <= obj
+								.getPos('y')
+						&& player.get(0).getPos('y') + player.get(0).getSize('y') + (1.5 * screenHeight) >= obj
+								.getPos('y')) {
 					enemy = (Enemy) obj;
 					enemy.tick(dt);
 					enemy.isInScreen = true;

@@ -81,6 +81,7 @@ public class Game extends Window {
 		hud = new HUD(player);
 
 		this.addKeyListener(player);
+		this.addMouseListener(player);
 
 		panel.add(player);
 

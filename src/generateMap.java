@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 public abstract class generateMap {
 	static LinkedList<Wand> waende = new LinkedList<Wand>();
 	static LinkedList<Door> tueren = new LinkedList<Door>();
-	static LinkedList<Item> items = new LinkedList<Item>();
+	static LinkedList<GameObject> items = new LinkedList<GameObject>();
 	static LinkedList<Enemy> enemies = new LinkedList<Enemy>();
 
 	public static void generate(ObjectHandler handler) {
@@ -44,7 +44,8 @@ public abstract class generateMap {
 		enemies.add(new Enemy(1000, 0, handler));
 		enemies.add(new Enemy(1500, 0, handler));
 
-		items.add(new Item(1000, -100, handler));
+		items.add(new Gun(1800, 200, handler));
+		//items.add(new Shot(1700, 200, handler));
 
 		Door door1 = new Door(800, 600, 100, 100, handler);
 		Door door2 = new Door(600, 300, 100, 100, handler);
@@ -53,7 +54,7 @@ public abstract class generateMap {
 		tueren.add(door2);
 		door1.connectExit(door2);
 
-		Door door3 = new Door(1800, 300, 100, 100, handler);
+		Door door3 = new Door(500, 500, 100, 100, handler);
 		
 		tueren.add(door3);
 		
