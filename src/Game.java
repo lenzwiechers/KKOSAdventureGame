@@ -69,7 +69,7 @@ public class Game extends Window {
 	
 	String LK;
 
-	Camera cam;
+	static Camera cam;
 
 	public Game() {
 
@@ -88,6 +88,7 @@ public class Game extends Window {
 		cam = new Camera(handler, player, screenWidth, screenHeight);
 
 		this.addKeyListener(player);
+		this.addMouseListener(player);
 
 		panel.add(player);
 

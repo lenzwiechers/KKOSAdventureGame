@@ -1,13 +1,24 @@
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.Point;
 
 import javax.swing.JPanel;
 
-public class Player extends GameObject implements KeyListener {
+
+public class Player extends GameObject implements KeyListener, MouseListener {
 
 	private static final long serialVersionUID = 2917881703989759480L;
 
+	
+	Point a;
+	private float mx;
+	private float my;
+	
 	private boolean right = false;
 	private boolean left = false;
 	//private boolean up = false;
@@ -18,6 +29,7 @@ public class Player extends GameObject implements KeyListener {
 	private boolean jump = false;
 
 	public boolean itemT = false;
+	public boolean gun = false;
 
 	public boolean pause = false;
 	public boolean pauseRelease = false;
@@ -117,6 +129,25 @@ public class Player extends GameObject implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 
 	}
+	
+	public void mouseClicked(MouseEvent m) {
+		
+		
+	}
+	
+	public void mousePressed(MouseEvent m) {
+		if(gun){
+			System.out.println("pew pew");
+			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));
+		}
+		//System.out.println(m.getX()+this.getPos('x'));
+		//System.out.println(m.getY()+this.getPos('y'));
+	}
+	
+	public void mouseReleased(MouseEvent m) {
+		
+	}
+	
 
 	public Door atDoor() {
 		Door door = null;
@@ -230,6 +261,20 @@ public class Player extends GameObject implements KeyListener {
 			velY = 0;
 		}
 		System.out.println(name) ;
+	}
+
+	
+
+	
+
+	public void mouseEntered(MouseEvent m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseExited(MouseEvent m) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
