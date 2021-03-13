@@ -10,7 +10,7 @@ public class Enemy extends GameObject {
 
 	public static int x1, x2, y1, y2;
 
-	Line2D l;
+	Line2D[] l = new Line2D[3];
 
 	public Enemy(String picName, ObjectHandler handler) {
 
@@ -30,10 +30,12 @@ public class Enemy extends GameObject {
 			this.velX = 0.0000001f;
 		}
 
-		l = new Line2D.Float();
+		for (int i = 0; i < l.length; i++) {
+			l[i] = new Line2D.Float();
+		}
 
 	}
-	
+
 	public Enemy(int posX, int posY, ObjectHandler handler) {
 		super("item_t", handler);
 
@@ -45,13 +47,14 @@ public class Enemy extends GameObject {
 		this.width = 100;
 		this.height = 100;
 
-		/*if (picName == "gollum") {
-			this.velX = 0.0000004f;
-		} else if (picName == "chonker") {
-			this.velX = 0.0000001f;
-		}*/
+		/*
+		 * if (picName == "gollum") { this.velX = 0.0000004f; } else if (picName ==
+		 * "chonker") { this.velX = 0.0000001f; }
+		 */
 
-		l = new Line2D.Float();
+		for (int i = 0; i < l.length; i++) {
+			l[i] = new Line2D.Float();
+		}
 	}
 
 	public void tick(long dt) {
@@ -76,18 +79,28 @@ public class Enemy extends GameObject {
 
 		// System.out.println(y2);
 
-		l.setLine(posX, posY, handler.player.get(0).getPos('x'), handler.player.get(0).getPos('y'));
+		l[0].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + 1);
+		l[1].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
+		l[2].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
 
 		// System.out.println(l.intersects(handler.player.get(0).getBounds()));
 	}
 
 	public boolean checkContact() {
 		for (int i = 0; i < handler.waende.size(); i++) {
-			if (l.intersects(handler.waende.get(i).getBounds())) {
-				playerContact = true;
-				System.out.println("yessir");
-				return true;
+			for (int j = 0; j < l.length; j++) {
+				if (l[j].intersects(handler.waende.get(i).getBounds())) {
+					playerContact = true;
+					return true;
+				}
 			}
+
 		}
 		playerContact = false;
 		return false;

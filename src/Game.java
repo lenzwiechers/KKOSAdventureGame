@@ -21,10 +21,13 @@ public class Game extends Window {
 				} else {
 					g2.setColor(Color.BLACK);
 				}
-				g2.drawLine((int) generateMap.enemies.get(0).l.getX1() - Camera.xPos,
-						(int) generateMap.enemies.get(0).l.getY1() - Camera.yPos,
-						(int) generateMap.enemies.get(0).l.getX2() - Camera.xPos,
-						(int) generateMap.enemies.get(0).l.getY2() - Camera.yPos);
+				for(int i = 0; i < generateMap.enemies.get(0).l.length; i++) {
+					g2.drawLine((int) generateMap.enemies.get(0).l[i].getX1() - Camera.xPos,
+						(int) generateMap.enemies.get(0).l[i].getY1() - Camera.yPos,
+						(int) generateMap.enemies.get(0).l[i].getX2() - Camera.xPos,
+						(int) generateMap.enemies.get(0).l[i].getY2() - Camera.yPos);
+				}
+				
 
 			}
 
