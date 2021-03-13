@@ -11,6 +11,8 @@ public class Enemy extends GameObject {
 	public static int x1, x2, y1, y2;
 
 	Line2D[] l = new Line2D[3];
+	
+	public boolean isInScreen = false;
 
 	public Enemy(String picName, ObjectHandler handler) {
 

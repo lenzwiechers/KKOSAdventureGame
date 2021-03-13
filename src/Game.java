@@ -5,7 +5,7 @@ public class Game extends Window {
 
 	private static final long serialVersionUID = 6680112103815633456L;
 
-	private final static boolean debug = true;
+	private final static boolean debug = false;
 
 	private static JPanel panel = new JPanel() {
 		protected void paintComponent(Graphics g) {
@@ -15,20 +15,23 @@ public class Game extends Window {
 
 			if (debug) {
 				g2.setStroke(new BasicStroke(6));
-				
-				for (int i = 0; i < generateMap.enemies.size(); i++) {
-					if (generateMap.enemies.get(i).checkContact()) {
-						g2.setColor(Color.RED);
 
-					} else {
-						g2.setColor(Color.BLACK);
+				for (int i = 0; i < generateMap.enemies.size(); i++) {
+					if (generateMap.enemies.get(i).isInScreen) {
+						if (generateMap.enemies.get(i).checkContact()) {
+							g2.setColor(Color.RED);
+
+						} else {
+							g2.setColor(Color.BLACK);
+						}
+						for (int j = 0; j < generateMap.enemies.get(i).l.length; j++) {
+							g2.drawLine((int) generateMap.enemies.get(i).l[j].getX1() - Camera.xPos,
+									(int) generateMap.enemies.get(i).l[j].getY1() - Camera.yPos,
+									(int) generateMap.enemies.get(i).l[j].getX2() - Camera.xPos,
+									(int) generateMap.enemies.get(i).l[j].getY2() - Camera.yPos);
+						}
 					}
-					for (int j = 0; j < generateMap.enemies.get(i).l.length; j++) {
-						g2.drawLine((int) generateMap.enemies.get(i).l[j].getX1() - Camera.xPos,
-								(int) generateMap.enemies.get(i).l[j].getY1() - Camera.yPos,
-								(int) generateMap.enemies.get(i).l[j].getX2() - Camera.xPos,
-								(int) generateMap.enemies.get(i).l[j].getY2() - Camera.yPos);
-					}
+
 				}
 
 			}
@@ -62,7 +65,7 @@ public class Game extends Window {
 
 		// panel.setBackground(Color.GRAY);
 
-		handler = new ObjectHandler(panel);
+		handler = new ObjectHandler(panel, screenWidth, screenHeight);
 
 		player = new Player(handler, this, panel);
 		player.setPos('x', (500) - (player.getSize('x') / 2));
