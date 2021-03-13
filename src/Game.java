@@ -19,7 +19,7 @@ public class Game extends Window {
 			super.paintComponent(g);
 
 			if (debug) {
-				g2.setStroke(new BasicStroke(6));
+				g2.setStroke(new BasicStroke(3));
 
 				for (int i = 0; i < generateMap.enemies.size(); i++) {
 					if (generateMap.enemies.get(i).isInScreen) {
@@ -84,9 +84,6 @@ public class Game extends Window {
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
 
 		player.setPos('x', (screenWidth / 2) - (player.getSize('x') / 2));
-		// player.setPos('y', 100);
-
-		System.out.println(player.getPos('x'));
 
 		cam = new Camera(handler, player, screenWidth, screenHeight);
 
@@ -125,7 +122,6 @@ public class Game extends Window {
 			
 			dt = System.nanoTime() - lastT; // delta time
 			lastT = System.nanoTime(); // delta timne
-			
 
 			handler.tick(dt);
 
@@ -138,7 +134,7 @@ public class Game extends Window {
 		}
 	}
 
-	// Methode zum verzögern (warten) in ms
+	// Methode zum verzoegern (warten) in ms
 	private void delay(long l) {
 
 		try {

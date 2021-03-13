@@ -173,7 +173,6 @@ public class Player extends GameObject implements KeyListener {
 		}
 
 		addGravity();
-		System.out.println("velY: " + velY * dt);
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {

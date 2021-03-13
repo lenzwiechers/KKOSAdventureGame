@@ -165,7 +165,8 @@ public class Enemy extends GameObject {
 					playerContact = false;
 				}
 			}
-			if (playerContact) {
+			if (playerContact && Math
+					.sqrt(Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000) {
 				return true;
 			}
 		}
