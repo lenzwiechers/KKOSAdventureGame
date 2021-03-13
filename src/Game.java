@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 public class Game extends Window {
 
 	private static final long serialVersionUID = 6680112103815633456L;
+	
+	public boolean pause;
 
 	private final static boolean debug = true;
 
@@ -50,7 +52,7 @@ public class Game extends Window {
 	
 	Launcher launcher;
 	
-	PauseWindow pauseMenu = new PauseWindow();
+	PauseWindow pauseMenu = new PauseWindow(this);
 
 	// Delta time: siehe https://en.wikipedia.org/wiki/Delta_timing
 	private long dt;
@@ -91,6 +93,8 @@ public class Game extends Window {
 		cam = new Camera(handler, player, screenWidth, screenHeight);
 
 		this.addKeyListener(player);
+		
+		pauseMenu.addKeyListener(pauseMenu);
 
 		panel.add(player);
 
@@ -105,21 +109,28 @@ public class Game extends Window {
 		try {
 			launcher = new Launcher(this);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			running = true;
+			this.setVisible(true);
 		}
-
 		
-
 		run();
 	}
 
 	public void run() {
 		while (!running) {
-			delay(1);
+			delay(10);
 		}
 		lastT = System.nanoTime(); // delta time
 		while (running) {
+			if (pause) {
+				pauseMenu.setVisible(true);
+				while (pause) {
+					delay(10);
+				}
+				lastT = System.nanoTime(); // delta time
+			}
+			
+			
 			timer = System.currentTimeMillis();
 
 			

@@ -60,8 +60,11 @@ public class Window extends JFrame {
 
 		this.setResizable(false);
 		
-		if (title != "Pause menu")
 		this.setVisible(true);
+		
+		if (title == "Pause menu")
+		this.setVisible(false);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 
 	public int getSize(char coordinate) {

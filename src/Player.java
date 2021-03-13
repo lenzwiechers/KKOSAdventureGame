@@ -17,19 +17,11 @@ public class Player extends GameObject implements KeyListener {
 
 	public boolean itemT = false;
 
-	public boolean pause = false;
-	public boolean pauseRelease = false;
-
 	private int dashlength = 5;
 	private int dashcounter = dashlength;
 	private float dashspeed = 0.00000150f;
 	private int dashcooldown = 180;
 	private int cooldowncounter = dashcooldown;
-
-	private boolean inAir = false;
-	private int airTime = 0;
-
-	private double gravity;
 
 	private long enemyContactCounter;
 
@@ -38,13 +30,13 @@ public class Player extends GameObject implements KeyListener {
 
 	private boolean inWall;
 
-	Window window;
+	Game game;
 
 	Inventory inventory;
 
 	String LK;
 
-	public Player(ObjectHandler newHandler, Window window, JPanel newPanel, String LK) {
+	public Player(ObjectHandler newHandler, Game game, JPanel newPanel, String LK) {
 
 		super("player", newHandler);
 
@@ -59,9 +51,9 @@ public class Player extends GameObject implements KeyListener {
 		handler = newHandler;
 		panel = newPanel;
 
-		this.window = window;
+		this.game = game;
 
-		inventory = new Inventory(window);
+		inventory = new Inventory(game);
 
 		this.LK = LK;
 	}
@@ -86,11 +78,7 @@ public class Player extends GameObject implements KeyListener {
 		} else if (e.getKeyCode() == 70) { // f
 			enterDoor(atDoor());
 		} else if (e.getKeyCode() == 27) { // ESC
-			if (!pauseRelease) {
-				pause = true;
-			} else {
-				pause = false;
-			}
+			game.pause = true;
 		}
 	}
 
@@ -103,12 +91,6 @@ public class Player extends GameObject implements KeyListener {
 			jump = false;
 		} else if (e.getKeyCode() == 17) {
 			this.velX = 0.00000024f;
-		} else if (e.getKeyCode() == 27) { // ESC
-			if (pause) {
-				pauseRelease = true;
-			} else {
-				pauseRelease = false;
-			}
 		}
 	}
 
@@ -173,7 +155,7 @@ public class Player extends GameObject implements KeyListener {
 		}
 
 		addGravity();
-		System.out.println("velY: " + velY * dt);
+
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {

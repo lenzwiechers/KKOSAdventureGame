@@ -92,12 +92,14 @@ public class Launcher extends Window {
 		b2Panel.setLayout(null);
 		b3Panel.setLayout(null);
 
+		
 		JButton playButton = new JButton(b1Icon);
 
 		JButton loadButton = new JButton(b2Icon);
 
 		JButton exitButton = new JButton(b3Icon);
 
+		
 		b1Panel.add(playButton);
 		b2Panel.add(loadButton);
 		b3Panel.add(exitButton);
