@@ -1,16 +1,33 @@
-import java.awt.Color;
-import java.awt.Toolkit;
-
+import java.awt.*;
 import javax.swing.JPanel;
-
 
 public class Game extends Window {
 
 	private static final long serialVersionUID = 6680112103815633456L;
 
-	private static JPanel panel = new JPanel(); // Darauf kommen alle Objekte
-	// muss schon hier initialisiert werden, da es im Aufrufen von super() gebraucht
-	// wird.
+	static ObjectHandler handler = new ObjectHandler();
+
+	static Enemy enemy1 = new Enemy("item_t", handler);
+
+	private static JPanel panel = new JPanel() {
+		protected void paintComponent(Graphics g) {
+			
+			Graphics2D g2 = (Graphics2D) g;
+			super.paintComponent(g);
+			g2.setStroke(new BasicStroke(6));
+			if (enemy1.checkContact()) {
+				g2.setColor(Color.RED);
+				
+			} else {
+				g2.setColor(Color.BLACK);
+			}
+			g2.drawLine((int) enemy1.l.getX1() - Camera.xPos, (int) enemy1.l.getY1() - Camera.yPos,
+					(int) enemy1.l.getX2() - Camera.xPos, (int) enemy1.l.getY2() - Camera.yPos);
+			
+		}
+	};// Darauf kommen alle Objekte
+		// muss schon hier initialisiert werden, da es im Aufrufen von super() gebraucht
+		// wird.
 
 	private Player player;
 	private HUD hud;
@@ -29,7 +46,7 @@ public class Game extends Window {
 	long timer;
 
 	ObjectHandler handler;
-	
+
 	Camera cam;
 
 	public Game() {
@@ -43,9 +60,12 @@ public class Game extends Window {
 		player = new Player(handler, this, panel);
 		player.setPos('x', (500) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
-		
+
+		player.setPos('x', (screenWidth / 2) - (player.getSize('x') / 2));
+		// player.setPos('y', 100);
+
 		System.out.println(player.getPos('x'));
-		
+
 		cam = new Camera(handler, player, screenWidth, screenHeight);
 
 		hud = new HUD(player);
@@ -57,19 +77,14 @@ public class Game extends Window {
 		player.setVisible(true);
 
 		handler.addObject(player);
-		
+
 		player.render();
-		
-		Enemy enemy1 = new Enemy ("item_t", handler);
+
 		handler.addObject(enemy1);
 		panel.add(enemy1);
-		enemy1.setPos('x', 100);
-		enemy1.setPos('y', 100);
-		enemy1.setSize('x', 100);
-		enemy1.setSize('y', 100);
 		
 		generateMap.generate(panel, handler);
-		
+	
 		lastT = System.nanoTime(); // delta time
 
 		run();
@@ -85,20 +100,19 @@ public class Game extends Window {
 			handler.tick(dt);
 
 			hud.tick();
-			
+
 			cam.tick();
-			
-			
 
 			hud.render(getGraphics());
 
 			if (frameTime - ((System.currentTimeMillis() - timer)) > 0) {
 				delay(frameTime - (System.currentTimeMillis() - timer));
 			}
+			panel.repaint();
 		}
 	}
 
-	// Methode zum verzögern (warten) in ms
+	// Methode zum verzÃ¶gern (warten) in ms
 	private void delay(long l) {
 
 		try {

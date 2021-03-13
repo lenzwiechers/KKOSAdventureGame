@@ -4,8 +4,8 @@ public class Camera {
 	static ObjectHandler handler;
 	static Player player;
 
-	private static int xPos;
-	private static int yPos = 0;
+	public static int xPos;
+	public static int yPos;
 
 	private static int frameXSize;
 	private static int frameYSize;

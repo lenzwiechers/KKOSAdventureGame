@@ -1,3 +1,5 @@
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -35,6 +37,8 @@ public class Window extends JFrame {
 		// Der Inhalt des Panels wird auf dem Frame angezeigt:
 		this.setContentPane(panel);
 		this.getContentPane().setLayout(null);
+		
+		// this.getContentPane().add(panel, null);
 	}
 
 	public int getSize(char coordinate) {
