@@ -152,7 +152,7 @@ public class Player extends GameObject implements KeyListener {
 		}
 
 		if (right && !left) {
-			if (this.name == "player_inverted"/*&& this.name == "jumping"*/) {
+			if (this.name == "player_inverted" || this.name == "jumping"|| this.name == "jumpinginverted") {
 				this.changeName("player");
 				lookright = true;
 			}
@@ -162,7 +162,7 @@ public class Player extends GameObject implements KeyListener {
 			}
 		}
 		if (left && !right) {
-			if (this.name == "player" /*&& this.name == "jumping"*/) {
+			if (this.name == "player" || this.name == "jumping"|| this.name == "jumpinginverted") {
 				this.changeName("player_inverted");
 				lookright = false;
 			}
@@ -177,12 +177,30 @@ public class Player extends GameObject implements KeyListener {
 			
 			}
 	
-		if (!onWall()) {
-			if (this.name == "player" && this.name == "playerinverted") {
-				this.changeName("jumping");
+		if (!onWall() && lookright) {
+			if (this.name == "player" || this.name == "player_inverted" || this.name == "jumpinginverted") {
+			this.changeName("jumping");
 			}
-	    }
-			
+		}
+		
+		if (!onWall() && !lookright) {
+			if (this.name == "player" || this.name == "player_inverted" || this.name == "jumping") { //somehow this shit broken
+				this.changeName("jumpinginverted");
+			}
+		}
+		
+		if (onWall() && lookright) {
+			if (this.name == "jumping" || this.name == "player_inverted" || this.name == "jumpinginverted") {
+			this.changeName("player");
+			}
+		}
+		
+		if (onWall() && !lookright) {
+			if (this.name == "player" || this.name == "jumpinginverted" || this.name == "jumping") { //somehow this shit broken
+				this.changeName("player_inverted");
+			}
+		}
+		
 		addGravity();
 		posY += velY * dt;
 		inWall = false;
@@ -203,17 +221,6 @@ public class Player extends GameObject implements KeyListener {
 			}
 		}
 		
-//		if (!right && !left && lookright) {
-//			if (this.name == "player_inverted" && this.name == "jumping") {
-//				this.changeName("player");
-//			}
-//		}
-		
-//		if (!right && !left && !lookright) {
-//			if (this.name == "player" && this.name == "jumping") {
-//				this.changeName("player_inverted");
-//			}
-//		}
 		
 		if (inWall) {
 			velY = 0;
