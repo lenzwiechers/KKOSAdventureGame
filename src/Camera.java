@@ -44,6 +44,9 @@ public class Camera {
 						object.getSize('y'));
 			}
 		}
+		handler.player.get(0).setBounds(frameXSize/2 - player.getSize('x')/2, 
+				frameYSize/2 - player.getSize('y')/2, 
+				player.getSize('x'), player.getSize('y'));
 	}
 	
 	public static void renderAll() {
