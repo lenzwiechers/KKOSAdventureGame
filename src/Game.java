@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.net.MalformedURLException;
+
 import javax.swing.JPanel;
 
 public class Game extends Window {
@@ -8,13 +10,16 @@ public class Game extends Window {
 	private final static boolean debug = true;
 
 	private static JPanel panel = new JPanel() {
+
+		private static final long serialVersionUID = -5196824841345897510L;
+
 		protected void paintComponent(Graphics g) {
 
 			Graphics2D g2 = (Graphics2D) g;
 			super.paintComponent(g);
 
 			if (debug) {
-				g2.setStroke(new BasicStroke(6));
+				g2.setStroke(new BasicStroke(3));
 
 				for (int i = 0; i < generateMap.enemies.size(); i++) {
 					if (generateMap.enemies.get(i).isInScreen) {
@@ -42,7 +47,10 @@ public class Game extends Window {
 	static ObjectHandler handler = new ObjectHandler(panel);
 
 	private Player player;
-	private HUD hud;
+	
+	Launcher launcher;
+	
+	PauseWindow pauseMenu = new PauseWindow();
 
 	// Delta time: siehe https://en.wikipedia.org/wiki/Delta_timing
 	private long dt;
@@ -56,6 +64,10 @@ public class Game extends Window {
 	long frameTime = 1000 / targetFPS;
 
 	long timer;
+	
+	boolean running = false;
+	
+	String LK;
 
 	static Camera cam;
 
@@ -67,18 +79,13 @@ public class Game extends Window {
 
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
 
-		player = new Player(handler, this, panel);
+		player = new Player(handler, this, panel, LK);
 		player.setPos('x', (500) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
 
 		player.setPos('x', (screenWidth / 2) - (player.getSize('x') / 2));
-		// player.setPos('y', 100);
-
-		System.out.println(player.getPos('x'));
 
 		cam = new Camera(handler, player, screenWidth, screenHeight);
-
-		hud = new HUD(player);
 
 		this.addKeyListener(player);
 		this.addMouseListener(player);
@@ -92,26 +99,34 @@ public class Game extends Window {
 		player.render();
 
 		generateMap.generate(handler);
+		
+		try {
+			launcher = new Launcher(this);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		lastT = System.nanoTime(); // delta time
+		
 
 		run();
 	}
 
 	public void run() {
-		while (true) {
+		while (!running) {
+			delay(1);
+		}
+		lastT = System.nanoTime(); // delta time
+		while (running) {
 			timer = System.currentTimeMillis();
 
+			
 			dt = System.nanoTime() - lastT; // delta time
-			lastT = System.nanoTime(); // delta time
+			lastT = System.nanoTime(); // delta timne
 
 			handler.tick(dt);
 
-			hud.tick();
-
 			cam.tick();
-
-			hud.render(getGraphics());
 
 			if (frameTime - ((System.currentTimeMillis() - timer)) > 0) {
 				delay(frameTime - (System.currentTimeMillis() - timer));
@@ -120,7 +135,7 @@ public class Game extends Window {
 		}
 	}
 
-	// Methode zum verzögern (warten) in ms
+	// Methode zum verzoegern (warten) in ms
 	private void delay(long l) {
 
 		try {

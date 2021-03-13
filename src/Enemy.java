@@ -11,8 +11,13 @@ public class Enemy extends GameObject {
 	public static int x1, x2, y1, y2;
 
 	Line2D[] l = new Line2D[3];
-	
+
 	public boolean isInScreen = false;
+
+	Line2D line;
+
+	private boolean right = true;
+	private boolean left;
 
 	public Enemy(String picName, ObjectHandler handler) {
 
@@ -25,6 +30,8 @@ public class Enemy extends GameObject {
 		this.posY = 300;
 		this.width = 100;
 		this.height = 100;
+
+		this.velX = 0.0000001f;
 
 		if (picName == "gollum") {
 			this.velX = 0.0000004f;
@@ -46,8 +53,8 @@ public class Enemy extends GameObject {
 
 		this.posX = posX;
 		this.posY = posY;
-		this.width = 100;
-		this.height = 100;
+		this.width = 99;
+		this.height = 99;
 
 		/*
 		 * if (picName == "gollum") { this.velX = 0.0000004f; } else if (picName ==
@@ -57,11 +64,78 @@ public class Enemy extends GameObject {
 		for (int i = 0; i < l.length; i++) {
 			l[i] = new Line2D.Float();
 		}
+
+		line = new Line2D.Float();
 	}
 
 	public void tick(long dt) {
 
-		addGravity();
+		l[0].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + 1);
+		l[1].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
+		l[2].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
+
+		if (checkContact()) {
+			if (posX < handler.player.get(0).getPos('x')) {
+				posX += velX * dt;
+				while (wallCollision()) {
+					posX -= 1;
+				}
+				right = true;
+				left = false;
+			} else if (posX > handler.player.get(0).getPos('x')) {
+				posX -= velX * dt;
+				while (wallCollision()) {
+					posX += 1;
+				}
+				right = false;
+				left = true;
+			}
+		} else if (right) {
+			line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
+			right = false;
+			for (int i = 0; i < handler.waende.size(); i++) {
+				if (line.intersects(handler.waende.get(i).getBounds())) {
+					right = true;
+				}
+			}
+			if (right) {
+				posX += (velX * dt);
+				while (wallCollision()) {
+					posX -= 1;
+					right = false;
+					left = true;
+				}
+			} else {
+				right = false;
+				left = true;
+			}
+
+		} else if (left) {
+			line.setLine(posX - 5, posY + height + 5, posX - 20, posY + height + 5);
+			left = false;
+			for (int i = 0; i < handler.waende.size(); i++) {
+				if (line.intersects(handler.waende.get(i).getBounds())) {
+					left = true;
+				}
+			}
+			if (left) {
+				posX -= (velX * dt);
+				while (wallCollision()) {
+					posX += 1;
+					right = true;
+					left = false;
+				}
+			} else {
+				left = false;
+				right = true;
+			}
+		}
 
 		posY += velY * dt;
 		inWall = false;
@@ -79,27 +153,21 @@ public class Enemy extends GameObject {
 			this.velY = 0;
 		}
 
-		l[0].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + 1);
-		l[1].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
-		l[2].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
+		addGravity();
 	}
 
 	public boolean checkContact() {
-		playerContact = true;
+
 		for (int j = 0; j < l.length; j++) {
+			playerContact = true;
 			for (int i = 0; i < handler.waende.size(); i++) {
 				if (l[j].intersects(handler.waende.get(i).getBounds())) {
 					playerContact = false;
 				}
 			}
-			if(playerContact) {
-				return playerContact;
+			if (playerContact && Math
+					.sqrt(Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000) {
+				return true;
 			}
 		}
 		return false;

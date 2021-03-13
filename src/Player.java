@@ -21,17 +21,22 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	
 	private boolean right = false;
 	private boolean left = false;
-	private boolean up = false;
-	private boolean down = false;
+	//private boolean up = false;
+	//private boolean down = false;
+	private boolean lookright = true;
+	//private int walkcounter = 0;
 
 	private boolean jump = false;
 
 	public boolean itemT = false;
 	public boolean gun = false;
 
-	private int dashlength = 5;
+	public boolean pause = false;
+	public boolean pauseRelease = false;
+
+	private int dashlength = 10;
 	private int dashcounter = dashlength;
-	private float dashspeed = 0.00000150f;
+	private float dashspeed = 0.00000200f;
 	private int dashcooldown = 180;
 	private int cooldowncounter = dashcooldown;
 
@@ -51,7 +56,9 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	Inventory inventory;
 
-	public Player(ObjectHandler newHandler, Window window, JPanel newPanel) {
+	String LK;
+
+	public Player(ObjectHandler newHandler, Window window, JPanel newPanel, String LK) {
 
 		super("player", newHandler);
 
@@ -69,8 +76,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		this.window = window;
 
 		inventory = new Inventory(window);
-		addKeyListener(this);
-		addMouseListener(this);
+
+		this.LK = LK;
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -90,8 +97,14 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 				dashcounter = 0;
 				cooldowncounter = 0;
 			}
-		}else if (e.getKeyCode() == 70) { // f
+		} else if (e.getKeyCode() == 70) { // f
 			enterDoor(atDoor());
+		} else if (e.getKeyCode() == 27) { // ESC
+			if (!pauseRelease) {
+				pause = true;
+			} else {
+				pause = false;
+			}
 		}
 	}
 
@@ -104,11 +117,17 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			jump = false;
 		} else if (e.getKeyCode() == 17) {
 			this.velX = 0.00000024f;
+		} else if (e.getKeyCode() == 27) { // ESC
+			if (pause) {
+				pauseRelease = true;
+			} else {
+				pauseRelease = false;
+			}
 		}
 	}
 
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
 	
 	public void mouseClicked(MouseEvent m) {
@@ -152,11 +171,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void tick(long dt) {
-		
-		a = MouseInfo.getPointerInfo().getLocation();
-		mx = (float) a.getX();
-		my = (float) a.getY();
-
 		if (dashcounter < dashlength) {
 			this.velX = dashspeed;
 			dashcounter++;
@@ -169,8 +183,9 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		}
 
 		if (right && !left) {
-			if (this.name == "player_inverted") {
+			if (this.name == "player_inverted" || this.name == "jumping"|| this.name == "jumpinginverted") {
 				this.changeName("player");
+				lookright = true;
 			}
 			posX += velX * dt;
 			while (wallCollision()) {
@@ -178,8 +193,9 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 		}
 		if (left && !right) {
-			if (this.name == "player") {
+			if (this.name == "player" || this.name == "jumping"|| this.name == "jumpinginverted") {
 				this.changeName("player_inverted");
+				lookright = false;
 			}
 			posX -= velX * dt;
 			while (wallCollision()) {
@@ -189,10 +205,34 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		if (jump && onWall()) {
 			velY = -0.0000009f;
+			
+			}
+	
+		if (!onWall() && lookright) {
+			if (this.name == "player" || this.name == "player_inverted" || this.name == "jumpinginverted") {
+			this.changeName("jumping");
+			}
 		}
-
+		
+		if (!onWall() && !lookright) {
+			if (this.name == "player" || this.name == "player_inverted" || this.name == "jumping") { //somehow this shit broken
+				this.changeName("jumpinginverted");
+			}
+		}
+		
+		if (onWall() && lookright) {
+			if (this.name == "jumping" || this.name == "player_inverted" || this.name == "jumpinginverted") {
+			this.changeName("player");
+			}
+		}
+		
+		if (onWall() && !lookright) {
+			if (this.name == "player" || this.name == "jumpinginverted" || this.name == "jumping") { //somehow this shit broken
+				this.changeName("player_inverted");
+			}
+		}
+		
 		addGravity();
-
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {
@@ -211,7 +251,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 				}
 			}
 		}
-
+		
+		
 		if (inWall) {
 			velY = 0;
 		}
@@ -219,6 +260,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		if (onWall()) {
 			velY = 0;
 		}
+		System.out.println(name) ;
 	}
 
 	
@@ -235,3 +277,4 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		
 	}
 }
+

@@ -25,7 +25,7 @@ public class HUD {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.gray);
+		g.setColor(Color.GRAY);
 		g.fillRect(35, 35, 200, 32);
 		g.setColor(new Color(175, (int) greenValue, 0)); // das Darstellen von Leben und Level
 		g.fillRect(35, 35, (int) lengthOfHealth, 32);
