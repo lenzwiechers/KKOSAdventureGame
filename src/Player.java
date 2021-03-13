@@ -20,9 +20,9 @@ public class Player extends GameObject implements KeyListener {
 	public boolean pause = false;
 	public boolean pauseRelease = false;
 
-	private int dashlength = 5;
+	private int dashlength = 20;
 	private int dashcounter = dashlength;
-	private float dashspeed = 0.00000150f;
+	private float dashspeed = 0.00000200f;
 	private int dashcooldown = 180;
 	private int cooldowncounter = dashcooldown;
 
