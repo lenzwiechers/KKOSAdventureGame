@@ -183,7 +183,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		}
 
 		if (right && !left) {
-			if (this.name == "player_inverted" || this.name == "jumping"|| this.name == "jumpinginverted") {
+			if (this.name != "player") {
 				this.changeName("player");
 				lookright = true;
 			}
@@ -193,7 +193,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 		}
 		if (left && !right) {
-			if (this.name == "player" || this.name == "jumping"|| this.name == "jumpinginverted") {
+			if (this.name != "player_inverted") {
 				this.changeName("player_inverted");
 				lookright = false;
 			}
@@ -209,25 +209,25 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 	
 		if (!onWall() && lookright) {
-			if (this.name == "player" || this.name == "player_inverted" || this.name == "jumpinginverted") {
+			if (this.name != "jumping") {
 			this.changeName("jumping");
 			}
 		}
 		
 		if (!onWall() && !lookright) {
-			if (this.name == "player" || this.name == "player_inverted" || this.name == "jumping") { //somehow this shit broken
+			if (this.name != "jumpinginverted") { 
 				this.changeName("jumpinginverted");
 			}
 		}
 		
 		if (onWall() && lookright) {
-			if (this.name == "jumping" || this.name == "player_inverted" || this.name == "jumpinginverted") {
+			if (this.name != "player") {
 			this.changeName("player");
 			}
 		}
 		
 		if (onWall() && !lookright) {
-			if (this.name == "player" || this.name == "jumpinginverted" || this.name == "jumping") { //somehow this shit broken
+			if (this.name != "player_inverted") { 
 				this.changeName("player_inverted");
 			}
 		}
