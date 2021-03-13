@@ -77,8 +77,6 @@ public class Enemy extends GameObject {
 			this.velY = 0;
 		}
 
-		// System.out.println(y2);
-
 		l[0].setLine(posX + (width / 2), posY,
 				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
 				handler.player.get(0).getPos('y') + 1);
@@ -88,8 +86,6 @@ public class Enemy extends GameObject {
 		l[2].setLine(posX + (width / 2), posY,
 				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
 				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
-
-		// System.out.println(l.intersects(handler.player.get(0).getBounds()));
 	}
 
 	public boolean checkContact() {

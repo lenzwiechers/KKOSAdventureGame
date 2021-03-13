@@ -41,6 +41,8 @@ public abstract class generateMap {
 		waende.add(new Wand(1400, 200, 100, 100, handler));
 		
 		enemies.add(new Enemy(350, 600, handler));
+		enemies.add(new Enemy(1000, 0, handler));
+		enemies.add(new Enemy(1500, 0, handler));
 
 		items.add(new Item(1000, -100, handler));
 

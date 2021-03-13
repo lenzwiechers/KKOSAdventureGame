@@ -15,19 +15,21 @@ public class Game extends Window {
 
 			if (debug) {
 				g2.setStroke(new BasicStroke(6));
-				if (generateMap.enemies.get(0).checkContact()) {
-					g2.setColor(Color.RED);
-
-				} else {
-					g2.setColor(Color.BLACK);
-				}
-				for(int i = 0; i < generateMap.enemies.get(0).l.length; i++) {
-					g2.drawLine((int) generateMap.enemies.get(0).l[i].getX1() - Camera.xPos,
-						(int) generateMap.enemies.get(0).l[i].getY1() - Camera.yPos,
-						(int) generateMap.enemies.get(0).l[i].getX2() - Camera.xPos,
-						(int) generateMap.enemies.get(0).l[i].getY2() - Camera.yPos);
-				}
 				
+				for (int i = 0; i < generateMap.enemies.size(); i++) {
+					if (generateMap.enemies.get(i).checkContact()) {
+						g2.setColor(Color.RED);
+
+					} else {
+						g2.setColor(Color.BLACK);
+					}
+					for (int j = 0; j < generateMap.enemies.get(i).l.length; j++) {
+						g2.drawLine((int) generateMap.enemies.get(i).l[j].getX1() - Camera.xPos,
+								(int) generateMap.enemies.get(i).l[j].getY1() - Camera.yPos,
+								(int) generateMap.enemies.get(i).l[j].getX2() - Camera.xPos,
+								(int) generateMap.enemies.get(i).l[j].getY2() - Camera.yPos);
+					}
+				}
 
 			}
 
@@ -35,9 +37,6 @@ public class Game extends Window {
 	};
 
 	static ObjectHandler handler = new ObjectHandler(panel);
-	// Darauf kommen alle Objekte
-	// muss schon hier initialisiert werden, da es im Aufrufen von super() gebraucht
-	// wird.
 
 	private Player player;
 	private HUD hud;
