@@ -30,7 +30,7 @@ public abstract class generateMap {
 		waende.add(new Wand(0, 0, 100, 700, handler));
 		waende.add(new Wand(0, 700, 1000, 100, handler));
 		waende.add(new Wand(1000, 700, 1000, 100, handler));
-		waende.add(new Wand(1900, 0, 100, 700, handler));
+		waende.add(new Wand(1900, 200, 100, 500, handler));
 		waende.add(new Wand(200, 500, 100, 100, handler));
 		waende.add(new Wand(400, 400, 400, 100, handler));
 		waende.add(new Wand(1000, 0, 100, 600, handler));
@@ -41,6 +41,8 @@ public abstract class generateMap {
 		waende.add(new Wand(1400, 200, 100, 100, handler));
 		
 		enemies.add(new Enemy(350, 600, handler));
+		enemies.add(new Enemy(1000, 0, handler));
+		enemies.add(new Enemy(1500, 0, handler));
 
 		items.add(new Item(1000, -100, handler));
 

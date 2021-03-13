@@ -3,35 +3,59 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 
 public class ObjectHandler {
-	
+
 	public JPanel panel;
 
 	LinkedList<GameObject> objects = new LinkedList<GameObject>();
-	
+
 	LinkedList<Enemy> enemies = new LinkedList<Enemy>();
 
 	LinkedList<Wand> waende = new LinkedList<Wand>();
-	
+
 	LinkedList<Door> tueren = new LinkedList<Door>();
-	
+
 	LinkedList<Player> player = new LinkedList<Player>();
+
+	private int screenWidth, screenHeight;
+	private GameObject obj;
+	private Enemy enemy;
+
+	public ObjectHandler() {
+
+	}
 
 	public ObjectHandler(JPanel panel) {
 		this.panel = panel;
 	}
-	
-	public ObjectHandler() {
+
+	public ObjectHandler(JPanel panel, int screenWidth, int screenHeight) {
 		
+		this.panel = panel;
+		
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
 	}
 
 	public void tick(long dt) {
 		for (int i = 0; i < objects.size(); i++) {
-			if (objects.get(i) instanceof Player) {
-				objects.get(i).tick(dt);
-			} else if (objects.get(i) instanceof Item) {
-				objects.get(i).tick(dt);
-			} else if(objects.get(i) instanceof Enemy) {
-				objects.get(i).tick(dt);
+			obj = objects.get(i);
+			if (obj instanceof Player) {
+				obj.tick(dt);
+			} else if (obj instanceof Item) {
+				obj.tick(dt);
+			} else if (obj instanceof Enemy) {
+				if (player.get(0).getPos('x') + player.get(0).getSize('x') - (1.5 * screenWidth) <= obj.getPos('x')
+						&& player.get(0).getPos('x') + player.get(0).getSize('x') + (1.5 * screenWidth) >= obj.getPos('x')
+						&& player.get(0).getPos('y') + player.get(0).getSize('y') - (1.5 * screenHeight) <= obj.getPos('y')
+						&& player.get(0).getPos('y') + player.get(0).getSize('y') + (1.5 * screenHeight) >= obj.getPos('y')) {
+					enemy = (Enemy) obj;
+					enemy.tick(dt);
+					enemy.isInScreen = true;
+				} else {
+					enemy = (Enemy) obj;
+					enemy.isInScreen = false;
+				}
+
 			}
 		}
 	}
@@ -43,13 +67,13 @@ public class ObjectHandler {
 			waende.add((Wand) obj);
 		} else if (obj instanceof Enemy) {
 			enemies.add((Enemy) obj);
-		}else if (obj instanceof Door) {
-			tueren.add((Door)obj);
-		}else if (obj instanceof Player) {
-			player.add((Player)obj);
+		} else if (obj instanceof Door) {
+			tueren.add((Door) obj);
+		} else if (obj instanceof Player) {
+			player.add((Player) obj);
 		}
 	}
-	
+
 	public void removeObject(GameObject obj) {
 		objects.remove(obj);
 		panel.remove(obj);
