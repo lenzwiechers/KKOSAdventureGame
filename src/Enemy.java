@@ -25,7 +25,7 @@ public class Enemy extends GameObject {
 		this.posY = 300;
 		this.width = 100;
 		this.height = 100;
-		
+
 		this.velX = 0.0000001f;
 
 		if (picName == "gollum") {
@@ -79,14 +79,15 @@ public class Enemy extends GameObject {
 				while (wallCollision()) {
 					posX -= 1;
 				}
-			} else if(posX > handler.player.get(0).getPos('x')) {
+			} else if (posX > handler.player.get(0).getPos('x')) {
 				posX -= velX * dt;
 				while (wallCollision()) {
 					posX += 1;
 				}
 			}
+		} else {
+
 		}
-		
 
 		posY += velY * dt;
 		inWall = false;
@@ -108,15 +109,16 @@ public class Enemy extends GameObject {
 	}
 
 	public boolean checkContact() {
-		playerContact = true;
+
 		for (int j = 0; j < l.length; j++) {
+			playerContact = true;
 			for (int i = 0; i < handler.waende.size(); i++) {
 				if (l[j].intersects(handler.waende.get(i).getBounds())) {
 					playerContact = false;
 				}
 			}
 			if (playerContact) {
-				return playerContact;
+				return true;
 			}
 		}
 		return false;
