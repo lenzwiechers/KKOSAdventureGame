@@ -15,7 +15,7 @@ public class Enemy extends GameObject {
 	public boolean isInScreen = false;
 
 	Line2D line;
-	
+
 	private boolean right = true;
 	private boolean left;
 
@@ -48,7 +48,7 @@ public class Enemy extends GameObject {
 	public Enemy(int posX, int posY, ObjectHandler handler) {
 		super("item_t", handler);
 
-		this.velX = 0.0000001f;
+		this.velX = 0.00000025f;
 		this.velY = 0.00000025f;
 
 		this.posX = posX;
@@ -97,22 +97,45 @@ public class Enemy extends GameObject {
 				left = true;
 			}
 		} else if (right) {
-			line.setLine(posX + width + 1, posY + height + 1, posX + width + 2, posY + height + 1);
-			for(int i = 0; i < handler.waende.size(); i++) {
-				if(!(line.intersects(handler.waende.get(i).getBounds()))) {
-					posX += (velX * dt) / 2;
-					while (wallCollision()) {
-						posX -= 1;
-					}
+			line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
+			right = false;
+			for (int i = 0; i < handler.waende.size(); i++) {
+				if (line.intersects(handler.waende.get(i).getBounds())) {
+					right = true;
 				}
 			}
-			
-		} /*else if (left) {
-			posX -= velX * dt;
-			while (wallCollision()) {
-				posX += 1;
+			if (right) {
+				posX += (velX * dt);
+				while (wallCollision()) {
+					posX -= 1;
+					right = false;
+					left = true;
+				}
+			} else {
+				right = false;
+				left = true;
 			}
-		}*/
+
+		} else if (left) {
+			line.setLine(posX - 5, posY + height + 5, posX - 20, posY + height + 5);
+			left = false;
+			for (int i = 0; i < handler.waende.size(); i++) {
+				if (line.intersects(handler.waende.get(i).getBounds())) {
+					left = true;
+				}
+			}
+			if (left) {
+				posX -= (velX * dt);
+				while (wallCollision()) {
+					posX += 1;
+					right = true;
+					left = false;
+				}
+			} else {
+				left = false;
+				right = true;
+			}
+		}
 
 		posY += velY * dt;
 		inWall = false;

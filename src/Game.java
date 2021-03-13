@@ -8,7 +8,7 @@ public class Game extends Window {
 	private final static boolean debug = true;
 
 	private static JPanel panel = new JPanel() {
-		
+
 		private static final long serialVersionUID = -5196824841345897510L;
 
 		protected void paintComponent(Graphics g) {
