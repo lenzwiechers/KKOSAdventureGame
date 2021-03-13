@@ -5,29 +5,36 @@ public class Game extends Window {
 
 	private static final long serialVersionUID = 6680112103815633456L;
 
-	static ObjectHandler handler = new ObjectHandler();
-
-	static Enemy enemy1 = new Enemy("item_t", handler);
+	private final static boolean debug = true;
 
 	private static JPanel panel = new JPanel() {
 		protected void paintComponent(Graphics g) {
-			
+
 			Graphics2D g2 = (Graphics2D) g;
 			super.paintComponent(g);
-			g2.setStroke(new BasicStroke(6));
-			if (enemy1.checkContact()) {
-				g2.setColor(Color.RED);
-				
-			} else {
-				g2.setColor(Color.BLACK);
+
+			if (debug) {
+				g2.setStroke(new BasicStroke(6));
+				if (generateMap.enemies.get(0).checkContact()) {
+					g2.setColor(Color.RED);
+
+				} else {
+					g2.setColor(Color.BLACK);
+				}
+				g2.drawLine((int) generateMap.enemies.get(0).l.getX1() - Camera.xPos,
+						(int) generateMap.enemies.get(0).l.getY1() - Camera.yPos,
+						(int) generateMap.enemies.get(0).l.getX2() - Camera.xPos,
+						(int) generateMap.enemies.get(0).l.getY2() - Camera.yPos);
+
 			}
-			g2.drawLine((int) enemy1.l.getX1() - Camera.xPos, (int) enemy1.l.getY1() - Camera.yPos,
-					(int) enemy1.l.getX2() - Camera.xPos, (int) enemy1.l.getY2() - Camera.yPos);
-			
+
 		}
-	};// Darauf kommen alle Objekte
-		// muss schon hier initialisiert werden, da es im Aufrufen von super() gebraucht
-		// wird.
+	};
+
+	static ObjectHandler handler = new ObjectHandler(panel);
+	// Darauf kommen alle Objekte
+	// muss schon hier initialisiert werden, da es im Aufrufen von super() gebraucht
+	// wird.
 
 	private Player player;
 	private HUD hud;
@@ -45,15 +52,13 @@ public class Game extends Window {
 
 	long timer;
 
-	ObjectHandler handler;
-
 	Camera cam;
 
 	public Game() {
 
 		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel);
 
-		panel.setBackground(Color.GRAY);
+		// panel.setBackground(Color.GRAY);
 
 		handler = new ObjectHandler(panel);
 
@@ -80,16 +85,13 @@ public class Game extends Window {
 
 		player.render();
 
-		handler.addObject(enemy1);
-		panel.add(enemy1);
-		
-		generateMap.generate(panel, handler);
-	
+		generateMap.generate(handler);
+
 		lastT = System.nanoTime(); // delta time
 
 		run();
 	}
-	
+
 	public void run() {
 		while (true) {
 			timer = System.currentTimeMillis();

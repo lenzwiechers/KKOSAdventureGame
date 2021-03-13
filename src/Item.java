@@ -54,7 +54,6 @@ public class Item extends GameObject{
 		if(getBounds().intersects(player.getBounds())) {
 			picked = true;
 			player.itemT = true;
-			//System.out.println("ya");
 		}
 	}
 	
@@ -73,7 +72,6 @@ public class Item extends GameObject{
 
 		collision(handler.player.get(0));
 		if(picked) {
-			System.out.println("ye");
 			handler.removeObject(this);
 		}
 		

@@ -19,6 +19,10 @@ public class ObjectHandler {
 	public ObjectHandler(JPanel panel) {
 		this.panel = panel;
 	}
+	
+	public ObjectHandler() {
+		
+	}
 
 	public void tick(long dt) {
 		for (int i = 0; i < objects.size(); i++) {

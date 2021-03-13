@@ -19,7 +19,7 @@ public class Enemy extends GameObject {
 		this.velX = 0.00000025f;
 		this.velY = 0.00000025f;
 
-		this.posX = 300;
+		this.posX = 350;
 		this.posY = 300;
 		this.width = 100;
 		this.height = 100;
