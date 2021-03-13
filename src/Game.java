@@ -1,12 +1,13 @@
 import java.awt.*;
 import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.JPanel;
 
 public class Game extends Window {
 
 	private static final long serialVersionUID = 6680112103815633456L;
-	
+
 	public boolean pause;
 
 	private final static boolean debug = true;
@@ -49,10 +50,8 @@ public class Game extends Window {
 	static ObjectHandler handler = new ObjectHandler(panel);
 
 	private Player player;
-	
+
 	Launcher launcher;
-	
-	PauseWindow pauseMenu = new PauseWindow(this);
 
 	// Delta time: siehe https://en.wikipedia.org/wiki/Delta_timing
 	private long dt;
@@ -66,18 +65,22 @@ public class Game extends Window {
 	long frameTime = 1000 / targetFPS;
 
 	long timer;
-	
+
 	boolean running = false;
-	
+
 	String LK;
 
 	Camera cam;
+	
+	PauseWindow pauseMenu;
 
 	public Game() {
 
 		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel);
 
 		// panel.setBackground(Color.GRAY);
+		
+		pauseMenu = new PauseWindow(this);
 
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
 
@@ -93,7 +96,7 @@ public class Game extends Window {
 		cam = new Camera(handler, player, screenWidth, screenHeight);
 
 		this.addKeyListener(player);
-		
+
 		pauseMenu.addKeyListener(pauseMenu);
 
 		panel.add(player);
@@ -105,14 +108,14 @@ public class Game extends Window {
 		player.render();
 
 		generateMap.generate(handler);
-		
+
 		try {
 			launcher = new Launcher(this);
 		} catch (MalformedURLException e) {
 			running = true;
 			this.setVisible(true);
 		}
-		
+
 		run();
 	}
 
@@ -129,14 +132,11 @@ public class Game extends Window {
 				}
 				lastT = System.nanoTime(); // delta time
 			}
-			
-			
+
 			timer = System.currentTimeMillis();
 
-			
 			dt = System.nanoTime() - lastT; // delta time
 			lastT = System.nanoTime(); // delta timne
-			
 
 			handler.tick(dt);
 
