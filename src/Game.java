@@ -5,7 +5,7 @@ public class Game extends Window {
 
 	private static final long serialVersionUID = 6680112103815633456L;
 
-	private final static boolean debug = false;
+	private final static boolean debug = true;
 
 	private static JPanel panel = new JPanel() {
 		protected void paintComponent(Graphics g) {
@@ -132,7 +132,7 @@ public class Game extends Window {
 	public static float clamp(float var, float min, float max) {
 		if (var >= max) {
 			return var = max;
-		} else if (var <= min) { // durch diese Methode wird var nicht ausserhalb der Grenzen von min un max
+		} else if (var <= min) { // durch diese Methode wird var nicht ausserhalb der Grenzen von min und max
 									// gelassen
 			return var = min;
 		} else {

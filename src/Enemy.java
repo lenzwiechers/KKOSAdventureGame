@@ -91,16 +91,17 @@ public class Enemy extends GameObject {
 	}
 
 	public boolean checkContact() {
-		for (int i = 0; i < handler.waende.size(); i++) {
-			for (int j = 0; j < l.length; j++) {
+		playerContact = true;
+		for (int j = 0; j < l.length; j++) {
+			for (int i = 0; i < handler.waende.size(); i++) {
 				if (l[j].intersects(handler.waende.get(i).getBounds())) {
-					playerContact = true;
-					return true;
+					playerContact = false;
 				}
 			}
-
+			if(playerContact) {
+				return playerContact;
+			}
 		}
-		playerContact = false;
 		return false;
 	}
 
