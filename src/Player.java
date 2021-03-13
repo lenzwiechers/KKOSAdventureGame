@@ -10,8 +10,10 @@ public class Player extends GameObject implements KeyListener {
 
 	private boolean right = false;
 	private boolean left = false;
-	private boolean up = false;
-	private boolean down = false;
+	//private boolean up = false;
+	//private boolean down = false;
+	private boolean lookright = true;
+	//private int walkcounter = 0;
 
 	private boolean jump = false;
 
@@ -20,7 +22,7 @@ public class Player extends GameObject implements KeyListener {
 	public boolean pause = false;
 	public boolean pauseRelease = false;
 
-	private int dashlength = 20;
+	private int dashlength = 10;
 	private int dashcounter = dashlength;
 	private float dashspeed = 0.00000200f;
 	private int dashcooldown = 180;
@@ -150,8 +152,9 @@ public class Player extends GameObject implements KeyListener {
 		}
 
 		if (right && !left) {
-			if (this.name == "player_inverted") {
+			if (this.name == "player_inverted"/*&& this.name == "jumping"*/) {
 				this.changeName("player");
+				lookright = true;
 			}
 			posX += velX * dt;
 			while (wallCollision()) {
@@ -159,8 +162,9 @@ public class Player extends GameObject implements KeyListener {
 			}
 		}
 		if (left && !right) {
-			if (this.name == "player") {
+			if (this.name == "player" /*&& this.name == "jumping"*/) {
 				this.changeName("player_inverted");
+				lookright = false;
 			}
 			posX -= velX * dt;
 			while (wallCollision()) {
@@ -170,8 +174,15 @@ public class Player extends GameObject implements KeyListener {
 
 		if (jump && onWall()) {
 			velY = -0.0000009f;
-		}
-
+			
+			}
+	
+		if (!onWall()) {
+			if (this.name == "player" && this.name == "playerinverted") {
+				this.changeName("jumping");
+			}
+	    }
+			
 		addGravity();
 		posY += velY * dt;
 		inWall = false;
@@ -191,7 +202,19 @@ public class Player extends GameObject implements KeyListener {
 				}
 			}
 		}
-
+		
+//		if (!right && !left && lookright) {
+//			if (this.name == "player_inverted" && this.name == "jumping") {
+//				this.changeName("player");
+//			}
+//		}
+		
+//		if (!right && !left && !lookright) {
+//			if (this.name == "player" && this.name == "jumping") {
+//				this.changeName("player_inverted");
+//			}
+//		}
+		
 		if (inWall) {
 			velY = 0;
 		}
@@ -199,5 +222,7 @@ public class Player extends GameObject implements KeyListener {
 		if (onWall()) {
 			velY = 0;
 		}
+		System.out.println(name) ;
 	}
 }
+
