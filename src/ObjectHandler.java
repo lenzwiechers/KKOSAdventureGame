@@ -1,6 +1,10 @@
 import java.util.LinkedList;
 
+import javax.swing.JPanel;
+
 public class ObjectHandler {
+	
+	public JPanel panel;
 
 	LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	
@@ -12,8 +16,8 @@ public class ObjectHandler {
 	
 	LinkedList<Player> player = new LinkedList<Player>();
 
-	public ObjectHandler() {
-		
+	public ObjectHandler(JPanel panel) {
+		this.panel = panel;
 	}
 
 	public void tick(long dt) {
@@ -29,6 +33,7 @@ public class ObjectHandler {
 	}
 
 	public void addObject(GameObject obj) {
+		panel.add(obj);
 		objects.add(obj);
 		if (obj instanceof Wand) {
 			waende.add((Wand) obj);
@@ -43,5 +48,6 @@ public class ObjectHandler {
 	
 	public void removeObject(GameObject obj) {
 		objects.remove(obj);
+		panel.remove(obj);
 	}
 }

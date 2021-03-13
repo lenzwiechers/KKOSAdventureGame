@@ -10,12 +10,8 @@ public class Item extends GameObject{
 	public int airTime = 0;
 
 	public double gravity;
-	
-	Player player;
 
 	ObjectHandler handler;
-	
-	JPanel panel;
 
 	private boolean collide;
 	private boolean onWall;
@@ -24,8 +20,22 @@ public class Item extends GameObject{
 	boolean picked = false;
 	
 	
+	public Item (int posX, int posY, ObjectHandler newHandler) {
+
+		super("item_t", newHandler);
+
+		this.velX = 0.00000024f;
+		this.velY = 0.00000025f;
+
+		this.width = 30;
+		this.height = 30;
+		this.posX = posX;
+		this.posY = posY;
+
+		this.handler = newHandler;
+	}
 	
-	public Item (ObjectHandler newHandler, Player newPlayer, JPanel newPanel) {
+	public Item (ObjectHandler newHandler) {
 
 		super("item_t", newHandler);
 
@@ -37,10 +47,7 @@ public class Item extends GameObject{
 		this.posX = 500;
 		this.posY = 100;
 
-		this.player = newPlayer;
 		this.handler = newHandler;
-		this.panel = newPanel;
-
 	}
 
 	public void collision(Player player) {
@@ -64,11 +71,10 @@ public class Item extends GameObject{
 
 		addGravity();
 
-		collision(player);
+		collision(handler.player.get(0));
 		if(picked) {
 			System.out.println("ye");
 			handler.removeObject(this);
-			panel.remove(this);
 		}
 		
 		posY += velY * dt;
