@@ -27,10 +27,10 @@ public abstract class generateMap {
 
 	public static void generateStartRoom(ObjectHandler handler) {
 		//Startraum Generierung
-		waende.add(new Wand(0, 0, 100, 700, handler));
+		waende.add(new Wand(0, -200, 100, 900, handler));
 		waende.add(new Wand(0, 700, 1000, 100, handler));
 		waende.add(new Wand(1000, 700, 1000, 100, handler));
-		waende.add(new Wand(1900, 0, 100, 700, handler));
+		waende.add(new Wand(1900, -200, 100, 900, handler));
 		waende.add(new Wand(200, 500, 100, 100, handler));
 		waende.add(new Wand(400, 400, 400, 100, handler));
 		waende.add(new Wand(1000, 0, 100, 600, handler));
