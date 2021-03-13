@@ -6,6 +6,8 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -31,32 +33,31 @@ public class Launcher extends Window {
 
 	static JLabel label = new JLabel();
 
-	static BufferedImage labelImage, b1Image, b2Image, b3Image;
+	static BufferedImage b1Image, b2Image, b3Image;
 
 	public Game game;
 
-	public Launcher(Game game) {
-		super("Game Launcher", 1920 / 2 - 650, 1080 / 2 - 450, 1300, 907);
+	public Launcher(Game game) throws MalformedURLException {
+		super("Game Launcher", 1920 / 2 - 512, 1080 / 2 - 384, 1024, 768);
 
 		this.game = game;
 
-		b1Panel.setBounds(550, 150, 200, 100);
-		b2Panel.setBounds(550, 400, 200, 100);
-		b3Panel.setBounds(550, 650, 200, 100);
+		b1Panel.setBounds(412, 117, 200, 100);
+		b2Panel.setBounds(412, 334, 200, 100);
+		b3Panel.setBounds(412, 551, 200, 100);
 		this.add(b1Panel);
 		this.add(b2Panel);
 		this.add(b3Panel);
 
-		label.setBounds(0, 0, 1300, 907);
+		label.setBounds(0, 0, 1024, 768);
 		this.add(label);
 
-		try {
-
-			labelImage = ImageIO.read(new File("assets/Lpic.jpg"));
-
-		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(null, "Please check your file paths", "Error", JOptionPane.ERROR_MESSAGE);
-		}
+		
+			
+		URL url1 = new URL("https://i0.wp.com/trippy.me/wp-content/uploads/psychedelic-gradient.gif?resize=540%2C540"); 
+		URL url2 = new URL("https://cdn130.picsart.com/316707967251201.gif");	
+		URL url3 = new URL("https://i.pinimg.com/originals/53/e9/21/53e921ba67680b1f145c778b7eab5131.gif");
+		
 		try {
 
 			b1Image = ImageIO.read(new File("assets/playButton.png"));
@@ -78,8 +79,8 @@ public class Launcher extends Window {
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(null, "Please check your file paths", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-
-		Icon labelIcon = new ImageIcon(labelImage);
+		
+		Icon labelIcon = new ImageIcon(url3);
 		Icon b1Icon = new ImageIcon(b1Image);
 		Icon b2Icon = new ImageIcon(b2Image);
 		Icon b3Icon = new ImageIcon(b3Image);

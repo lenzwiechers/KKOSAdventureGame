@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.net.MalformedURLException;
+
 import javax.swing.JPanel;
 
 public class Game extends Window {
@@ -37,7 +39,10 @@ public class Game extends Window {
 	// wird.
 
 	private Player player;
-	private HUD hud;
+	
+	Launcher launcher;
+	
+	PauseWindow pauseMenu = new PauseWindow();
 
 	// Delta time: siehe https://en.wikipedia.org/wiki/Delta_timing
 	private long dt;
@@ -51,6 +56,10 @@ public class Game extends Window {
 	long frameTime = 1000 / targetFPS;
 
 	long timer;
+	
+	boolean running = false;
+	
+	String LK;
 
 	Camera cam;
 
@@ -59,10 +68,10 @@ public class Game extends Window {
 		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel);
 
 		// panel.setBackground(Color.GRAY);
-
+		
 		handler = new ObjectHandler(panel);
 
-		player = new Player(handler, this, panel);
+		player = new Player(handler, this, panel, LK);
 		player.setPos('x', (500) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
 
@@ -72,8 +81,6 @@ public class Game extends Window {
 		System.out.println(player.getPos('x'));
 
 		cam = new Camera(handler, player, screenWidth, screenHeight);
-
-		hud = new HUD(player);
 
 		this.addKeyListener(player);
 
@@ -86,26 +93,35 @@ public class Game extends Window {
 		player.render();
 
 		generateMap.generate(handler);
+		
+		try {
+			launcher = new Launcher(this);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		lastT = System.nanoTime(); // delta time
+		
 
 		run();
 	}
 
 	public void run() {
-		while (true) {
+		while (!running) {
+			delay(1);
+		}
+		lastT = System.nanoTime(); // delta time
+		while (running) {
 			timer = System.currentTimeMillis();
 
+			
 			dt = System.nanoTime() - lastT; // delta time
-			lastT = System.nanoTime(); // delta time
+			lastT = System.nanoTime(); // delta timne
+			
 
 			handler.tick(dt);
 
-			hud.tick();
-
 			cam.tick();
-
-			hud.render(getGraphics());
 
 			if (frameTime - ((System.currentTimeMillis() - timer)) > 0) {
 				delay(frameTime - (System.currentTimeMillis() - timer));
