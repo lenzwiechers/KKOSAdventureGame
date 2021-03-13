@@ -26,6 +26,7 @@ public abstract class generateMap {
 	}
 
 	public static void generateStartRoom(ObjectHandler handler) {
+		//Startraum Generierung
 		waende.add(new Wand(0, 0, 100, 700, handler));
 		waende.add(new Wand(0, 700, 1000, 100, handler));
 		waende.add(new Wand(1000, 700, 1000, 100, handler));
@@ -39,7 +40,7 @@ public abstract class generateMap {
 		waende.add(new Wand(1700, 400, 200, 100, handler));
 		waende.add(new Wand(1400, 200, 100, 100, handler));
 		
-		enemies.add(new Enemy("item_t", handler));
+		enemies.add(new Enemy(350, 600, handler));
 
 		items.add(new Item(1000, -100, handler));
 
@@ -53,6 +54,10 @@ public abstract class generateMap {
 		Door door3 = new Door(1800, 300, 100, 100, handler);
 		
 		tueren.add(door3);
+		
+		//Ebene 1 Generierung
+		
+		
 		
 		
 		

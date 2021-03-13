@@ -33,6 +33,26 @@ public class Enemy extends GameObject {
 		l = new Line2D.Float();
 
 	}
+	
+	public Enemy(int posX, int posY, ObjectHandler handler) {
+		super("item_t", handler);
+
+		this.velX = 0.00000025f;
+		this.velY = 0.00000025f;
+
+		this.posX = posX;
+		this.posY = posY;
+		this.width = 100;
+		this.height = 100;
+
+		/*if (picName == "gollum") {
+			this.velX = 0.0000004f;
+		} else if (picName == "chonker") {
+			this.velX = 0.0000001f;
+		}*/
+
+		l = new Line2D.Float();
+	}
 
 	public void tick(long dt) {
 
