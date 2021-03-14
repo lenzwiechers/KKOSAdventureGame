@@ -1,15 +1,15 @@
 
-
-
-public class Shot extends GameObject {
+public class Slash extends GameObject {
 	
 	
 	private static final long serialVersionUID = 1L;
 	
-	public float shotSpeed = 0.0000008f;
+	public float slashSpeed = 0.0000004f;
 	
 	public boolean inAir = false;
 	public int airTime = 0;
+	
+	public int timer;
 	
 	public double gravity;
 	
@@ -25,14 +25,16 @@ public class Shot extends GameObject {
 	private boolean onWall;
 	private boolean belowWall;
 	
-	public Shot (int sx, int sy, ObjectHandler newHandler, Vector2 tar) {
+	public Slash (int sx, int sy, ObjectHandler newHandler, Vector2 tar, int tim) {
 
-		super("shot", newHandler);
+		super("slash", newHandler);
 		
-		this.width = 20;
-		this.height = 20;
+		this.width = 40;
+		this.height = 40;
 		this.posX = sx;
 		this.posY = sy;
+		
+		this.timer = tim;
 		
 		this.hom = new Vector2((float)(posX-Game.cam.xPos), (float)(posY-Game.cam.yPos));
 		
@@ -55,9 +57,9 @@ public class Shot extends GameObject {
 		this.handler = newHandler;
 	}
 	
-	public Shot (ObjectHandler newHandler) {
+	public Slash(ObjectHandler newHandler) {
 
-		super("shot", newHandler);
+		super("slash", newHandler);
 
 		/*this.velX = 0.00000024f;
 		this.velY = 0.00000025f;
@@ -70,11 +72,11 @@ public class Shot extends GameObject {
 		this.handler = newHandler;
 	}
 	
-	/*public void collision(GameObject obj) {
+	public void collision(GameObject obj) {
 		if(getBounds().intersects(obj.getBounds())) {
 			handler.removeObject(this);
 		}
-	}*/
+	}
 	
 	
 	
@@ -87,12 +89,17 @@ public class Shot extends GameObject {
 	
 	public void tick(long dt) {
 		
-		this.name = "shot";
-
+		this.name = "slash";
+		
+		if(timer<0) {
+			handler.removeObject(this);
+		}
+		
+		timer--;
 		
 		
-		posX += velX * dt * shotSpeed;
-		posY += velY * dt * shotSpeed;
+		posX += velX * dt * slashSpeed;
+		posY += velY * dt * slashSpeed;
 		boolean inWall = false;
 		if (wallCollision()) {
 			inWall = true;
@@ -113,3 +120,4 @@ public class Shot extends GameObject {
 	}
 
 }
+

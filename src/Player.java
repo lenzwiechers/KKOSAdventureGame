@@ -27,8 +27,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	private boolean jump = false;
 
-	public boolean itemT = false;
-	public boolean gun = false;
+	boolean[] item = new boolean[4];
 
 	public boolean pause = false;
 	public boolean pauseRelease = false;
@@ -136,9 +135,12 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void mousePressed(MouseEvent m) {
-		if (gun) {
+		if (item[1]) {
 			System.out.println("pew pew");
 			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));
+		}
+		if(item[2]) {
+			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY()), 10));
 		}
 		// System.out.println(m.getX()+this.getPos('x'));
 		// System.out.println(m.getY()+this.getPos('y'));
