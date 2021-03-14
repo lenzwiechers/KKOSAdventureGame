@@ -80,7 +80,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		
 		hp[0] = true;
 		hp[1] = true;
-		hp[2] = true;
+		hp[2] = false;
 		
 		this.velX = 0.00000024f;
 		this.velY = 0.00000025f;
@@ -125,7 +125,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		} else if (e.getKeyCode() == 69) { // e
 			inventory.showInv();
 		} else if(e.getKeyCode() == 82 && item[0]) { // r
-			for(int i=4; i>-1; i--) {
+			
+			for(int i=2; i>-1; i--) {
 				if(!hp[i]) {
 					hp[i] = true;
 					break;
