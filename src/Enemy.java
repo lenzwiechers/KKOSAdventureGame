@@ -21,37 +21,18 @@ public class Enemy extends GameObject {
 	private boolean right = true;
 	private boolean left;
 
-	public Enemy(String picName, ObjectHandler handler) {
+	public boolean attacking;
+
+	private int attackCooldown = 5000;
+	private long lastAttackCounter;
+
+	private int type;
+
+	private int attackFrameCounter;
+
+	public Enemy(String picName, int posX, int posY, ObjectHandler handler) {
 
 		super(picName, handler);
-
-		this.velX = 0.00000025f;
-		this.velY = 0.00000025f;
-
-		this.posX = 350;
-		this.posY = 300;
-		this.width = 100;
-		this.height = 100;
-
-		this.velX = 0.0000001f;
-
-		if (picName == "gollum") {
-			this.velX = 0.0000004f;
-		} else if (picName == "chonker") {
-			this.velX = 0.0000001f;
-		} else if (picName == "direktorin") {
-			this.velX = 0.0000002f;
-			this.velY = 0.0f;
-		}
-
-		for (int i = 0; i < l.length; i++) {
-			l[i] = new Line2D.Float();
-		}
-
-	}
-
-	public Enemy(int posX, int posY, ObjectHandler handler) {
-		super("item_t", handler);
 
 		this.velX = 0.00000025f;
 		this.velY = 0.00000025f;
@@ -61,16 +42,31 @@ public class Enemy extends GameObject {
 		this.width = 99;
 		this.height = 99;
 
-		/*
-		 * if (picName == "gollum") { this.velX = 0.0000004f; } else if (picName ==
-		 * "chonker") { this.velX = 0.0000001f; }
-		 */
+		if (picName == "gollumneutral") {
+			this.velX = 0.0000002f;
+			this.width = this.height = 35;
+			type = 0;
+		} else if (picName == "chonker") {
+			this.velX = 0.0000001f;
+			type = 1;
+		} else if (picName == "direktorin") {
+			this.velX = 0.0000002f;
+			this.velY = 0.0f;
+			type = 1;
+		} else {
+			type = 1;
+		}
+
+		for (int i = 0; i < l.length; i++) {
+			l[i] = new Line2D.Float();
+		}
 
 		for (int i = 0; i < l.length; i++) {
 			l[i] = new Line2D.Float();
 		}
 
 		line = new Line2D.Float();
+
 	}
 
 	public void tick(long dt) {
@@ -174,6 +170,30 @@ public class Enemy extends GameObject {
 		if (slashCollision()) {
 			hp -= 10;
 		}
+
+		if (checkContact() && System.currentTimeMillis() - lastAttackCounter > attackCooldown) {
+			attacking = true;
+			lastAttackCounter = System.currentTimeMillis();
+			attackFrameCounter = 0;
+		}
+		if (attacking) {
+			if (type == 0) {
+				if (attackFrameCounter == 0) {
+					changeName("gollumwindup");
+				} else if (attackFrameCounter == 30) {
+					attackFrameCounter = 0;
+					attacking = false;
+					if (posX < handler.player.get(0).posX) {
+						handler.addObject(new GollumWave(handler, posX + width, posY, true));
+						
+					} else {
+						handler.addObject(new GollumWave(handler, posX, posY, false));
+					}
+					changeName("gollumneutral");
+				}
+			}
+			attackFrameCounter++;
+		}
 	}
 
 	public boolean checkContact() {
@@ -191,6 +211,10 @@ public class Enemy extends GameObject {
 			}
 		}
 		return false;
+	}
+
+	public void attack() {
+
 	}
 
 }

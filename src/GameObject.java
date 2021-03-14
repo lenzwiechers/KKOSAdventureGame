@@ -77,11 +77,47 @@ public abstract class GameObject extends Picture {
 
 	}
 
+	public boolean collision(GameObject obj) {
+		if (getBounds().intersects(obj.getBounds())) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean enemyCollision() {
+		for (int i = 0; i < handler.enemies.size(); i++) {
+			if (collision(handler.enemies.get(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean hardEnemyCollision() { // wenn ein Gegner gerade im attack modus ist
+
+		for (int i = 0; i < handler.enemies.size(); i++) {
+			if (collision(handler.enemies.get(i)) && handler.enemies.get(i).attacking) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean waveCollision() {
+		for (int i = 0; i < handler.waves.size(); i++) {
+			if (collision(handler.waves.get(i))) {
+				handler.removeObject(handler.waves.get(i));
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean wallCollision() {
 		collide = false;
 
 		for (int i = 0; i < handler.waende.size(); i++) {
-			if (this.getBounds().intersects(handler.waende.get(i).getBounds()) && !(this instanceof Wand)) {
+			if (collision(handler.waende.get(i)) && !(this instanceof Wand)) {
 				collide = true;
 				return collide;
 			}
@@ -94,7 +130,7 @@ public abstract class GameObject extends Picture {
 		sCollide = false;
 
 		for (int i = 0; i < handler.shot.size(); i++) {
-			if (this.getBounds().intersects(handler.shot.get(i).getBounds()) && !(this instanceof Shot)) {
+			if (collision(handler.shot.get(i)) && !(this instanceof Shot)) {
 
 				handler.removeObject(handler.shot.get(i));
 				sCollide = true;
@@ -110,7 +146,7 @@ public abstract class GameObject extends Picture {
 		slCollide = false;
 
 		for (int i = 0; i < handler.slashes.size(); i++) {
-			if (this.getBounds().intersects(handler.slashes.get(i).getBounds()) && !(this instanceof Slash)) {
+			if (collision(handler.slashes.get(i)) && !(this instanceof Slash)) {
 
 				handler.removeObject(handler.slashes.get(i));
 				slCollide = true;
