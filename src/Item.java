@@ -34,7 +34,7 @@ public class Item extends GameObject {
 			this.posX = posX;
 			this.posY = posY;
 
-			this.handler = newHandler;
+			
 		} else if (which == 1) {
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
@@ -44,7 +44,7 @@ public class Item extends GameObject {
 			this.posX = posX;
 			this.posY = posY;
 
-			this.handler = newHandler;
+			
 		} else if (which == 2) {
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
@@ -54,8 +54,9 @@ public class Item extends GameObject {
 			this.posX = posX;
 			this.posY = posY;
 
-			this.handler = newHandler;
+			
 		}
+		this.handler = newHandler;
 	}
 
 	public Item(ObjectHandler newHandler) {
@@ -77,6 +78,7 @@ public class Item extends GameObject {
 		if (getBounds().intersects(player.getBounds())) {
 			picked[which] = true;
 			player.item[which] = true;
+			player.inventory.add(this);
 		}
 	}
 

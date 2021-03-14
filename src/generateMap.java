@@ -44,7 +44,7 @@ public abstract class generateMap {
 		enemies.add(new Enemy(1000, 0, handler));
 		enemies.add(new Enemy(1500, 0, handler));
 
-		items.add(new Item(1800, 200, handler, 1));
+		items.add(new Item(1800, 200, handler, 0));
 		items.add(new Item(1650, 300, handler, 2));
 
 		Door door1 = new Door(800, 600, 100, 100, handler);
