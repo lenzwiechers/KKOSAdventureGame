@@ -25,6 +25,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	public boolean pause = false;
 	public boolean pauseRelease = false;
 
+	private int equipped = -1;
 	private int dashlength = 10;
 	private int dashcounter = dashlength;
 	private float dashspeed = 0.00000200f;
@@ -120,7 +121,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			sprinting = true;
 		} else if (e.getKeyCode() == 69) { // e
 			inventory.showInv();
-		} else if (e.getKeyCode() == 82 && item[0]) { // r
+		} else if (e.getKeyCode() == 82 && item[0] && equipped == 0) { // r
 			for (int i = 4; i > -1; i--) {
 				if (!hp[i]) {
 					hp[i] = true;
@@ -140,7 +141,11 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else {
 				pause = false;
 			}
-		}
+		} 
+		else if(e.getKeyCode() == 49) equipped = 0;
+		else if(e.getKeyCode() == 50) equipped = 1;
+		else if(e.getKeyCode() == 51) equipped = 2;
+		else if(e.getKeyCode() == 52) equipped = 3;
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -173,16 +178,16 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void mousePressed(MouseEvent m) {
-		if (item[1]) {
+		if (item[1] && equipped == 1) {
 			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));
 		}
-		if (item[2] && onWall() && !lookright && !left) {
+		if (item[2] && onWall() && !lookright && equipped == 2) {
 			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 0, 3));
 		}
-		if (item[2] && onWall() && lookright && !right) {
+		if (item[2] && onWall() && lookright && equipped == 2) {
 			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 1, 3));
 		}
-		if (item[2] && !onWall()) {
+		if (item[2] && !onWall() && equipped == 2) {
 			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 2, 3));
 		}
 	}
