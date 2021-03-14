@@ -21,7 +21,7 @@ public class ObjectHandler {
 	LinkedList<Slash> slashes = new LinkedList<Slash>();
 
 	LinkedList<Item> items = new LinkedList<Item>();
-
+	
 	private int screenWidth, screenHeight;
 	private GameObject obj;
 	private Enemy enemy;
@@ -45,15 +45,7 @@ public class ObjectHandler {
 	public void tick(long dt) {
 		for (int i = 0; i < objects.size(); i++) {
 			obj = objects.get(i);
-			if (obj instanceof Player) {
-				obj.tick(dt);
-			} else if (obj instanceof Item) {
-				obj.tick(dt);
-			} else if (obj instanceof Shot) {
-				obj.tick(dt);
-			} else if (obj instanceof Slash) {
-				obj.tick(dt);
-			} else if (obj instanceof Enemy) {
+			if (obj instanceof Enemy) {
 				if (player.get(0).getPos('x') + player.get(0).getSize('x') - (1.5 * screenWidth) <= obj.getPos('x')
 						&& player.get(0).getPos('x') + player.get(0).getSize('x') + (1.5 * screenWidth) >= obj
 								.getPos('x')
@@ -69,6 +61,8 @@ public class ObjectHandler {
 					enemy.isInScreen = false;
 				}
 
+			} else {
+				obj.tick(dt);
 			}
 		}
 	}

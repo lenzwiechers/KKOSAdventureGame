@@ -112,7 +112,7 @@ public class Game extends Window {
 
 	public void run() {
 		while (!running) {
-			delay(1);
+			delay(10);
 		}
 		lastT = System.nanoTime(); // delta time
 		while (running) {
