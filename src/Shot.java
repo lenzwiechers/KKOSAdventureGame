@@ -6,7 +6,7 @@ public class Shot extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public float shotSpeed = 0.0000003f;
+	public float shotSpeed = 0.0000008f;
 	
 	public boolean inAir = false;
 	public int airTime = 0;
