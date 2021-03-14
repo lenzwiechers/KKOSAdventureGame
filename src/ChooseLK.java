@@ -56,6 +56,7 @@ public class ChooseLK extends Window {
 		this.add(backgroundLabel);
 
 		URL url1 = new URL("https://i.pinimg.com/originals/d8/c5/cb/d8c5cb4c53c31a1f7b166db644c5726b.gif");
+		URL url2 = new URL("https://i.pinimg.com/originals/17/d2/cd/17d2cdf8af071c636252bdfa7c4305bd.gif");
 
 		try {
 
