@@ -16,7 +16,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	private boolean left = false;
 	private boolean lookright = true;
 	private int walkcounter = 0;
-	private int walkspeed = 20;
+	private int walkspeed = 5;
 
 	private boolean jump = false;
 
@@ -260,7 +260,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 					this.changeName("walking2");
 				}
 				walkcounter++;
-			} else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
+			}  else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
 				if (this.name != "walking3") {
 					this.changeName("walking3");
 				}
