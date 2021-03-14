@@ -101,7 +101,23 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		super("player", newHandler);
 
-		this.velX = 0.00000024f;
+		this.h0 = new Picture("heart");
+		this.h1 = new Picture("heart");
+		this.h2 = new Picture("heart");
+
+		h0.setBounds(Camera.xPos + 20, Camera.yPos + 20, 50, 50);
+		h1.setBounds(Camera.xPos + 80, Camera.yPos + 20, 50, 50);
+		h2.setBounds(Camera.xPos + 140, Camera.yPos + 20, 50, 50);
+
+		Game.panel.add(h0);
+		Game.panel.add(h1);
+		Game.panel.add(h2);
+
+		hp[0] = true;
+		hp[1] = true;
+		hp[2] = true;
+
+		this.velX = walkSpeed;
 		this.velY = 0.00000025f;
 
 		this.width = 50;
