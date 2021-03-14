@@ -42,7 +42,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	private boolean inWall;
 
-	Window window;
+	Game game;
 
 	Picture h0;
 	Picture h1;
@@ -50,14 +50,14 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	Inventory inventory;
 
-	String LK;
+	String LK1, LK2;
 
 	private float walkSpeed = 0.00000025f;
 	private float sprintSpeed = 0.0000004f;
 
 	private boolean sprinting;
 
-	public Player(ObjectHandler newHandler, Window window, JPanel newPanel, String LK) {
+	public Player(ObjectHandler newHandler, Game game, JPanel newPanel, String LK1, String LK2) {
 
 		super("player", newHandler);
 
@@ -88,11 +88,41 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		handler = newHandler;
 		panel = newPanel;
 
-		this.window = window;
+		this.game = game;
 
-		inventory = new Inventory(window);
+		inventory = new Inventory(game);
 
-		this.LK = LK;
+		this.LK1 = LK1;
+		
+		this.LK2 = LK2;
+	}
+	
+	public Player(ObjectHandler newHandler, Game game, JPanel newPanel) {
+
+		super("player", newHandler);
+
+		this.velX = 0.00000024f;
+		this.velY = 0.00000025f;
+
+		this.width = 50;
+		this.height = 80;
+		this.posX = 170;
+		this.posY = 100;
+
+		handler = newHandler;
+		panel = newPanel;
+
+		this.game = game;
+
+		inventory = new Inventory(game);
+	}
+	
+	public void setLK1(String LK) {
+		LK1 = LK;
+	}
+	
+	public void setLK2(String LK) {
+		LK2 = LK;
 	}
 
 	public boolean getLeft() {
@@ -137,10 +167,10 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		} else if (e.getKeyCode() == 70) { // f
 			enterDoor(atDoor());
 		} else if (e.getKeyCode() == 27) { // ESC
-			if (!pauseRelease) {
-				pause = true;
+			if (!game.pause) {
+				game.pause = true;
 			} else {
-				pause = false;
+				game.pause = false;
 			}
 		} 
 		else if(e.getKeyCode() == 49) equipped = 0;
@@ -171,7 +201,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void keyTyped(KeyEvent e) {
-
 	}
 
 	public void mouseClicked(MouseEvent m) {

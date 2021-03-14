@@ -36,11 +36,18 @@ public class Launcher extends Window {
 	static BufferedImage b1Image, b2Image, b3Image;
 
 	public Game game;
+	
+	public ChooseLK chooseLK;
 
 	public Launcher(Game game) throws MalformedURLException {
 		super("Game Launcher", 1920 / 2 - 512, 1080 / 2 - 384, 1024, 768);
+		
+		System.out.println("-> Launcher started");
+		System.out.println();
 
 		this.game = game;
+		
+		chooseLK = new ChooseLK(game);
 
 		b1Panel.setBounds(412, 117, 200, 100);
 		b2Panel.setBounds(412, 334, 200, 100);
@@ -90,12 +97,14 @@ public class Launcher extends Window {
 		b2Panel.setLayout(null);
 		b3Panel.setLayout(null);
 
+		
 		JButton playButton = new JButton(b1Icon);
 
 		JButton loadButton = new JButton(b2Icon);
 
 		JButton exitButton = new JButton(b3Icon);
 
+		
 		b1Panel.add(playButton);
 		b2Panel.add(loadButton);
 		b3Panel.add(exitButton);
@@ -112,9 +121,7 @@ public class Launcher extends Window {
 
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.setVisible(true);
-				game.running = true;
-				dispose();
+				startGame(game);
 			}
 		});
 		loadButton.addActionListener(new ActionListener() {
@@ -124,9 +131,24 @@ public class Launcher extends Window {
 		});
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("-> Game closed");
+				System.out.println();
 				dispose();
 				System.exit(0);
 			}
 		});
+	}
+	
+	public void startGame(Game game) {		
+		chooseLK.setVisible(true);
+		chooseLK.init();
+		
+		System.out.println("-> Launcher closed");
+		System.out.println();
+		
+		System.out.println("-> LK window opened");
+		System.out.println();
+		
+		dispose();
 	}
 }

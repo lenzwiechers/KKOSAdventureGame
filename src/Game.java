@@ -1,11 +1,14 @@
 import java.awt.*;
 import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.JPanel;
 
 public class Game extends Window {
 
 	private static final long serialVersionUID = 6680112103815633456L;
+
+	public boolean pause;
 
 	private final static boolean debug = true;
 
@@ -46,11 +49,9 @@ public class Game extends Window {
 
 	static ObjectHandler handler = new ObjectHandler(panel);
 
-	private Player player;
+	public Player player;
 
 	Launcher launcher;
-
-	PauseWindow pauseMenu = new PauseWindow();
 
 	// Delta time: siehe https://en.wikipedia.org/wiki/Delta_timing
 	private long dt;
@@ -67,8 +68,8 @@ public class Game extends Window {
 
 	boolean running = false;
 
-	String LK;
-
+	
+	PauseWindow pauseMenu;
 	static Camera cam;
 
 	public Game() {
@@ -76,10 +77,14 @@ public class Game extends Window {
 		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel);
 
 		// panel.setBackground(Color.GRAY);
+		
+		pauseMenu = new PauseWindow(this);
+		
+		this.add(pauseMenu);
 
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
 
-		player = new Player(handler, this, panel, LK);
+		player = new Player(handler, this, panel);
 		player.setPos('x', (500) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
 
@@ -103,8 +108,8 @@ public class Game extends Window {
 		try {
 			launcher = new Launcher(this);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			running = true;
+			this.setVisible(true);
 		}
 
 		run();
@@ -115,7 +120,24 @@ public class Game extends Window {
 			delay(10);
 		}
 		lastT = System.nanoTime(); // delta time
+		System.out.println("-> Game started");
+		System.out.println();
 		while (running) {
+			if (pause) {
+				System.out.println("-> Game paused");
+				System.out.println();
+				pauseMenu.setVisible(true);
+				while (pause) {
+					delay(10);
+				}
+				lastT = System.nanoTime(); // delta time
+				
+				pauseMenu.setVisible(false);
+				
+				System.out.println("-> Game resumed");
+				System.out.println();
+			}
+
 			timer = System.currentTimeMillis();
 
 			dt = System.nanoTime() - lastT; // delta time

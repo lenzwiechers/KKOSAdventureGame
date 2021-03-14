@@ -57,9 +57,8 @@ public class Window extends JFrame {
 		this.setUndecorated(true);
 
 		this.setResizable(false);
-
-		if (title != "Pause menu")
-			this.setVisible(true);
+		
+		this.setVisible(true);
 	}
 
 	public int getSize(char coordinate) {
