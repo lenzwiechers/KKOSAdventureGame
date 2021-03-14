@@ -21,22 +21,21 @@ public class Enemy extends GameObject {
 	private boolean right = true;
 	private boolean left;
 
-	public Enemy(String picName, ObjectHandler handler) {
+	public Enemy(String picName, int posX, int posY, ObjectHandler handler) {
 
 		super(picName, handler);
 
 		this.velX = 0.00000025f;
 		this.velY = 0.00000025f;
 
-		this.posX = 350;
-		this.posY = 300;
+		this.posX = posX;
+		this.posY = posY;
 		this.width = 100;
 		this.height = 100;
 
-		this.velX = 0.0000001f;
-
-		if (picName == "gollum") {
+		if (picName == "gollumneutral") {
 			this.velX = 0.0000004f;
+			this.width = this.height = 35;
 		} else if (picName == "chonker") {
 			this.velX = 0.0000001f;
 		} else if (picName == "direktorin") {
@@ -47,30 +46,13 @@ public class Enemy extends GameObject {
 		for (int i = 0; i < l.length; i++) {
 			l[i] = new Line2D.Float();
 		}
-
-	}
-
-	public Enemy(int posX, int posY, ObjectHandler handler) {
-		super("item_t", handler);
-
-		this.velX = 0.00000025f;
-		this.velY = 0.00000025f;
-
-		this.posX = posX;
-		this.posY = posY;
-		this.width = 99;
-		this.height = 99;
-
-		/*
-		 * if (picName == "gollum") { this.velX = 0.0000004f; } else if (picName ==
-		 * "chonker") { this.velX = 0.0000001f; }
-		 */
-
+		
 		for (int i = 0; i < l.length; i++) {
 			l[i] = new Line2D.Float();
 		}
 
 		line = new Line2D.Float();
+
 	}
 
 	public void tick(long dt) {
@@ -191,6 +173,10 @@ public class Enemy extends GameObject {
 			}
 		}
 		return false;
+	}
+	
+	public void attack() {
+		
 	}
 
 }
