@@ -12,6 +12,7 @@ public abstract class GameObject extends Picture {
 	protected float velY;
 	
 	private boolean collide;
+	protected boolean sCollide;
 	private boolean onWall;
 	private boolean belowWall;
 	
@@ -86,6 +87,22 @@ public abstract class GameObject extends Picture {
 		}
 
 		return collide;
+	}
+	
+	public boolean shotCollision() {
+		sCollide = false;
+
+		for (int i = 0; i < handler.shot.size(); i++) {
+			if (this.getBounds().intersects(handler.shot.get(i).getBounds()) && !(this instanceof Shot)) {
+				
+				handler.removeObject(handler.shot.get(i));
+				sCollide = true;
+				
+				return sCollide;
+			}
+		}
+
+		return sCollide;
 	}
 	
 	public boolean onWall() {

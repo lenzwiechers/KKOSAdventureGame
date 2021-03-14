@@ -15,6 +15,8 @@ public class ObjectHandler {
 	LinkedList<Door> tueren = new LinkedList<Door>();
 
 	LinkedList<Player> player = new LinkedList<Player>();
+	
+	LinkedList<Shot> shot = new LinkedList<Shot>();
 
 	private int screenWidth, screenHeight;
 	private GameObject obj;
@@ -78,6 +80,8 @@ public class ObjectHandler {
 			tueren.add((Door) obj);
 		} else if (obj instanceof Player) {
 			player.add((Player) obj);
+		} else if(obj instanceof Shot) {
+			shot.add((Shot) obj);
 		}
 	}
 

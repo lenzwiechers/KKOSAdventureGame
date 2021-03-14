@@ -6,7 +6,7 @@ public class Shot extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public float shotSpeed = 0.0000003f;
+	public float shotSpeed = 0.0000006f;
 	
 	public boolean inAir = false;
 	public int airTime = 0;
@@ -92,7 +92,7 @@ public class Shot extends GameObject {
 		System.out.println(acv.y);
 		this.name = "shot";
 
-		//addGravity();
+		
 		
 		posX += velX * dt * shotSpeed;
 		posY += velY * dt * shotSpeed;
@@ -108,6 +108,8 @@ public class Shot extends GameObject {
 		if (onWall()) {
 			handler.removeObject(this);
 		}
+		
+		//addGravity();
 		/*if (posX < -50) {
 			posX = 1299;
 		}*/

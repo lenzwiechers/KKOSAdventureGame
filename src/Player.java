@@ -9,22 +9,20 @@ import java.awt.Point;
 
 import javax.swing.JPanel;
 
-
 public class Player extends GameObject implements KeyListener, MouseListener {
 
 	private static final long serialVersionUID = 2917881703989759480L;
 
-	
 	Point a;
 	private float mx;
 	private float my;
-	
+
 	private boolean right = false;
 	private boolean left = false;
-	//private boolean up = false;
-	//private boolean down = false;
+	// private boolean up = false;
+	// private boolean down = false;
 	private boolean lookright = true;
-	//private int walkcounter = 0;
+	// private int walkcounter = 0;
 
 	private boolean jump = false;
 
@@ -129,25 +127,23 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	public void keyTyped(KeyEvent e) {
 
 	}
-	
+
 	public void mouseClicked(MouseEvent m) {
-		
-		
+
 	}
-	
+
 	public void mousePressed(MouseEvent m) {
-		if(gun){
-			System.out.println("pew pew");
-			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));
-		}
-		//System.out.println(m.getX()+this.getPos('x'));
-		//System.out.println(m.getY()+this.getPos('y'));
+		// if(gun){
+		System.out.println("pew pew");
+		handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));
 	}
-	
+	// System.out.println(m.getX()+this.getPos('x'));
+	// System.out.println(m.getY()+this.getPos('y'));
+	// }
+
 	public void mouseReleased(MouseEvent m) {
-		
+
 	}
-	
 
 	public Door atDoor() {
 		Door door = null;
@@ -183,7 +179,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		}
 
 		if (right && !left) {
-			if (this.name == "player_inverted" || this.name == "jumping"|| this.name == "jumpinginverted") {
+			if (this.name == "player_inverted" || this.name == "jumping" || this.name == "jumpinginverted") {
 				this.changeName("player");
 				lookright = true;
 			}
@@ -193,7 +189,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 		}
 		if (left && !right) {
-			if (this.name == "player" || this.name == "jumping"|| this.name == "jumpinginverted") {
+			if (this.name == "player" || this.name == "jumping" || this.name == "jumpinginverted") {
 				this.changeName("player_inverted");
 				lookright = false;
 			}
@@ -205,33 +201,35 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		if (jump && onWall()) {
 			velY = -0.0000009f;
-			
-			}
-	
+
+		}
+
 		if (!onWall() && lookright) {
 			if (this.name == "player" || this.name == "player_inverted" || this.name == "jumpinginverted") {
-			this.changeName("jumping");
+				this.changeName("jumping");
 			}
 		}
-		
+
 		if (!onWall() && !lookright) {
-			if (this.name == "player" || this.name == "player_inverted" || this.name == "jumping") { //somehow this shit broken
+			if (this.name == "player" || this.name == "player_inverted" || this.name == "jumping") { // somehow this
+																										// shit broken
 				this.changeName("jumpinginverted");
 			}
 		}
-		
+
 		if (onWall() && lookright) {
 			if (this.name == "jumping" || this.name == "player_inverted" || this.name == "jumpinginverted") {
-			this.changeName("player");
+				this.changeName("player");
 			}
 		}
-		
+
 		if (onWall() && !lookright) {
-			if (this.name == "player" || this.name == "jumpinginverted" || this.name == "jumping") { //somehow this shit broken
+			if (this.name == "player" || this.name == "jumpinginverted" || this.name == "jumping") { // somehow this
+																										// shit broken
 				this.changeName("player_inverted");
 			}
 		}
-		
+
 		addGravity();
 		posY += velY * dt;
 		inWall = false;
@@ -251,8 +249,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 				}
 			}
 		}
-		
-		
+
 		if (inWall) {
 			velY = 0;
 		}
@@ -260,21 +257,16 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		if (onWall()) {
 			velY = 0;
 		}
-		System.out.println(name) ;
+		//System.out.println(name);
 	}
-
-	
-
-	
 
 	public void mouseEntered(MouseEvent m) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void mouseExited(MouseEvent m) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
-
