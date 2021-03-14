@@ -15,8 +15,12 @@ public class ObjectHandler {
 	LinkedList<Door> tueren = new LinkedList<Door>();
 
 	LinkedList<Player> player = new LinkedList<Player>();
-	
+
 	LinkedList<Shot> shot = new LinkedList<Shot>();
+
+	LinkedList<Slash> slashes = new LinkedList<Slash>();
+
+	LinkedList<Item> items = new LinkedList<Item>();
 
 	private int screenWidth, screenHeight;
 	private GameObject obj;
@@ -49,6 +53,8 @@ public class ObjectHandler {
 				obj.tick(dt);
 			} else if (obj instanceof Shot) {
 				obj.tick(dt);
+			} else if (obj instanceof Slash) {
+				obj.tick(dt);
 			} else if (obj instanceof Enemy) {
 				if (player.get(0).getPos('x') + player.get(0).getSize('x') - (1.5 * screenWidth) <= obj.getPos('x')
 						&& player.get(0).getPos('x') + player.get(0).getSize('x') + (1.5 * screenWidth) >= obj
@@ -80,8 +86,12 @@ public class ObjectHandler {
 			tueren.add((Door) obj);
 		} else if (obj instanceof Player) {
 			player.add((Player) obj);
-		} else if(obj instanceof Shot) {
+		} else if (obj instanceof Shot) {
 			shot.add((Shot) obj);
+		} else if (obj instanceof Item) {
+			items.add((Item) obj);
+		} else if(obj instanceof Slash) {
+			slashes.add((Slash) obj);
 		}
 	}
 

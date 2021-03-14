@@ -2,7 +2,7 @@ import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
-public class Gun extends GameObject{
+public class Gun extends GameObject {
 
 	private static final long serialVersionUID = 2917881703989759480L;
 
@@ -18,9 +18,8 @@ public class Gun extends GameObject{
 	private boolean belowWall;
 
 	boolean picked = false;
-	
-	
-	public Gun (int posX, int posY, ObjectHandler newHandler) {
+
+	public Gun(int posX, int posY, ObjectHandler newHandler) {
 
 		super("gun", newHandler);
 
@@ -34,29 +33,29 @@ public class Gun extends GameObject{
 
 		this.handler = newHandler;
 	}
-	
-	public Gun (ObjectHandler newHandler) {
 
-		super("gun", newHandler);
+	public Gun(ObjectHandler newHandler, int which) {
+			super("gun", newHandler);
 
-		this.velX = 0.00000024f;
-		this.velY = 0.00000025f;
+			this.velX = 0.00000024f;
+			this.velY = 0.00000025f;
 
-		this.width = 30;
-		this.height = 30;
-		this.posX = 500;
-		this.posY = 100;
+			this.width = 30;
+			this.height = 30;
+			this.posX = 500;
+			this.posY = 100;
 
-		this.handler = newHandler;
+			this.handler = newHandler;
+		
 	}
 
 	public void collision(Player player) {
-		if(getBounds().intersects(player.getBounds())) {
+		if (getBounds().intersects(player.getBounds())) {
 			picked = true;
 			player.gun = true;
 		}
 	}
-	
+
 	public void addGravity() {
 
 		if (velY < 0.0000020f) {
@@ -66,22 +65,23 @@ public class Gun extends GameObject{
 
 	public void tick(long dt) {
 
-		this.name = "gun";
-
+		if (which == 1) {
+			this.name = "gun";
+		}
 		addGravity();
 
 		collision(handler.player.get(0));
-		if(picked) {
+		if (picked) {
 			handler.removeObject(this);
 		}
-		
+
 		posY += velY * dt;
 		boolean inWall = false;
 		if (wallCollision()) {
 			inWall = true;
 		}
 		while (wallCollision()) {
-			posY --;
+			posY--;
 
 		}
 

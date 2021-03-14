@@ -16,7 +16,7 @@ public class Enemy extends GameObject {
 
 	Line2D line;
 
-	int hp = 5;
+	int hp = 100;
 
 	private boolean right = true;
 	private boolean left;
@@ -73,13 +73,13 @@ public class Enemy extends GameObject {
 	public void tick(long dt) {
 
 		sCollide = false;
-		if (shotCollision()) {
-			hp--;
-		}
-
+		slCollide = false;
+		
+		
 		if (hp < 0) {
 			handler.removeObject(this);
 		}
+		
 
 		l[0].setLine(posX + (width / 2), posY,
 				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
@@ -165,6 +165,14 @@ public class Enemy extends GameObject {
 		}
 
 		addGravity();
+		
+		if (shotCollision()) {
+			hp--;
+		}
+		
+		if(slashCollision()) {
+			hp-=10;
+		}
 		
 		System.out.println(hp);
 	}
