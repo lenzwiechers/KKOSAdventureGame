@@ -9,7 +9,7 @@ public class Game extends Window {
 
 	private final static boolean debug = true;
 
-	private static JPanel panel = new JPanel() {
+	static JPanel panel = new JPanel() {
 
 		private static final long serialVersionUID = -5196824841345897510L;
 
@@ -48,6 +48,8 @@ public class Game extends Window {
 
 	private Player player;
 	
+	
+	
 	Launcher launcher;
 	
 	PauseWindow pauseMenu = new PauseWindow();
@@ -78,7 +80,7 @@ public class Game extends Window {
 		// panel.setBackground(Color.GRAY);
 
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
-
+		
 		player = new Player(handler, this, panel, LK);
 		player.setPos('x', (500) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
@@ -86,7 +88,7 @@ public class Game extends Window {
 		player.setPos('x', (screenWidth / 2) - (player.getSize('x') / 2));
 
 		cam = new Camera(handler, player, screenWidth, screenHeight);
-
+		
 		this.addKeyListener(player);
 		this.addMouseListener(player);
 
@@ -99,6 +101,8 @@ public class Game extends Window {
 		player.render();
 
 		generateMap.generate(handler);
+		
+		
 		
 		try {
 			launcher = new Launcher(this);
@@ -123,7 +127,7 @@ public class Game extends Window {
 			
 			dt = System.nanoTime() - lastT; // delta time
 			lastT = System.nanoTime(); // delta timne
-
+			
 			handler.tick(dt);
 
 			cam.tick();

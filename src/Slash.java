@@ -3,7 +3,7 @@ public class Slash extends GameObject {
 
 	private static final long serialVersionUID = 1L;
 
-	public float slashSpeed = 0.00000005f;
+	public float slashSpeed = 0.00000100f;
 
 	public boolean inAir = false;
 	public int airTime = 0;
@@ -24,7 +24,9 @@ public class Slash extends GameObject {
 	private boolean onWall;
 	private boolean belowWall;
 
-	public Slash(int sx, int sy, ObjectHandler newHandler, Vector2 tar, int tim) {
+	private int dir;
+
+	public Slash(int sx, int sy, ObjectHandler newHandler, int dir, int tim) {
 
 		super("slash", newHandler);
 
@@ -33,10 +35,11 @@ public class Slash extends GameObject {
 		this.posX = sx;
 		this.posY = sy;
 
-		// this.timer = tim;
+		this.timer = tim;
+		this.dir = dir;
 
-		// this.hom = new Vector2((float)(posX-Game.cam.xPos),
-		// (float)(posY-Game.cam.yPos));
+		// this.hom = new Vector2((float) (posX - Game.cam.xPos), (float) (posY -
+		// Game.cam.yPos));
 
 		// this.tar = tar;
 
@@ -45,9 +48,16 @@ public class Slash extends GameObject {
 		// tar.norm();
 
 		// acv.norm();
-
-		this.velX = 0;
-		this.velY = 0;
+		if (dir == 0) {
+			this.velX = -1;
+			this.velY = 0;
+		} else if(dir == 1) {
+			this.velX = 1;
+			this.velY = 0;
+		} else if(dir == 2) {
+			this.velX = 0;
+			this.velY = -1;
+		}
 
 		this.handler = newHandler;
 	}
@@ -87,23 +97,16 @@ public class Slash extends GameObject {
 
 		timer--;
 
-		if (handler.player.get(0).getJump()) {
-			System.out.println("j");
-			velX = 0.0f;
-			velY = -1.0f;
-		}
-		if (handler.player.get(0).getLeft()) {
-			System.out.println("l");
-			velX = -1.0f;
-			velY = 0.0f;
-			width *= -1;
-		}
-		if (handler.player.get(0).getRight() && !handler.player.get(0).getLeft()) {
-			System.out.println("r");
-			velX = 1.0f;
-			velY = 0.0f;
-			posX += 50;
-		}
+		/*
+		 * if (handler.player.get(0).getJump()) { System.out.println("j"); velX = 0.0f;
+		 * velY = -1.0f; } if (handler.player.get(0).getLeft()) {
+		 * System.out.println("l"); velX = -1.0f; velY = 0.0f; width *= -1; } if
+		 * (handler.player.get(0).getRight() && !handler.player.get(0).getLeft()) {
+		 * System.out.println("r"); velX = 1.0f; velY = 0.0f; posX += 50; }
+		 */
+		//System.out.println(velX);
+		//System.out.println(velY);
+
 		posX += velX * dt * slashSpeed;
 		posY += velY * dt * slashSpeed;
 		boolean inWall = false;

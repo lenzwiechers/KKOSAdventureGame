@@ -3,10 +3,12 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 
 public abstract class generateMap {
+	
 	static LinkedList<Wand> waende = new LinkedList<Wand>();
 	static LinkedList<Door> tueren = new LinkedList<Door>();
 	static LinkedList<GameObject> items = new LinkedList<GameObject>();
 	static LinkedList<Enemy> enemies = new LinkedList<Enemy>();
+	
 
 	public static void generate(ObjectHandler handler) {
 		generateStartRoom(handler);
@@ -27,6 +29,7 @@ public abstract class generateMap {
 
 	public static void generateStartRoom(ObjectHandler handler) {
 		//Startraum Generierung
+		
 		waende.add(new Wand(0, -200, 100, 900, handler));
 		waende.add(new Wand(0, 700, 1000, 100, handler));
 		waende.add(new Wand(1200, 700, 1000, 100, handler));
