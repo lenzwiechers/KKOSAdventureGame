@@ -78,7 +78,7 @@ public abstract class GameObject extends Picture {
 	}
 
 	public boolean collision(GameObject obj) {
-		if (this.getBounds().intersects(obj.getBounds())) {
+		if (getBounds().intersects(obj.getBounds())) {
 			return true;
 		}
 		return false;
@@ -96,7 +96,17 @@ public abstract class GameObject extends Picture {
 	public boolean hardEnemyCollision() { // wenn ein Gegner gerade im attack modus ist
 
 		for (int i = 0; i < handler.enemies.size(); i++) {
-			if(collision(handler.enemies.get(i)) && handler.enemies.get(i).attacking) {
+			if (collision(handler.enemies.get(i)) && handler.enemies.get(i).attacking) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean waveCollision() {
+		for (int i = 0; i < handler.waves.size(); i++) {
+			if (collision(handler.waves.get(i))) {
+				handler.removeObject(handler.waves.get(i));
 				return true;
 			}
 		}

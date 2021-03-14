@@ -180,17 +180,16 @@ public class Enemy extends GameObject {
 			if (type == 0) {
 				if (attackFrameCounter == 0) {
 					changeName("gollumwindup");
-				} else if (attackFrameCounter == 5) {
+				} else if (attackFrameCounter == 30) {
 					attackFrameCounter = 0;
 					attacking = false;
 					if (posX < handler.player.get(0).posX) {
 						handler.addObject(new GollumWave(handler, posX + width, posY, true));
-						changeName("gollumneutral");
-						System.out.println("yes");
+						
 					} else {
 						handler.addObject(new GollumWave(handler, posX, posY, false));
-						System.out.println("no");
 					}
+					changeName("gollumneutral");
 				}
 			}
 			attackFrameCounter++;

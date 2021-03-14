@@ -22,6 +22,8 @@ public class ObjectHandler {
 
 	LinkedList<Item> items = new LinkedList<Item>();
 	
+	LinkedList<GollumWave> waves = new LinkedList<GollumWave>();
+	
 	private int screenWidth, screenHeight;
 	private GameObject obj;
 	private Enemy enemy;
@@ -84,6 +86,8 @@ public class ObjectHandler {
 			items.add((Item) obj);
 		} else if (obj instanceof Slash) {
 			slashes.add((Slash) obj);
+		} else if ((obj) instanceof GollumWave) {
+			waves.add((GollumWave) obj);
 		}
 	}
 

@@ -34,6 +34,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	public boolean[] hp = new boolean[3];
 
 	private long enemyContactCounter;
+	private long waveContactCounter;
 
 	ObjectHandler handler;
 	JPanel panel;
@@ -342,14 +343,21 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		}
 
 		if (System.currentTimeMillis() - enemyContactCounter > 1000) {
-			
+
 			if (hardEnemyCollision()) {
 				HUD.HEALTH -= 2;
 				enemyContactCounter = System.currentTimeMillis();
-				
-			} else if(enemyCollision()) {
-				HUD.HEALTH --;
+
+			} else if (enemyCollision()) {
+				HUD.HEALTH--;
 				enemyContactCounter = System.currentTimeMillis();
+			}
+		}
+
+		if (System.currentTimeMillis() - waveContactCounter > 1000) {
+			if (waveCollision()) {
+				HUD.HEALTH -= 2;
+				waveContactCounter = System.currentTimeMillis();
 			}
 		}
 
