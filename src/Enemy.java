@@ -174,7 +174,7 @@ public class Enemy extends GameObject {
 
 			}
 		}
-	/*	if (typ == 0) {
+	if (type == 0) {
 			if (lookright) {
 				if (walkcounter >= 0 && walkcounter < walkspeed) {
 					if (this.name != "gollumwalking1") {
@@ -208,7 +208,7 @@ public class Enemy extends GameObject {
 					walkcounter = 0;
 				}
 			}
-		} else if (typ == 1) {
+		} else if (type == 1) {
 			if (lookright) {
 				if (walkcounter >= 0 && walkcounter < walkspeed) {
 					if (this.name != "chonkerwalking1") {
@@ -242,7 +242,7 @@ public class Enemy extends GameObject {
 					walkcounter = 0;
 				}
 			}
-		}*/
+		}
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {
