@@ -1,6 +1,4 @@
-import java.awt.Rectangle;
 
-import javax.swing.JPanel;
 
 public class Item extends GameObject {
 

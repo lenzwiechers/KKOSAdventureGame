@@ -74,11 +74,11 @@ public class Slash extends GameObject {
 		this.handler = newHandler;
 	}
 
-	public void collision(GameObject obj) {
-		if (getBounds().intersects(obj.getBounds())) {
-			handler.removeObject(this);
-		}
-	}
+//	public void collision(GameObject obj) {
+//		if (getBounds().intersects(obj.getBounds())) {
+//			handler.removeObject(this);
+//		}
+//	}
 
 	public void addGravity() {
 

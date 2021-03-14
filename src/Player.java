@@ -28,13 +28,14 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	private int equipped = -1;
 	private int dashlength = 10;
 	private int dashcounter = dashlength;
-	private float dashspeed = 0.00000200f;
+	private float dashspeed = 0.000002f;
 	private int dashcooldown = 180;
 	private int cooldowncounter = dashcooldown;
 
 	public boolean[] hp = new boolean[3];
 
 	private long enemyContactCounter;
+	private long waveContactCounter;
 
 	ObjectHandler handler;
 	JPanel panel;
@@ -346,12 +347,22 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		}
 
-		for (int i = 0; i < handler.enemies.size(); i++) {
-			if (this.getBounds().intersects(handler.enemies.get(i).getBounds())) {
-				if (System.currentTimeMillis() - enemyContactCounter > 1000) {
-					HUD.HEALTH -= 20;
-					enemyContactCounter = System.currentTimeMillis();
-				}
+		if (System.currentTimeMillis() - enemyContactCounter > 1000) {
+
+			if (hardEnemyCollision()) {
+				HUD.HEALTH -= 2;
+				enemyContactCounter = System.currentTimeMillis();
+
+			} else if (enemyCollision()) {
+				HUD.HEALTH--;
+				enemyContactCounter = System.currentTimeMillis();
+			}
+		}
+
+		if (System.currentTimeMillis() - waveContactCounter > 1000) {
+			if (waveCollision()) {
+				HUD.HEALTH -= 2;
+				waveContactCounter = System.currentTimeMillis();
 			}
 		}
 
