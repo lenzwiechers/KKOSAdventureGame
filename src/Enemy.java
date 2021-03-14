@@ -23,7 +23,6 @@ public class Enemy extends GameObject {
 	private boolean lookright = true;
 	private int walkcounter = 0;
 	private int walkspeed = 5;
-	private int typ = 0;
 
 	public boolean attacking;
 
@@ -48,16 +47,20 @@ public class Enemy extends GameObject {
 
 		this.velX = 0.0000001f;
 
-		if (picName == "gollum") {
-			this.velX = 0.0000004f;
-			typ = 0;
+		if (picName == "gollumneutral") {
+			this.velX = 0.0000002f;
+			type = 0;
+			this.width = 35;
+			this.height = 35;
 		} else if (picName == "chonker") {
 			this.velX = 0.0000001f;
-			typ = 1;
+			type = 1;
 		} else if (picName == "direktorin") {
 			this.velX = 0.0000002f;
 			this.velY = 0.0f;
-			typ = 3;
+			type = 2;
+		} else {
+			type = 3;
 		}
 
 		for (int i = 0; i < l.length; i++) {
