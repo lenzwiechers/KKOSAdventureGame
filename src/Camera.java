@@ -14,11 +14,11 @@ public class Camera {
 
 	public Camera(ObjectHandler handler, Player player, int frameXSize, int frameYSize) {
 
-		this.handler = handler;
-		this.player = player;
+		Camera.handler = handler;
+		Camera.player = player;
 
-		this.frameXSize = frameXSize;
-		this.frameYSize = frameYSize;
+		Camera.frameXSize = frameXSize;
+		Camera.frameYSize = frameYSize;
 
 	}
 
@@ -44,18 +44,18 @@ public class Camera {
 						object.getSize('y'));
 			}
 		}
-		handler.player.get(0).setBounds(frameXSize/2 - player.getSize('x')/2, 
-				frameYSize/2 - player.getSize('y')/2, 
-				player.getSize('x'), player.getSize('y'));
+		handler.player.get(0).setBounds(frameXSize / 2 - player.getSize('x') / 2,
+				frameYSize / 2 - player.getSize('y') / 2, player.getSize('x'), player.getSize('y'));
 	}
-	
+
 	public static void renderAll() {
 		xPos = player.getPos('x') - (frameXSize / 2) + (player.getSize('x') / 2);
 		yPos = player.getPos('y') - (frameYSize / 2) + (player.getSize('y') / 2);
-		for(int i = 0; i < handler.objects.size(); i++) {
+		for (int i = 0; i < handler.objects.size(); i++) {
 			object = handler.objects.get(i);
-			if(!(object instanceof Player)) {
-				object.setBounds(object.getPos('x') - xPos, object.getPos('y') - yPos, object.getSize('x'), object.getSize('y'));
+			if (!(object instanceof Player)) {
+				object.setBounds(object.getPos('x') - xPos, object.getPos('y') - yPos, object.getSize('x'),
+						object.getSize('y'));
 			}
 		}
 	}

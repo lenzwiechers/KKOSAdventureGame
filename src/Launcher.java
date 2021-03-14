@@ -52,12 +52,10 @@ public class Launcher extends Window {
 		label.setBounds(0, 0, 1024, 768);
 		this.add(label);
 
-		
-			
-		URL url1 = new URL("https://i0.wp.com/trippy.me/wp-content/uploads/psychedelic-gradient.gif?resize=540%2C540"); 
-		URL url2 = new URL("https://cdn130.picsart.com/316707967251201.gif");	
+		URL url1 = new URL("https://i0.wp.com/trippy.me/wp-content/uploads/psychedelic-gradient.gif?resize=540%2C540");
+		URL url2 = new URL("https://cdn130.picsart.com/316707967251201.gif");
 		URL url3 = new URL("https://i.pinimg.com/originals/53/e9/21/53e921ba67680b1f145c778b7eab5131.gif");
-		
+
 		try {
 
 			b1Image = ImageIO.read(new File("assets/playButton.png"));
@@ -79,7 +77,7 @@ public class Launcher extends Window {
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(null, "Please check your file paths", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 		Icon labelIcon = new ImageIcon(url3);
 		Icon b1Icon = new ImageIcon(b1Image);
 		Icon b2Icon = new ImageIcon(b2Image);

@@ -106,7 +106,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		
+
 		// System.out.println(e.getKeyCode());
 
 		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) { // d/right arrow

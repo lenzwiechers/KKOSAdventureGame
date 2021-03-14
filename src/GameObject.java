@@ -10,19 +10,19 @@ public abstract class GameObject extends Picture {
 	protected int height;
 	protected float velX; // velocity
 	protected float velY;
-	
+
 	private boolean collide;
 	protected boolean sCollide;
 	protected boolean slCollide;
 	private boolean onWall;
 	private boolean belowWall;
-	
+
 	ObjectHandler handler;
 
 	public GameObject(String picName, ObjectHandler handler) {
 
 		super(picName);
-		
+
 		this.handler = handler;
 
 	}
@@ -76,7 +76,7 @@ public abstract class GameObject extends Picture {
 	public void tick(long dt) {
 
 	}
-	
+
 	public boolean wallCollision() {
 		collide = false;
 
@@ -89,39 +89,39 @@ public abstract class GameObject extends Picture {
 
 		return collide;
 	}
-	
+
 	public boolean shotCollision() {
 		sCollide = false;
 
 		for (int i = 0; i < handler.shot.size(); i++) {
 			if (this.getBounds().intersects(handler.shot.get(i).getBounds()) && !(this instanceof Shot)) {
-				
+
 				handler.removeObject(handler.shot.get(i));
 				sCollide = true;
-				
+
 				return sCollide;
 			}
 		}
 
 		return sCollide;
 	}
-	
+
 	public boolean slashCollision() {
 		slCollide = false;
 
 		for (int i = 0; i < handler.slashes.size(); i++) {
 			if (this.getBounds().intersects(handler.slashes.get(i).getBounds()) && !(this instanceof Slash)) {
-				
+
 				handler.removeObject(handler.slashes.get(i));
 				slCollide = true;
-				
+
 				return slCollide;
 			}
 		}
 
 		return slCollide;
 	}
-	
+
 	public boolean onWall() {
 		onWall = false;
 
@@ -149,7 +149,7 @@ public abstract class GameObject extends Picture {
 
 		return belowWall;
 	}
-	
+
 	public void addGravity() {
 
 		if (velY < 0.0000020f && !(this instanceof Wand)) {

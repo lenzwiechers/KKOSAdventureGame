@@ -23,13 +23,11 @@ public class Inventory extends Window {
 
 	public Inventory(Window window) {
 		super("Inventory", 0, 0, 500, 500, panel);
-		
-		/*for (int i = 0; i < 5; i ++) {
-			for (int e = 0; e < 5; e ++) {
-				items[i][e] = new Item(new ObjectHandler());
-				items[i][e].setVisible(true);
-			}
-		}*/
+
+		/*
+		 * for (int i = 0; i < 5; i ++) { for (int e = 0; e < 5; e ++) { items[i][e] =
+		 * new Item(new ObjectHandler()); items[i][e].setVisible(true); } }
+		 */
 
 		this.setVisible(false);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -37,7 +35,7 @@ public class Inventory extends Window {
 		this.window = window;
 
 		background = new Picture("inv_background");
-		
+
 		panel.setLayout(null);
 
 		panel.add(background);

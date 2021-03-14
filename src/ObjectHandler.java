@@ -88,7 +88,7 @@ public class ObjectHandler {
 			shot.add((Shot) obj);
 		} else if (obj instanceof Item) {
 			items.add((Item) obj);
-		} else if(obj instanceof Slash) {
+		} else if (obj instanceof Slash) {
 			slashes.add((Slash) obj);
 		}
 	}

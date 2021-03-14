@@ -39,7 +39,7 @@ public class Enemy extends GameObject {
 			this.velX = 0.0000004f;
 		} else if (picName == "chonker") {
 			this.velX = 0.0000001f;
-		} else if(picName == "direktorin") {
+		} else if (picName == "direktorin") {
 			this.velX = 0.0000002f;
 			this.velY = 0.0f;
 		}
@@ -77,12 +77,10 @@ public class Enemy extends GameObject {
 
 		sCollide = false;
 		slCollide = false;
-		
-		
+
 		if (hp < 0) {
 			handler.removeObject(this);
 		}
-		
 
 		l[0].setLine(posX + (width / 2), posY,
 				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
@@ -168,13 +166,13 @@ public class Enemy extends GameObject {
 		}
 
 		addGravity();
-		
+
 		if (shotCollision()) {
 			hp--;
 		}
-		
-		if(slashCollision()) {
-			hp-=10;
+
+		if (slashCollision()) {
+			hp -= 10;
 		}
 	}
 

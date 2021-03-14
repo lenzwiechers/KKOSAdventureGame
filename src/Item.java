@@ -88,12 +88,10 @@ public class Item extends GameObject {
 	}
 
 	public void tick(long dt) {
-		
-		
-		if(which == 0) {
+
+		if (which == 0) {
 			this.changeName("potion");
-		}
-		else if (which == 1) {
+		} else if (which == 1) {
 			this.changeName("gun");
 		}
 

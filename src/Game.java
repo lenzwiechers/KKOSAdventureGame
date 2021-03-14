@@ -47,11 +47,9 @@ public class Game extends Window {
 	static ObjectHandler handler = new ObjectHandler(panel);
 
 	private Player player;
-	
-	
-	
+
 	Launcher launcher;
-	
+
 	PauseWindow pauseMenu = new PauseWindow();
 
 	// Delta time: siehe https://en.wikipedia.org/wiki/Delta_timing
@@ -66,9 +64,9 @@ public class Game extends Window {
 	long frameTime = 1000 / targetFPS;
 
 	long timer;
-	
+
 	boolean running = false;
-	
+
 	String LK;
 
 	static Camera cam;
@@ -80,7 +78,7 @@ public class Game extends Window {
 		// panel.setBackground(Color.GRAY);
 
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
-		
+
 		player = new Player(handler, this, panel, LK);
 		player.setPos('x', (500) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
@@ -88,7 +86,7 @@ public class Game extends Window {
 		player.setPos('x', (screenWidth / 2) - (player.getSize('x') / 2));
 
 		cam = new Camera(handler, player, screenWidth, screenHeight);
-		
+
 		this.addKeyListener(player);
 		this.addMouseListener(player);
 
@@ -101,17 +99,13 @@ public class Game extends Window {
 		player.render();
 
 		generateMap.generate(handler);
-		
-		
-		
+
 		try {
 			launcher = new Launcher(this);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		
 
 		run();
 	}
@@ -124,10 +118,9 @@ public class Game extends Window {
 		while (running) {
 			timer = System.currentTimeMillis();
 
-			
 			dt = System.nanoTime() - lastT; // delta time
 			lastT = System.nanoTime(); // delta timne
-			
+
 			handler.tick(dt);
 
 			cam.tick();

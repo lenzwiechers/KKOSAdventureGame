@@ -51,10 +51,10 @@ public class Slash extends GameObject {
 		if (dir == 0) {
 			this.velX = -1;
 			this.velY = 0;
-		} else if(dir == 1) {
+		} else if (dir == 1) {
 			this.velX = 1;
 			this.velY = 0;
-		} else if(dir == 2) {
+		} else if (dir == 2) {
 			this.velX = 0;
 			this.velY = -1;
 		}
@@ -104,8 +104,8 @@ public class Slash extends GameObject {
 		 * (handler.player.get(0).getRight() && !handler.player.get(0).getLeft()) {
 		 * System.out.println("r"); velX = 1.0f; velY = 0.0f; posX += 50; }
 		 */
-		//System.out.println(velX);
-		//System.out.println(velY);
+		// System.out.println(velX);
+		// System.out.println(velY);
 
 		posX += velX * dt * slashSpeed;
 		posY += velY * dt * slashSpeed;

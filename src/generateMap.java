@@ -1,14 +1,11 @@
 import java.util.LinkedList;
 
-import javax.swing.JPanel;
-
 public abstract class generateMap {
-	
+
 	static LinkedList<Wand> waende = new LinkedList<Wand>();
 	static LinkedList<Door> tueren = new LinkedList<Door>();
 	static LinkedList<GameObject> items = new LinkedList<GameObject>();
 	static LinkedList<Enemy> enemies = new LinkedList<Enemy>();
-	
 
 	public static void generate(ObjectHandler handler) {
 		generateStartRoom(handler);
@@ -28,8 +25,8 @@ public abstract class generateMap {
 	}
 
 	public static void generateStartRoom(ObjectHandler handler) {
-		//Startraum Generierung
-		
+		// Startraum Generierung
+
 		waende.add(new Wand(0, -200, 100, 900, handler));
 		waende.add(new Wand(0, 700, 1000, 100, handler));
 		waende.add(new Wand(1200, 700, 1000, 100, handler));
@@ -42,7 +39,7 @@ public abstract class generateMap {
 		waende.add(new Wand(1100, 300, 100, 100, handler));
 		waende.add(new Wand(1700, 400, 200, 100, handler));
 		waende.add(new Wand(1400, 200, 100, 100, handler));
-		
+
 		enemies.add(new Enemy(350, 600, handler));
 		enemies.add(new Enemy(1000, 0, handler));
 		enemies.add(new Enemy(1500, 0, handler));
@@ -58,29 +55,16 @@ public abstract class generateMap {
 		door1.connectExit(door2);
 
 		Door door3 = new Door(500, 500, 100, 100, handler);
-		
+
 		tueren.add(door3);
-		
-		//Ebene 1 Generierung
-		
-		
-		
-		//Ebene 2 Generierung
-		
-		
-		
-		//Ebene 3 Generierung
-		
-		
-		
-		//Ebene 4 Generierung
-		
-		
-		
-		
-		
-		
-		
-		
+
+		// Ebene 1 Generierung
+
+		// Ebene 2 Generierung
+
+		// Ebene 3 Generierung
+
+		// Ebene 4 Generierung
+
 	}
 }
