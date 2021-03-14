@@ -37,6 +37,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	private float dashspeed = 0.00000200f;
 	private int dashcooldown = 180;
 	private int cooldowncounter = dashcooldown;
+	
+	public boolean[] hp = new boolean[3];
 
 	private boolean inAir = false;
 	private int airTime = 0;
@@ -78,6 +80,18 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		this.LK = LK;
 	}
 
+	public boolean getLeft() {
+		return this.left;
+	}
+	
+	public boolean getRight() {
+		return this.right;
+	}
+	
+	public boolean getJump() {
+		return this.jump;
+	}
+	
 	public void keyPressed(KeyEvent e) {
 
 		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) { // d/right arrow
@@ -90,6 +104,13 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			this.velX = 0.0000004f;
 		} else if (e.getKeyCode() == 69) { // e
 			inventory.showInv();
+		} else if(e.getKeyCode() == 82 && item[0]) { // r
+			for(int i=4; i>-1; i--) {
+				if(!hp[i]) {
+					hp[i] = true;
+					break;
+				}
+			}
 		} else if (e.getKeyCode() == 81) { // q
 			if (dashcounter == dashlength && cooldowncounter == dashcooldown) {
 				dashcounter = 0;
@@ -140,7 +161,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));
 		}
 		if(item[2]) {
-			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY()), 10));
+			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY()), 20));
 		}
 		// System.out.println(m.getX()+this.getPos('x'));
 		// System.out.println(m.getY()+this.getPos('y'));
@@ -172,7 +193,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void tick(long dt) {
-		System.out.println(walkcounter);
+		
+		//System.out.println(walkcounter);
 		if (dashcounter < dashlength) {
 			this.velX = dashspeed;
 			dashcounter++;

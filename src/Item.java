@@ -25,7 +25,17 @@ public class Item extends GameObject {
 
 		super("item_t", newHandler);
 		this.which = which;
-		if (which == 1) {
+		if (which == 0) {
+			this.velX = 0.00000024f;
+			this.velY = 0.00000025f;
+
+			this.width = 10;
+			this.height = 10;
+			this.posX = posX;
+			this.posY = posY;
+
+			this.handler = newHandler;
+		} else if (which == 1) {
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
@@ -35,7 +45,7 @@ public class Item extends GameObject {
 			this.posY = posY;
 
 			this.handler = newHandler;
-		} else if(which == 2) {
+		} else if (which == 2) {
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
@@ -43,7 +53,7 @@ public class Item extends GameObject {
 			this.height = 45;
 			this.posX = posX;
 			this.posY = posY;
-			
+
 			this.handler = newHandler;
 		}
 	}
@@ -78,12 +88,16 @@ public class Item extends GameObject {
 	}
 
 	public void tick(long dt) {
-
-		if (which == 1) {
+		
+		
+		if(which == 0) {
+			this.changeName("potion");
+		}
+		else if (which == 1) {
 			this.changeName("gun");
 		}
-		
-		if (which == 2) {
+
+		else if (which == 2) {
 			this.changeName("sword");
 		}
 

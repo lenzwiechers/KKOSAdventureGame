@@ -39,6 +39,9 @@ public class Enemy extends GameObject {
 			this.velX = 0.0000004f;
 		} else if (picName == "chonker") {
 			this.velX = 0.0000001f;
+		} else if(picName == "direktorin") {
+			this.velX = 0.0000002f;
+			this.velY = 0.0f;
 		}
 
 		for (int i = 0; i < l.length; i++) {
