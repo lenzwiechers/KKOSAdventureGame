@@ -20,6 +20,10 @@ public class Enemy extends GameObject {
 
 	private boolean right = true;
 	private boolean left;
+	private boolean lookright = true;
+	private int walkcounter = 0;
+	private int walkspeed = 5;
+	private int typ = 0;
 
 	public Enemy(String picName, ObjectHandler handler) {
 
@@ -37,11 +41,14 @@ public class Enemy extends GameObject {
 
 		if (picName == "gollum") {
 			this.velX = 0.0000004f;
+			typ = 0;
 		} else if (picName == "chonker") {
 			this.velX = 0.0000001f;
+			typ = 1;
 		} else if (picName == "direktorin") {
 			this.velX = 0.0000002f;
 			this.velY = 0.0f;
+			typ = 3;
 		}
 
 		for (int i = 0; i < l.length; i++) {
@@ -100,6 +107,9 @@ public class Enemy extends GameObject {
 				}
 				right = true;
 				left = false;
+				lookright = true;
+				walkcounter = 0;
+
 			} else if (posX > handler.player.get(0).getPos('x')) {
 				posX -= velX * dt;
 				while (wallCollision()) {
@@ -107,6 +117,9 @@ public class Enemy extends GameObject {
 				}
 				right = false;
 				left = true;
+				lookright = false;
+				walkcounter = 0;
+
 			}
 		} else if (right) {
 			line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
@@ -114,6 +127,9 @@ public class Enemy extends GameObject {
 			for (int i = 0; i < handler.waende.size(); i++) {
 				if (line.intersects(handler.waende.get(i).getBounds())) {
 					right = true;
+					lookright = true;
+					walkcounter = 0;
+
 				}
 			}
 			if (right) {
@@ -122,10 +138,16 @@ public class Enemy extends GameObject {
 					posX -= 1;
 					right = false;
 					left = true;
+					lookright = false;
+					walkcounter = 0;
+
 				}
 			} else {
 				right = false;
 				left = true;
+				lookright = false;
+				walkcounter = 0;
+
 			}
 
 		} else if (left) {
@@ -134,6 +156,9 @@ public class Enemy extends GameObject {
 			for (int i = 0; i < handler.waende.size(); i++) {
 				if (line.intersects(handler.waende.get(i).getBounds())) {
 					left = true;
+					lookright = false;
+					walkcounter = 0;
+
 				}
 			}
 			if (left) {
@@ -142,13 +167,87 @@ public class Enemy extends GameObject {
 					posX += 1;
 					right = true;
 					left = false;
+					lookright = true;
+					walkcounter = 0;
+
 				}
 			} else {
 				left = false;
 				right = true;
+				lookright = true;
+				walkcounter = 0;
+
 			}
 		}
+	/*	if (typ == 0) {
+			if (lookright) {
+				if (walkcounter >= 0 && walkcounter < walkspeed) {
+					if (this.name != "gollumwalking1") {
+						this.changeName("gollumwalking1");
 
+					}
+					walkcounter++;
+				} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
+					if (this.name != "gollumwalking2") {
+						this.changeName("gollumwalking2");
+					}
+					walkcounter++;
+				}
+				if (walkcounter == 2 * walkspeed) {
+					walkcounter = 0;
+				}
+			} else if (!lookright) {
+				if (walkcounter >= 0 && walkcounter < walkspeed) {
+					if (this.name != "igollumwalking1") {
+						this.changeName("igollumwalking1");
+
+					}
+					walkcounter++;
+				} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
+					if (this.name != "igollumwalking2") {
+						this.changeName("igollumwalking2");
+					}
+					walkcounter++;
+				}
+				if (walkcounter == 2 * walkspeed) {
+					walkcounter = 0;
+				}
+			}
+		} else if (typ == 1) {
+			if (lookright) {
+				if (walkcounter >= 0 && walkcounter < walkspeed) {
+					if (this.name != "chonkerwalking1") {
+						this.changeName("chonkerwalking1");
+
+					}
+					walkcounter++;
+				} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
+					if (this.name != "chonkerwalking2") {
+						this.changeName("chonkerwalking2");
+					}
+					walkcounter++;
+				}
+				if (walkcounter == 2 * walkspeed) {
+					walkcounter = 0;
+				}
+			} else if (!lookright) {
+				if (walkcounter >= 0 && walkcounter < walkspeed) {
+					if (this.name != "ichonkerwalking1") {
+						this.changeName("ichonkerwalking1");
+
+					}
+					walkcounter++;
+				} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
+					if (this.name != "ichonkerwalking2") {
+						this.changeName("ichonkerwalking2");
+					}
+					walkcounter++;
+				}
+				if (walkcounter == 2 * walkspeed) {
+					walkcounter = 0;
+				}
+			}
+		}*/
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {
