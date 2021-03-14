@@ -49,8 +49,6 @@ public class ObjectHandler {
 				obj.tick(dt);
 			} else if (obj instanceof Item) {
 				obj.tick(dt);
-			} else if (obj instanceof Gun) {
-				obj.tick(dt);
 			} else if (obj instanceof Shot) {
 				obj.tick(dt);
 			} else if (obj instanceof Slash) {

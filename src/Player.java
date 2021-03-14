@@ -58,11 +58,16 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	String LK;
 
+	private boolean sprinting;
+
+	private float sprintSpeed = 0.0000004f;
+	private float walkSpeed = 0.00000025f;
+
 	public Player(ObjectHandler newHandler, Window window, JPanel newPanel, String LK) {
 
 		super("player", newHandler);
 
-		this.velX = 0.00000024f;
+		this.velX = walkSpeed;
 		this.velY = 0.00000025f;
 
 		this.width = 50;
@@ -101,7 +106,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		} else if (e.getKeyCode() == 32) { // Space bar
 			jump = true;
 		} else if (e.getKeyCode() == 17) { // Ctrl
-			this.velX = 0.0000004f;
+			this.velX = sprintSpeed;
+			sprinting = true;
 		} else if (e.getKeyCode() == 69) { // e
 			inventory.showInv();
 		} else if(e.getKeyCode() == 82 && item[0]) { // r
@@ -137,7 +143,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		} else if (e.getKeyCode() == 32) {
 			jump = false;
 		} else if (e.getKeyCode() == 17) {
-			this.velX = 0.00000024f;
+			this.velX = walkSpeed;
+			this.sprinting = false;
 		} else if (e.getKeyCode() == 27) { // ESC
 			if (pause) {
 				pauseRelease = true;
@@ -163,8 +170,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		if(item[2]) {
 			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY()), 20));
 		}
-		// System.out.println(m.getX()+this.getPos('x'));
-		// System.out.println(m.getY()+this.getPos('y'));
 	}
 
 	public void mouseReleased(MouseEvent m) {
@@ -199,7 +204,11 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			this.velX = dashspeed;
 			dashcounter++;
 			if (dashcounter == dashlength) {
-				this.velX = 0.00000024f;
+				if (sprinting) {
+					this.velX = sprintSpeed;
+				} else {
+					this.velX = walkSpeed;
+				}
 			}
 		}
 		if (cooldowncounter < dashcooldown) {
@@ -217,7 +226,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 				if (this.name != "walking2") {
 					this.changeName("walking2");
 
-					System.out.println(name);
+					// System.out.println(name);
 				}
 				walkcounter++;
 			} else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
@@ -248,7 +257,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 				if (this.name != "iwalking2") {
 					this.changeName("iwalking2");
 
-					System.out.println(name);
+					// System.out.println(name);
 				}
 				walkcounter++;
 			} else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
@@ -271,7 +280,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		if (jump && onWall()) {
 			velY = -0.0000009f;
-
 		}
 
 		if (!onWall() && lookright) {

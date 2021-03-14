@@ -176,8 +176,6 @@ public class Enemy extends GameObject {
 		if(slashCollision()) {
 			hp-=10;
 		}
-		
-		System.out.println(hp);
 	}
 
 	public boolean checkContact() {
