@@ -34,9 +34,9 @@ public class Player extends GameObject implements KeyListener {
 
 	Inventory inventory;
 
-	String LK;
+	String LK1, LK2;
 
-	public Player(ObjectHandler newHandler, Game game, JPanel newPanel, String LK) {
+	public Player(ObjectHandler newHandler, Game game, JPanel newPanel, String LK1, String LK2) {
 
 		super("player", newHandler);
 
@@ -55,7 +55,37 @@ public class Player extends GameObject implements KeyListener {
 
 		inventory = new Inventory(game);
 
-		this.LK = LK;
+		this.LK1 = LK1;
+		
+		this.LK2 = LK2;
+	}
+	
+	public Player(ObjectHandler newHandler, Game game, JPanel newPanel) {
+
+		super("player", newHandler);
+
+		this.velX = 0.00000024f;
+		this.velY = 0.00000025f;
+
+		this.width = 50;
+		this.height = 80;
+		this.posX = 170;
+		this.posY = 100;
+
+		handler = newHandler;
+		panel = newPanel;
+
+		this.game = game;
+
+		inventory = new Inventory(game);
+	}
+	
+	public void setLK1(String LK) {
+		LK1 = LK;
+	}
+	
+	public void setLK2(String LK) {
+		LK2 = LK;
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -78,7 +108,11 @@ public class Player extends GameObject implements KeyListener {
 		} else if (e.getKeyCode() == 70) { // f
 			enterDoor(atDoor());
 		} else if (e.getKeyCode() == 27) { // ESC
-			game.pause = true;
+			if (!game.pause) {
+				game.pause = true;
+			} else {
+				game.pause = false;
+			}
 		}
 	}
 
@@ -95,7 +129,6 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public void keyTyped(KeyEvent e) {
-
 	}
 
 	public Door atDoor() {

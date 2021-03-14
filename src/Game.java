@@ -49,7 +49,7 @@ public class Game extends Window {
 
 	static ObjectHandler handler = new ObjectHandler(panel);
 
-	private Player player;
+	public Player player;
 
 	Launcher launcher;
 
@@ -68,8 +68,6 @@ public class Game extends Window {
 
 	boolean running = false;
 
-	String LK;
-
 	Camera cam;
 	
 	PauseWindow pauseMenu;
@@ -81,10 +79,12 @@ public class Game extends Window {
 		// panel.setBackground(Color.GRAY);
 		
 		pauseMenu = new PauseWindow(this);
+		
+		this.add(pauseMenu);
 
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
 
-		player = new Player(handler, this, panel, LK);
+		player = new Player(handler, this, panel);
 		player.setPos('x', (500) - (player.getSize('x') / 2));
 		player.setPos('y', (screenHeight / 2) - (player.getSize('y') / 2));
 
@@ -96,8 +96,6 @@ public class Game extends Window {
 		cam = new Camera(handler, player, screenWidth, screenHeight);
 
 		this.addKeyListener(player);
-
-		pauseMenu.addKeyListener(pauseMenu);
 
 		panel.add(player);
 
@@ -124,13 +122,22 @@ public class Game extends Window {
 			delay(10);
 		}
 		lastT = System.nanoTime(); // delta time
+		System.out.println("-> Game started");
+		System.out.println();
 		while (running) {
 			if (pause) {
+				System.out.println("-> Game paused");
+				System.out.println();
 				pauseMenu.setVisible(true);
 				while (pause) {
 					delay(10);
 				}
 				lastT = System.nanoTime(); // delta time
+				
+				pauseMenu.setVisible(false);
+				
+				System.out.println("-> Game resumed");
+				System.out.println();
 			}
 
 			timer = System.currentTimeMillis();
