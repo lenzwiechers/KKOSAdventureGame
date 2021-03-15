@@ -17,7 +17,7 @@ public class Item extends GameObject {
 	private boolean onWall;
 	private boolean belowWall;
 
-	boolean[] picked = new boolean[4];
+	boolean picked;
 
 	public Item(int posX, int posY, ObjectHandler newHandler, int which) {
 		
@@ -26,6 +26,7 @@ public class Item extends GameObject {
 		this.which = which;
 				
 		if (which == 0) {
+			this.changeName("potion");
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
@@ -36,6 +37,7 @@ public class Item extends GameObject {
 
 			this.changeName("potion");
 		} else if (which == 1) {
+			this.changeName("gun");
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
@@ -46,6 +48,7 @@ public class Item extends GameObject {
 
 			this.changeName("gun");
 		} else if (which == 2) {
+			this.changeName("sword");
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
@@ -76,9 +79,10 @@ public class Item extends GameObject {
 
 	public void collision(Player player) {
 		if (getBounds().intersects(player.getBounds())) {
-			picked[which] = true;
+			picked = true;
 			player.item[which] = true;
 			player.inventory.addItem(this);
+			handler.removeObject(this);
 		}
 	}
 
@@ -95,9 +99,6 @@ public class Item extends GameObject {
 		addGravity();
 
 		collision(handler.player.get(0));
-		if (picked[which]) {
-			handler.removeObject(this);
-		}
 
 		posY += velY * dt;
 		boolean inWall = false;

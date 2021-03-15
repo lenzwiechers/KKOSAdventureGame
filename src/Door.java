@@ -37,11 +37,6 @@ public class Door extends GameObject {
 
 		this.exitX = exit.tpPosX;
 		this.exitY = exit.tpPosY;
-
-		exit.exitDoor = this;
-
-		exit.exitX = this.tpPosX;
-		exit.exitY = this.tpPosY;
 	}
 
 	public void setExit(Door exit) {

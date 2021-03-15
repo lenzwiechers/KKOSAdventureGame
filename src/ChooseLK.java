@@ -98,17 +98,17 @@ public class ChooseLK extends Window {
 				if (!((String) LK1.getItemAt(LK1.getSelectedIndex()) == (String) LK2.getItemAt(LK2.getSelectedIndex()))) {
 					game.player.setLK1((String) LK1.getItemAt(LK1.getSelectedIndex()));
 					game.player.setLK2((String) LK2.getItemAt(LK2.getSelectedIndex()));
-
-					game.setVisible(true);
-					game.running = true;
-
-					System.out.println("-> LK window closed");
-					System.out.println();
-					
-					dispose();
 				} else {
-					JOptionPane.showMessageDialog(null, "LK1 should not be LK2", "Choose again", JOptionPane.ERROR_MESSAGE);
+					game.player.setLK1((String) LK1.getItemAt(LK1.getSelectedIndex()));
+					game.player.setLK2("No LK");
 				}
+				game.setVisible(true);
+				game.running = true;
+
+				System.out.println("-> LK window closed");
+				System.out.println();
+				
+				dispose();
 			}
 		});
 	}
