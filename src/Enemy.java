@@ -306,9 +306,9 @@ public class Enemy extends GameObject {
 						changeName("igollumattack");
 					}
 					if (posX < handler.player.get(0).posX) {
-						handler.addObject(new GollumWave(handler, posX + width, posY, true));
+						handler.addObject(new GollumWave(handler, posX + width, posY, true, new Vector2(handler.player.get(0).getPos('x')-25, handler.player.get(0).getPos('y')+40), this));
 					} else {
-						handler.addObject(new GollumWave(handler, posX, posY, false));
+						handler.addObject(new GollumWave(handler, posX, posY, false, new Vector2(handler.player.get(0).getPos('x')-25, handler.player.get(0).getPos('y')+40), this));
 					}
 				} else if (attackFrameCounter == 60) {
 					attackFrameCounter = 0;
