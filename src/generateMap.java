@@ -57,14 +57,11 @@ public abstract class generateMap {
 		Door door3 = new Door(500, 500, 100, 100, handler);
 
 		tueren.add(door3);
-
+	}
+	
+	public static void generateFloor1(ObjectHandler handler) {
 		// Ebene 1 Generierung
-
-		// Ebene 2 Generierung
-
-		// Ebene 3 Generierung
-
-		// Ebene 4 Generierung
-
+		
+		
 	}
 }
