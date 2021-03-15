@@ -107,8 +107,8 @@ public class Slash extends GameObject {
 		// System.out.println(velX);
 		// System.out.println(velY);
 
-		posX += velX * dt * slashSpeed;
-		posY += velY * dt * slashSpeed;
+		posX += velX * dt * slashSpeed ;
+		posY += velY * dt * slashSpeed ;
 		boolean inWall = false;
 		if (wallCollision()) {
 			inWall = true;
