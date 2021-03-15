@@ -57,20 +57,73 @@ public abstract class generateMap {
 		waende.add(new Wand(6000, -1000, 1000, 1000, handler));
 		
 		waende.add(new Wand(500, 0, 50, 1000, handler));
-		waende.add(new Wand(400, 200, 100, 20, handler));
-		waende.add(new Wand(400, 600, 100, 20, handler));
-		waende.add(new Wand(0, 400, 100, 20, handler));
-		waende.add(new Wand(0, 800, 100, 20, handler));
-		waende.add(new Wand(0, 0, 100, 20, handler));
+		waende.add(new Wand(300, 200, 200, 20, handler));
+		waende.add(new Wand(300, 600, 200, 20, handler));
+		waende.add(new Wand(0, 400, 200, 20, handler));
+		waende.add(new Wand(0, 800, 200, 20, handler));
+		waende.add(new Wand(0, 0, 200, 20, handler));
 		
 		waende.add(new Wand(550, 0, 700, 1000, handler));
 		
 		waende.add(new Wand(750, -150, 30, 150, handler));
 		
+		enemies.add(new Enemy("gollumneutral", 800, -100, handler));
+		
+		waende.add(new Wand(1450, 500, 500, 20, handler));
+		waende.add(new Wand(1250, 700, 100, 200, handler));
+		waende.add(new Wand(1250, 900, 300, 100, handler));
+		
+		enemies.add(new Enemy("gollumneutral", 1900, 840, handler));
+		enemies.add(new Enemy("chonker", 2150, 800, handler));
+		
+		waende.add(new Wand(2150, 600, 100, 20, handler));
+		waende.add(new Wand(2350, 500, 300, 20, handler));
+		
+		waende.add(new Wand(2800, 300, 1000, 700, handler));
+		waende.add(new Wand(3300, -1000, 20, 1000, handler));
+		waende.add(new Wand(3300, 0, 20, 300, handler));
+		
+		Door door1 = new Door(3150, 200, 100, 100, handler);
+		Door door2 = new Door(3370, 200, 100, 100, handler);
+		door1.connectExit(door2);
+		door2.connectExit(door1);
+		tueren.add(door2);
+		tueren.add(door1);
+		
+		waende.add(new Wand(4150, 300, 200, 20, handler));
+		
+		Door door3 = new Door(3850, 900, 100, 100, handler);
+		tueren.add(door3);
+		
+		door3.connectExit(door2);
+		
+		waende.add(new Wand(4700, 200, 600, 20, handler));
+		
+		enemies.add(new Enemy("chonker", 4800, 100, handler));
+		enemies.add(new Enemy("chonker", 5100, 50, handler));
+		enemies.add(new Enemy("gollumneutral", 4800, 900, handler));
+		enemies.add(new Enemy("gollumneutral", 5200, 900, handler));
+		
+		waende.add(new Wand(5500, -500, 200, 1000, handler));
+		waende.add(new Wand(5500, 500, 200, 310, handler));
+		
+		//secret
+		waende.add(new Wand(5700, 800, 40, 10, handler));
+		waende.add(new Wand(5960, 600, 40, 10, handler));
+		waende.add(new Wand(5700, 400, 40, 10, handler));
+		waende.add(new Wand(5960, 200, 40, 10, handler));
+		waende.add(new Wand(5700, 0, 40, 10, handler));
+		waende.add(new Wand(5960, -200, 40, 10, handler));
+		waende.add(new Wand(5700, -400, 40, 10, handler));
+		
+		waende.add(new Wand(4800, -600, 500, 20, handler));
+		waende.add(new Wand(4100, -700, 500, 20, handler));
+		waende.add(new Wand(3300, 0, 500, 50, handler));
 		
 		
-		
-		
+		items.add(new Item(3385, -30, handler, 0));
+		items.add(new Item(3485, -30, handler, 0));
+		items.add(new Item(3585, -30, handler, 0));
 		
 		
 		
@@ -109,15 +162,6 @@ public abstract class generateMap {
 	
 	public static void generateRoom1(ObjectHandler handler) {
 		// Ebene 1 Generierung
-		
-		waende.add(new Wand(0, 3000, 100, 1000, handler));
-		waende.add(new Wand(0, 4000, 1000, 100, handler));
-		
-		Door door4 = new Door(200, 3900, 100, 100, handler);
-		Door door3 = new Door(1800, 300, 100, 100, handler);
-		tueren.add(door3);
-		tueren.add(door4);
-		door3.connectExit(door4);
 		
 		
 	}
