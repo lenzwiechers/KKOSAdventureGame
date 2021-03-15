@@ -107,13 +107,16 @@ public class Slash extends GameObject {
 		// System.out.println(velX);
 		// System.out.println(velY);
 
-		if (handler.player.get(0).velX != 0.0f) {
-			posX += velX * dt * slashSpeed * Math.abs(handler.player.get(0).velX) * dt;
-		} else {
+		if (handler.player.get(0).getRight()) {
+			posX += velX * dt * slashSpeed + (handler.player.get(0).velX*dt);
+		} else if(handler.player.get(0).getLeft()) {
+			posX += velX * dt * slashSpeed - (handler.player.get(0).velX*dt);
+		}
+		else {
 			posX += velX * dt * slashSpeed;
 		}
-		if (handler.player.get(0).velY != 0.0f) {
-			posY += velY * dt * slashSpeed * Math.abs(handler.player.get(0).velY) * dt;
+		if (!handler.player.get(0).onWall()) {
+			posY += velY * dt * slashSpeed + (handler.player.get(0).velY*dt);
 		} else {
 			posY += velY * dt * slashSpeed;
 		}

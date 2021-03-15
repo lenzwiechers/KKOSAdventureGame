@@ -75,8 +75,20 @@ public class Shot extends GameObject {
 
 		this.name = "shot";
 
-		posX += velX * dt * shotSpeed;
-		posY += velY * dt * shotSpeed;
+		if (handler.player.get(0).getRight()) {
+			posX += velX * dt * shotSpeed + (handler.player.get(0).velX*dt);
+		} else if(handler.player.get(0).getLeft()) {
+			posX += velX * dt * shotSpeed - (handler.player.get(0).velX*dt);
+		}
+		else {
+			posX += velX * dt * shotSpeed;
+		}
+		if (!handler.player.get(0).onWall()) {
+			posY += velY * dt * shotSpeed + (handler.player.get(0).velY*dt);
+		} else {
+			posY += velY * dt * shotSpeed;
+		}
+		
 		boolean inWall = false;
 		if (wallCollision()) {
 			inWall = true;
