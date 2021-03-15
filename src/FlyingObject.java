@@ -3,8 +3,6 @@ public class FlyingObject extends GameObject {
 
 	private static final long serialVersionUID = -3240563349601296826L;
 
-	private boolean right = true;
-
 	public float waveSpeed = 0.0000008f;
 
 	private ObjectHandler handler;
@@ -15,7 +13,7 @@ public class FlyingObject extends GameObject {
 	Vector2 tar;
 	Vector2 acv;
 
-	public FlyingObject(ObjectHandler handler, int wx, int wy, boolean right, Vector2 newTar, Enemy newEnemy) {
+	public FlyingObject(ObjectHandler handler, int wx, int wy, Vector2 newTar, Enemy newEnemy) {
 		super("gollumWave", handler);
 
 		this.posX = wx;
@@ -35,12 +33,6 @@ public class FlyingObject extends GameObject {
 		
 		this.velX = (float) acv.x;
 		this.velY = (float) acv.y;
-
-		/*
-		 * if(!right) { changeName("gollumWave"); // spaeter mal die invertete Version
-		 * hier rein !!!! lol noe fick invertiert wir machen nen ball this.right = false;
-		 * } velX = 0.0000004f;
-		 */
 	}
 
 	public void tick(long dt) {

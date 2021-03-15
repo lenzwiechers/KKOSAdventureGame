@@ -19,7 +19,7 @@ public class Enemy extends GameObject {
 	public boolean isInScreen = false;
 
 	private boolean gravity = true;
-	
+
 	Random rand = new Random();
 
 	Line2D line;
@@ -106,8 +106,8 @@ public class Enemy extends GameObject {
 
 		if (hp < 0) {
 			handler.removeObject(this);
-			handler.player.get(0).money += rand.nextInt(201)+200;
-			if(rand.nextInt(99)<15) {
+			handler.player.get(0).money += rand.nextInt(201) + 200;
+			if (rand.nextInt(99) < 15) {
 				handler.addObject(new Item(posX, posY, handler, 1));
 			}
 		}
@@ -118,7 +118,7 @@ public class Enemy extends GameObject {
 			attackFrameCounter = 0;
 		}
 
-		if(type != 2) {
+		if (type != 2) {
 			sCollide = false;
 			slCollide = false;
 
@@ -219,7 +219,7 @@ public class Enemy extends GameObject {
 				}
 			}
 		}
-		
+
 		if (!attacking) {
 			if (type == 0) {
 				if (lookright) {
@@ -311,8 +311,8 @@ public class Enemy extends GameObject {
 		}
 
 		if (shotCollision()) {
-			
-			hp-=55;
+
+			hp -= 55;
 		}
 
 		if (slashCollision()) {
@@ -334,11 +334,10 @@ public class Enemy extends GameObject {
 					} else {
 						changeName("igollumattack");
 					}
-					if (posX < handler.player.get(0).posX) {
-						handler.addObject(new FlyingObject(handler, posX + width, posY, true, new Vector2(handler.player.get(0).getPos('x')-25, handler.player.get(0).getPos('y')+40), this));
-					} else {
-						handler.addObject(new FlyingObject(handler, posX, posY, false, new Vector2(handler.player.get(0).getPos('x')-25, handler.player.get(0).getPos('y')+40), this));
-					}
+					handler.addObject(new FlyingObject(handler, posX + width, posY,
+							new Vector2(handler.player.get(0).getPos('x') - 25, handler.player.get(0).getPos('y') + 40),
+							this));
+
 				} else if (attackFrameCounter == 60) {
 					attackFrameCounter = 0;
 					velX = 0.0000002f;
@@ -393,8 +392,7 @@ public class Enemy extends GameObject {
 			}
 			if (playerContact
 					&& Math.sqrt(
-							Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000
-					&& l[j].getY2() - l[j].getY1() > l[j].getX2() - l[j].getX1()) {
+							Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000) {
 				return true;
 			}
 		}
