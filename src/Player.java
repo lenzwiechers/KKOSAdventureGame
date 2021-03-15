@@ -65,7 +65,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	String LK1, LK2;
 
-	private float walkSpeed = 0.00000025f;
+	private float walkSpeed = 0.00000125f;
 	private float sprintSpeed = 0.0000004f;
 
 	private boolean sprinting;
@@ -354,7 +354,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		}
 
 		if (jump && onWall()) {
-			velY = -0.0000009f;
+			velY = -0.0000029f;
 		}
 
 		if (!onWall() && lookright) {
