@@ -10,7 +10,7 @@ public class Game extends Window {
 
 	public boolean pause;
 
-	private final static boolean debug = true;
+	private final static boolean debug = false;
 
 	static JPanel panel = new JPanel() {
 
@@ -68,7 +68,6 @@ public class Game extends Window {
 
 	boolean running = false;
 
-	
 	PauseWindow pauseMenu;
 	static Camera cam;
 

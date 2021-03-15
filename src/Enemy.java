@@ -103,7 +103,6 @@ public class Enemy extends GameObject {
 				right = true;
 				left = false;
 				lookright = true;
-				walkcounter = 0;
 
 			} else if (posX > handler.player.get(0).getPos('x')) {
 				posX -= velX * dt;
@@ -113,7 +112,6 @@ public class Enemy extends GameObject {
 				right = false;
 				left = true;
 				lookright = false;
-				walkcounter = 0;
 
 			}
 		} else if (right) {
@@ -123,7 +121,6 @@ public class Enemy extends GameObject {
 				if (line.intersects(handler.waende.get(i).getBounds())) {
 					right = true;
 					lookright = true;
-					walkcounter = 0;
 
 				}
 			}
@@ -134,14 +131,12 @@ public class Enemy extends GameObject {
 					right = false;
 					left = true;
 					lookright = false;
-					walkcounter = 0;
 
 				}
 			} else {
 				right = false;
 				left = true;
 				lookright = false;
-				walkcounter = 0;
 
 			}
 
@@ -152,7 +147,6 @@ public class Enemy extends GameObject {
 				if (line.intersects(handler.waende.get(i).getBounds())) {
 					left = true;
 					lookright = false;
-					walkcounter = 0;
 
 				}
 			}
@@ -163,23 +157,19 @@ public class Enemy extends GameObject {
 					right = true;
 					left = false;
 					lookright = true;
-					walkcounter = 0;
-
 				}
 			} else {
 				left = false;
 				right = true;
 				lookright = true;
-				walkcounter = 0;
 
 			}
 		}
-	if (type == 0) {
+		if (type == 0) {
 			if (lookright) {
 				if (walkcounter >= 0 && walkcounter < walkspeed) {
 					if (this.name != "gollumwalking1") {
 						this.changeName("gollumwalking1");
-
 					}
 					walkcounter++;
 				} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
@@ -191,6 +181,7 @@ public class Enemy extends GameObject {
 				if (walkcounter == 2 * walkspeed) {
 					walkcounter = 0;
 				}
+
 			} else if (!lookright) {
 				if (walkcounter >= 0 && walkcounter < walkspeed) {
 					if (this.name != "igollumwalking1") {
@@ -283,12 +274,13 @@ public class Enemy extends GameObject {
 					attacking = false;
 					if (posX < handler.player.get(0).posX) {
 						handler.addObject(new GollumWave(handler, posX + width, posY, true));
-						
+
 					} else {
 						handler.addObject(new GollumWave(handler, posX, posY, false));
 					}
-					changeName("gollumneutral");
 				}
+			} else {
+				attacking = false;
 			}
 			attackFrameCounter++;
 		}
