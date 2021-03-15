@@ -203,8 +203,8 @@ public class Enemy extends GameObject {
 			} else if (type == 1) {
 				if (lookright) {
 					if (walkcounter >= 0 && walkcounter < walkspeed) {
-						if (this.name != "chonkerwalking1") {
-							this.changeName("chonkerwalking1");
+						if (this.name != "chonker") {
+							this.changeName("chonker");
 
 						}
 						walkcounter++;
@@ -219,14 +219,14 @@ public class Enemy extends GameObject {
 					}
 				} else if (!lookright) {
 					if (walkcounter >= 0 && walkcounter < walkspeed) {
-						if (this.name != "ichonkerwalking1") {
-							this.changeName("ichonkerwalking1");
+						if (this.name != "chonker") { // i
+							this.changeName("chonker"); // i
 
 						}
 						walkcounter++;
 					} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
-						if (this.name != "ichonkerwalking2") {
-							this.changeName("ichonkerwalking2");
+						if (this.name != "chonkerwalking2") { // i
+							this.changeName("chonkerwalking2"); // i
 						}
 						walkcounter++;
 					}
@@ -285,6 +285,14 @@ public class Enemy extends GameObject {
 						handler.addObject(new GollumWave(handler, posX, posY, false));
 					}
 				}
+			} else if (type == 2) {
+				if (attackFrameCounter == 0) {
+					if (right) {
+						changeName("chonkerwindup");
+					} else {
+						changeName("chonkerwindup"); // ichonkerwindup
+					}
+				} 
 			} else {
 				attacking = false;
 			}
