@@ -13,7 +13,7 @@ public class Enemy extends GameObject {
 	Line2D[] l = new Line2D[3];
 
 	public boolean isInScreen = false;
-	
+
 	private boolean gravity = true;
 
 	Line2D line;
@@ -56,8 +56,8 @@ public class Enemy extends GameObject {
 			this.height = 35;
 		} else if (picName == "chonker") {
 			this.velX = 0.0000001f;
-			this.width = 60;
-			this.height = 100;
+			this.width = 57;
+			this.height = 96;
 			type = 1;
 		} else if (picName == "direktorin") {
 			this.velX = 0.0000002f;
@@ -207,8 +207,8 @@ public class Enemy extends GameObject {
 			} else if (type == 1) {
 				if (lookright) {
 					if (walkcounter >= 0 && walkcounter < walkspeed) {
-						if (name != "chonker") {
-							changeName("chonker");
+						if (name != "chonkerwalking1") {
+							changeName("chonkerwalking1");
 						}
 						walkcounter++;
 					} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
@@ -222,14 +222,13 @@ public class Enemy extends GameObject {
 					}
 				} else if (!lookright) {
 					if (walkcounter >= 0 && walkcounter < walkspeed) {
-						if (name != "chonker") { // i
-							changeName("chonker"); // i
-
+						if (name != "ichonkerwalking1") { 
+							changeName("ichonkerwalking1"); 
 						}
 						walkcounter++;
 					} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
-						if (name != "chonkerwalking2") { // i
-							changeName("chonkerwalking2"); // i
+						if (name != "ichonkerwalking2") { 
+							changeName("ichonkerwalking2"); 
 						}
 						walkcounter++;
 					}
@@ -256,10 +255,9 @@ public class Enemy extends GameObject {
 			this.velY = 0;
 		}
 
-		if(gravity) {
+		if (gravity) {
 			addGravity();
 		}
-		
 
 		if (shotCollision()) {
 			hp--;
@@ -277,19 +275,28 @@ public class Enemy extends GameObject {
 		if (attacking) {
 			if (type == 0) {
 				if (attackFrameCounter == 0) {
+					velX = 0;
 					if (right) {
 						changeName("gollumwindup");
 					} else {
 						changeName("igollumwindup");
 					}
 				} else if (attackFrameCounter == 30) {
-					attackFrameCounter = 0;
-					attacking = false;
+					if (right) {
+						changeName("gollumattack");
+					} else {
+						changeName("igollumattack");
+					}
 					if (posX < handler.player.get(0).posX) {
 						handler.addObject(new GollumWave(handler, posX + width, posY, true));
 					} else {
 						handler.addObject(new GollumWave(handler, posX, posY, false));
 					}
+				} else if (attackFrameCounter == 60) {
+					attackFrameCounter = 0;
+					velX = 0.0000002f;
+					attacking = false;
+
 				}
 			} else if (type == 1) {
 				if (attackFrameCounter == 0) {
@@ -297,15 +304,22 @@ public class Enemy extends GameObject {
 						changeName("chonkerwindup");
 						velX = 0f;
 					} else {
-						changeName("chonkerwindup"); // ichonkerwindup
+						changeName("ichonkerwindup");
 						velX = 0f;
 					}
-				} else if(attackFrameCounter == 60) {
-					changeName("chonkerbodyslam");
-					velX = 0.0000006f;
-					velY = 0;
-					gravity = false;
-				} else if(attackFrameCounter == 100) {
+				} else if (attackFrameCounter == 60) {
+					if (right) {
+						changeName("chonkerbodyslam");
+						velX = 0.0000006f;
+						velY = 0;
+						gravity = false;
+					} else {
+						changeName("ichonkerbodyslam");
+						velX = 0.0000006f;
+						velY = 0;
+						gravity = false;
+					}
+				} else if (attackFrameCounter == 100) {
 					gravity = true;
 					attacking = false;
 					attackFrameCounter = 0;
@@ -316,6 +330,7 @@ public class Enemy extends GameObject {
 			}
 			attackFrameCounter++;
 		}
+
 	}
 
 	public boolean checkContact() {
