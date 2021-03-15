@@ -20,19 +20,21 @@ public class Item extends GameObject {
 	boolean[] picked = new boolean[4];
 
 	public Item(int posX, int posY, ObjectHandler newHandler, int which) {
+		
 
 		super("item_t", newHandler);
 		this.which = which;
+				
 		if (which == 0) {
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
-			this.width = 10;
-			this.height = 10;
+			this.width = 30;
+			this.height = 30;
 			this.posX = posX;
 			this.posY = posY;
 
-			
+			this.changeName("potion");
 		} else if (which == 1) {
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
@@ -42,7 +44,7 @@ public class Item extends GameObject {
 			this.posX = posX;
 			this.posY = posY;
 
-			
+			this.changeName("gun");
 		} else if (which == 2) {
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
@@ -52,7 +54,7 @@ public class Item extends GameObject {
 			this.posX = posX;
 			this.posY = posY;
 
-			
+			this.changeName("sword");
 		}
 		this.handler = newHandler;
 	}
@@ -89,16 +91,7 @@ public class Item extends GameObject {
 
 	public void tick(long dt) {
 
-		if (which == 0) {
-			this.changeName("potion");
-		} else if (which == 1) {
-			this.changeName("gun");
-		}
-
-		else if (which == 2) {
-			this.changeName("sword");
-		}
-
+		
 		addGravity();
 
 		collision(handler.player.get(0));
@@ -123,10 +116,5 @@ public class Item extends GameObject {
 		if (onWall()) {
 			velY = 0;
 		}
-		if (posX < -50) {
-			posX = 1299;
-		}
-		posY = posY % 700;
-		posX = posX % 1300;
 	}
 }

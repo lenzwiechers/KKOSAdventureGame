@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.geom.Line2D;
+import java.util.Random;
 
 import javax.swing.JLabel;
 
@@ -18,6 +19,8 @@ public class Enemy extends GameObject {
 	public boolean isInScreen = false;
 
 	private boolean gravity = true;
+	
+	Random rand = new Random();
 
 	Line2D line;
 
@@ -103,6 +106,10 @@ public class Enemy extends GameObject {
 
 		if (hp < 0) {
 			handler.removeObject(this);
+			handler.player.get(0).money += rand.nextInt(201)+200;
+			if(rand.nextInt(99)<15) {
+				handler.addObject(new Item(posX, posY, handler, 1));
+			}
 		}
 
 		if (checkContact() && System.currentTimeMillis() - lastAttackCounter > attackCooldown) {
@@ -304,11 +311,12 @@ public class Enemy extends GameObject {
 		}
 
 		if (shotCollision()) {
-			hp--;
+			
+			hp-=55;
 		}
 
 		if (slashCollision()) {
-			hp -= 10;
+			hp -= 150;
 		}
 
 		if (attacking) {
