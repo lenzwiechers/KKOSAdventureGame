@@ -45,6 +45,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	public boolean dead = false;
 
 	int totalHP = 0;
+	int money = 0;
 
 	public boolean[] hp = new boolean[10];
 
@@ -395,7 +396,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 
 			if (hardEnemyCollision()) {
-				if (totalHP < 1) {
+				if (totalHP < 2) {
 					totalHP -= 2;
 					for (int i = 9; i > -1; i--) {
 						hx[i].setVisible(false);

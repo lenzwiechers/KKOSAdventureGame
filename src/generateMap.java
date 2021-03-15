@@ -71,6 +71,10 @@ public abstract class generateMap {
 		
 		
 		
+		items.add(new Item(1000, 600, handler, 1));
+		
+		
+		
 		
 		
 		
