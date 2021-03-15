@@ -3,7 +3,7 @@ public class Slash extends GameObject {
 
 	private static final long serialVersionUID = 1L;
 
-	public float slashSpeed = 0.00000100f;
+	public float slashSpeed = 0.00000025f;
 
 	public boolean inAir = false;
 	public int airTime = 0;
@@ -107,8 +107,16 @@ public class Slash extends GameObject {
 		// System.out.println(velX);
 		// System.out.println(velY);
 
-		posX += velX * dt * slashSpeed ;
-		posY += velY * dt * slashSpeed ;
+		if (handler.player.get(0).velX != 0.0f) {
+			posX += velX * dt * slashSpeed * Math.abs(handler.player.get(0).velX) * dt;
+		} else {
+			posX += velX * dt * slashSpeed;
+		}
+		if (handler.player.get(0).velY != 0.0f) {
+			posY += velY * dt * slashSpeed * Math.abs(handler.player.get(0).velY) * dt;
+		} else {
+			posY += velY * dt * slashSpeed;
+		}
 		boolean inWall = false;
 		if (wallCollision()) {
 			inWall = true;
