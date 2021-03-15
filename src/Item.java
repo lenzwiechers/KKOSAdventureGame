@@ -76,7 +76,7 @@ public class Item extends GameObject {
 		if (getBounds().intersects(player.getBounds())) {
 			picked[which] = true;
 			player.item[which] = true;
-			player.inventory.add(this);
+			player.inventory.addItem(this);
 		}
 	}
 
