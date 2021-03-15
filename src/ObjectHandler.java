@@ -94,5 +94,22 @@ public class ObjectHandler {
 	public void removeObject(GameObject obj) {
 		objects.remove(obj);
 		panel.remove(obj);
+		if (obj instanceof Wand) {
+			waende.remove(obj);
+		} else if (obj instanceof Enemy) {
+			enemies.remove(obj);
+		} else if (obj instanceof Door) {
+			tueren.remove(obj);
+		} else if (obj instanceof Player) {
+			player.remove(obj);
+		} else if (obj instanceof Shot) {
+			shot.remove(obj);
+		} else if (obj instanceof Item) {
+			items.remove(obj);
+		} else if (obj instanceof Slash) {
+			slashes.remove(obj);
+		} else if ((obj) instanceof GollumWave) {
+			waves.remove(obj);
+		}
 	}
 }
