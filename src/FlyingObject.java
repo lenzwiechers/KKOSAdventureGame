@@ -5,34 +5,61 @@ public class FlyingObject extends GameObject {
 
 	private boolean right = true;
 
+	public float waveSpeed = 0.0000008f;
+
 	private ObjectHandler handler;
 
-	public FlyingObject(String name, ObjectHandler handler, int posX, int posY, boolean right) {
-		super(name, handler);
+	Enemy enemy;
 
-		if (!right) {
-			changeName("gollumWave"); // später mal die invertete Version hier rein !!!! lol nö fick invertiert wir
-										// machen nen ball
-			this.right = false;
-		}
-		velX = 0.0000004f;
+	Vector2 hom;
+	Vector2 tar;
+	Vector2 acv;
 
-		this.posX = posX;
-		this.posY = posY;
+	public FlyingObject(ObjectHandler handler, int wx, int wy, boolean right, Vector2 newTar, Enemy newEnemy) {
+		super("gollumWave", handler);
 
+		this.posX = wx;
+		this.posY = wy;
+		
 		this.width = 35;
 		this.height = 35;
-
+		
+		this.enemy = newEnemy;
 		this.handler = handler;
+		
+		this.tar = newTar;
+		this.hom = new Vector2((float)posX, (float)posY);
+		this.acv = Vector2.subtract(tar, hom);
+		acv.norm();
+		
+		
+		this.velX = (float) acv.x;
+		this.velY = (float) acv.y;
+
+		/*
+		 * if(!right) { changeName("gollumWave"); // spaeter mal die invertete Version
+		 * hier rein !!!! lol noe fick invertiert wir machen nen ball this.right = false;
+		 * } velX = 0.0000004f;
+		 */
 	}
 
 	public void tick(long dt) {
 
-		if (right) {
-			posX += velX * dt;
-		} else {
-			posX -= velX * dt;
-		}
+		// if(right) {
+		posX += velX * dt * waveSpeed;
+		posY += velY * dt * waveSpeed;
+		// } else {
+		// posX += velX * dt * waveSpeed;
+		// posY += velY * dt * waveSpeed;
+		// }
+
+		/*
+		 * if (right) { posX += velX * dt * waveSpeed + (handler.player.get(0).velX*dt);
+		 * } else if(!handler.player.get(0).getLeft()) { posX += velX * dt * waveSpeed -
+		 * (handler.player.get(0).velX*dt); } else { posX += velX * dt * waveSpeed; } if
+		 * (!handler.player.get(0).onWall()) { posY += velY * dt * waveSpeed +
+		 * (handler.player.get(0).velY*dt); } else { posY += velY * dt * waveSpeed; }
+		 */
 
 		if (wallCollision()) {
 			handler.removeObject(this);
