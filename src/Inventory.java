@@ -49,7 +49,7 @@ public class Inventory extends Window {
 			panel.add(background);
 			background.setBounds(0, 0, 1000, 1000);
 			img = ImageIO.read(new File("assets/sword.png"));
-			for (int i = 0; i < items.length; i++) {
+			/*for (int i = 0; i < items.length; i++) {
 				for (int j = 0; j < items.length; j++) {
 					itemButtons[i][j] = new JButton(new ImageIcon(img));
 					panel.add(itemButtons[i][j]);
@@ -57,7 +57,7 @@ public class Inventory extends Window {
 					itemButtons[i][j].setVisible(true);
 				}
 			}
-
+			*/
 			button = new JButton("Go back");
 			panel.add(button);
 			button.setBounds(20, 400, 330, 20);
