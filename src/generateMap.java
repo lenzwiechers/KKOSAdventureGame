@@ -41,8 +41,8 @@ public abstract class generateMap {
 		waende.add(new Wand(1400, 200, 100, 100, handler));
 
 		enemies.add(new Enemy("gollumneutral", 350, 600, handler));
-		enemies.add(new Enemy("item_t", 1000, 0, handler));
-		enemies.add(new Enemy("item_t", 1500, 0, handler));
+		enemies.add(new Enemy("chonker", 1000, 0, handler));
+		// enemies.add(new Enemy("item_t", 1500, 0, handler));
 
 		items.add(new Item(1800, 200, handler, 0));
 		items.add(new Item(1650, 300, handler, 2));
