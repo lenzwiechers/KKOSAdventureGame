@@ -14,6 +14,8 @@ public class Enemy extends GameObject {
 
 	public boolean isInScreen = false;
 
+	private boolean gravity = true;
+
 	Line2D line;
 
 	int hp = 100;
@@ -54,6 +56,8 @@ public class Enemy extends GameObject {
 			this.height = 35;
 		} else if (picName == "chonker") {
 			this.velX = 0.0000001f;
+			this.width = 57;
+			this.height = 96;
 			type = 1;
 		} else if (picName == "direktorin") {
 			this.velX = 0.0000002f;
@@ -165,74 +169,75 @@ public class Enemy extends GameObject {
 
 			}
 		}
-		if (type == 0) {
-			if (lookright) {
-				if (walkcounter >= 0 && walkcounter < walkspeed) {
-					if (this.name != "gollumwalking1") {
-						this.changeName("gollumwalking1");
+		if (!attacking) {
+			if (type == 0) {
+				if (lookright) {
+					if (walkcounter >= 0 && walkcounter < walkspeed) {
+						if (this.name != "gollumwalking1") {
+							this.changeName("gollumwalking1");
+						}
+						walkcounter++;
+					} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
+						if (this.name != "gollumwalking2") {
+							this.changeName("gollumwalking2");
+						}
+						walkcounter++;
 					}
-					walkcounter++;
-				} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
-					if (this.name != "gollumwalking2") {
-						this.changeName("gollumwalking2");
+					if (walkcounter == 2 * walkspeed) {
+						walkcounter = 0;
 					}
-					walkcounter++;
-				}
-				if (walkcounter == 2 * walkspeed) {
-					walkcounter = 0;
-				}
 
-			} else if (!lookright) {
-				if (walkcounter >= 0 && walkcounter < walkspeed) {
-					if (this.name != "igollumwalking1") {
-						this.changeName("igollumwalking1");
+				} else if (!lookright) {
+					if (walkcounter >= 0 && walkcounter < walkspeed) {
+						if (this.name != "igollumwalking1") {
+							this.changeName("igollumwalking1");
 
+						}
+						walkcounter++;
+					} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
+						if (this.name != "igollumwalking2") {
+							this.changeName("igollumwalking2");
+						}
+						walkcounter++;
 					}
-					walkcounter++;
-				} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
-					if (this.name != "igollumwalking2") {
-						this.changeName("igollumwalking2");
+					if (walkcounter == 2 * walkspeed) {
+						walkcounter = 0;
 					}
-					walkcounter++;
 				}
-				if (walkcounter == 2 * walkspeed) {
-					walkcounter = 0;
+			} else if (type == 1) {
+				if (lookright) {
+					if (walkcounter >= 0 && walkcounter < walkspeed) {
+						if (name != "chonkerwalking1") {
+							changeName("chonkerwalking1");
+						}
+						walkcounter++;
+					} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
+						if (name != "chonkerwalking2") {
+							changeName("chonkerwalking2");
+						}
+						walkcounter++;
+					}
+					if (walkcounter == 2 * walkspeed) {
+						walkcounter = 0;
+					}
+				} else if (!lookright) {
+					if (walkcounter >= 0 && walkcounter < walkspeed) {
+						if (name != "ichonkerwalking1") { 
+							changeName("ichonkerwalking1"); 
+						}
+						walkcounter++;
+					} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
+						if (name != "ichonkerwalking2") { 
+							changeName("ichonkerwalking2"); 
+						}
+						walkcounter++;
+					}
+					if (walkcounter == 2 * walkspeed) {
+						walkcounter = 0;
+					}
 				}
 			}
-		} else if (type == 1) {
-			if (lookright) {
-				if (walkcounter >= 0 && walkcounter < walkspeed) {
-					if (this.name != "chonkerwalking1") {
-						this.changeName("chonkerwalking1");
 
-					}
-					walkcounter++;
-				} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
-					if (this.name != "chonkerwalking2") {
-						this.changeName("chonkerwalking2");
-					}
-					walkcounter++;
-				}
-				if (walkcounter == 2 * walkspeed) {
-					walkcounter = 0;
-				}
-			} else if (!lookright) {
-				if (walkcounter >= 0 && walkcounter < walkspeed) {
-					if (this.name != "ichonkerwalking1") {
-						this.changeName("ichonkerwalking1");
-
-					}
-					walkcounter++;
-				} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
-					if (this.name != "ichonkerwalking2") {
-						this.changeName("ichonkerwalking2");
-					}
-					walkcounter++;
-				}
-				if (walkcounter == 2 * walkspeed) {
-					walkcounter = 0;
-				}
-			}
 		}
 		posY += velY * dt;
 		inWall = false;
@@ -250,7 +255,9 @@ public class Enemy extends GameObject {
 			this.velY = 0;
 		}
 
-		addGravity();
+		if (gravity) {
+			addGravity();
+		}
 
 		if (shotCollision()) {
 			hp--;
@@ -268,22 +275,62 @@ public class Enemy extends GameObject {
 		if (attacking) {
 			if (type == 0) {
 				if (attackFrameCounter == 0) {
-					changeName("gollumwindup");
+					velX = 0;
+					if (right) {
+						changeName("gollumwindup");
+					} else {
+						changeName("igollumwindup");
+					}
 				} else if (attackFrameCounter == 30) {
-					attackFrameCounter = 0;
-					attacking = false;
+					if (right) {
+						changeName("gollumattack");
+					} else {
+						changeName("igollumattack");
+					}
 					if (posX < handler.player.get(0).posX) {
 						handler.addObject(new GollumWave(handler, posX + width, posY, true));
-
 					} else {
 						handler.addObject(new GollumWave(handler, posX, posY, false));
 					}
+				} else if (attackFrameCounter == 60) {
+					attackFrameCounter = 0;
+					velX = 0.0000002f;
+					attacking = false;
+
+				}
+			} else if (type == 1) {
+				if (attackFrameCounter == 0) {
+					if (right) {
+						changeName("chonkerwindup");
+						velX = 0f;
+					} else {
+						changeName("ichonkerwindup");
+						velX = 0f;
+					}
+				} else if (attackFrameCounter == 60) {
+					if (right) {
+						changeName("chonkerbodyslam");
+						velX = 0.0000006f;
+						velY = 0;
+						gravity = false;
+					} else {
+						changeName("ichonkerbodyslam");
+						velX = 0.0000006f;
+						velY = 0;
+						gravity = false;
+					}
+				} else if (attackFrameCounter == 100) {
+					gravity = true;
+					attacking = false;
+					attackFrameCounter = 0;
+					velX = 0.0000001f;
 				}
 			} else {
 				attacking = false;
 			}
 			attackFrameCounter++;
 		}
+
 	}
 
 	public boolean checkContact() {

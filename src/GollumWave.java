@@ -11,7 +11,7 @@ public class GollumWave extends GameObject {
 		super("gollumWave", handler);
 		
 		if(!right) {
-			changeName("gollumWave"); // später mal die invertete Version hier rein
+			changeName("gollumWave"); // später mal die invertete Version hier rein  !!!!  lol nö fick invertiert wir machen nen ball
 			this.right = false;
 		}
 		velX = 0.0000004f;
@@ -19,8 +19,8 @@ public class GollumWave extends GameObject {
 		this.posX = posX;
 		this.posY = posY;
 		
-		this.width = 30;
-		this.height = 30;
+		this.width = 35;
+		this.height = 35;
 		
 		this.handler = handler;
 	}
