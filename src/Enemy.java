@@ -363,7 +363,7 @@ public class Enemy extends GameObject {
 				}
 			}
 			if (playerContact && Math.sqrt(
-					Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000) {
+					Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000 && l[j].getY2() - l[j].getY1() > l[j].getX2() - l[j].getX1()) {
 				return true;
 			}
 		}
