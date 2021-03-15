@@ -104,9 +104,9 @@ public abstract class GameObject extends Picture {
 	}
 
 	public boolean waveCollision() {
-		for (int i = 0; i < handler.waves.size(); i++) {
-			if (collision(handler.waves.get(i))) {
-				handler.removeObject(handler.waves.get(i));
+		for (int i = 0; i < handler.stuff.size(); i++) {
+			if (collision(handler.stuff.get(i))) {
+				handler.removeObject(handler.stuff.get(i));
 				return true;
 			}
 		}

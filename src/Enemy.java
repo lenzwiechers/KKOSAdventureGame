@@ -1,4 +1,8 @@
+import java.awt.Color;
 import java.awt.geom.Line2D;
+import java.util.Random;
+
+import javax.swing.JLabel;
 
 public class Enemy extends GameObject {
 
@@ -15,6 +19,8 @@ public class Enemy extends GameObject {
 	public boolean isInScreen = false;
 
 	private boolean gravity = true;
+	
+	Random rand = new Random();
 
 	Line2D line;
 
@@ -29,13 +35,15 @@ public class Enemy extends GameObject {
 	public boolean attacking;
 	private boolean chonkerAttackRight; // --> true --> chonker Attack to the right rn
 	private boolean chonkerAttackLeft; // --> true --> chonker Attack to the left rn
-	
+
 	private int attackCooldown = 5000;
 	private long lastAttackCounter;
 
-	private int type;
+	int type;
 
 	private int attackFrameCounter;
+
+	JLabel bossHealthBar;
 
 	public Enemy(String picName, int posX, int posY, ObjectHandler handler) {
 
@@ -62,9 +70,15 @@ public class Enemy extends GameObject {
 			this.height = 96;
 			type = 1;
 		} else if (picName == "direktorin") {
-			this.velX = 0.0000002f;
+			this.velX = 0.0f;
 			this.velY = 0.0f;
 			type = 2;
+			this.height = 500;
+			this.width = 200;
+			bossHealthBar = new JLabel();
+			bossHealthBar.setBackground(Color.RED);
+			bossHealthBar.setOpaque(true);
+			hp = 2000;
 		} else {
 			type = 3;
 		}
@@ -83,8 +97,19 @@ public class Enemy extends GameObject {
 
 	public void tick(long dt) {
 
+		if (handler.player.get(0).posX - posX < 2000 && handler.player.get(0).posY - posY < 2000 && type == 2) {
+			bossHealthBar.setVisible(true);
+			bossHealthBar.setBounds(20, 1000, (int) (hp * 0.94), 20);
+		} else if (type == 2) {
+			bossHealthBar.setVisible(false);
+		}
+
 		if (hp < 0) {
 			handler.removeObject(this);
+			handler.player.get(0).money += rand.nextInt(201)+200;
+			if(rand.nextInt(99)<15) {
+				handler.addObject(new Item(posX, posY, handler, 1));
+			}
 		}
 
 		if (checkContact() && System.currentTimeMillis() - lastAttackCounter > attackCooldown) {
@@ -93,105 +118,108 @@ public class Enemy extends GameObject {
 			attackFrameCounter = 0;
 		}
 
-		sCollide = false;
-		slCollide = false;
+		if(type != 2) {
+			sCollide = false;
+			slCollide = false;
 
-		l[0].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + 1);
-		l[1].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
-		l[2].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
+			l[0].setLine(posX + (width / 2), posY,
+					handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+					handler.player.get(0).getPos('y') + 1);
+			l[1].setLine(posX + (width / 2), posY,
+					handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+					handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
+			l[2].setLine(posX + (width / 2), posY,
+					handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+					handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
 
-		if (checkContact() && !chonkerAttackRight && !chonkerAttackLeft) {
-			if (posX < handler.player.get(0).getPos('x')) {
-				posX += velX * dt;
-				while (wallCollision()) {
-					posX -= 1;
-				}
-				right = true;
-				left = false;
-				lookright = true;
-
-			} else if (posX > handler.player.get(0).getPos('x')) {
-				posX -= velX * dt;
-				while (wallCollision()) {
-					posX += 1;
-				}
-				right = false;
-				left = true;
-				lookright = false;
-
-			}
-		} else if (right && !chonkerAttackRight && !chonkerAttackLeft) {
-			line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
-			right = false;
-			for (int i = 0; i < handler.waende.size(); i++) {
-				if (line.intersects(handler.waende.get(i).getBounds())) {
+			if (checkContact() && !chonkerAttackRight && !chonkerAttackLeft) {
+				if (posX < handler.player.get(0).getPos('x')) {
+					posX += velX * dt;
+					while (wallCollision()) {
+						posX -= 1;
+					}
 					right = true;
+					left = false;
 					lookright = true;
 
-				}
-			}
-			if (right) {
-				posX += (velX * dt);
-				while (wallCollision()) {
-					posX -= 1;
+				} else if (posX > handler.player.get(0).getPos('x')) {
+					posX -= velX * dt;
+					while (wallCollision()) {
+						posX += 1;
+					}
 					right = false;
 					left = true;
 					lookright = false;
 
 				}
-			} else {
+			} else if (right && !chonkerAttackRight && !chonkerAttackLeft) {
+				line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
 				right = false;
-				left = true;
-				lookright = false;
+				for (int i = 0; i < handler.waende.size(); i++) {
+					if (line.intersects(handler.waende.get(i).getBounds())) {
+						right = true;
+						lookright = true;
 
-			}
+					}
+				}
+				if (right) {
+					posX += (velX * dt);
+					while (wallCollision()) {
+						posX -= 1;
+						right = false;
+						left = true;
+						lookright = false;
 
-		} else if (left && !chonkerAttackRight && !chonkerAttackLeft) {
-			line.setLine(posX - 5, posY + height + 5, posX - 20, posY + height + 5);
-			left = false;
-			for (int i = 0; i < handler.waende.size(); i++) {
-				if (line.intersects(handler.waende.get(i).getBounds())) {
+					}
+				} else {
+					right = false;
 					left = true;
 					lookright = false;
 
 				}
-			}
-			if (left) {
-				posX -= (velX * dt);
+
+			} else if (left && !chonkerAttackRight && !chonkerAttackLeft) {
+				line.setLine(posX - 5, posY + height + 5, posX - 20, posY + height + 5);
+				left = false;
+				for (int i = 0; i < handler.waende.size(); i++) {
+					if (line.intersects(handler.waende.get(i).getBounds())) {
+						left = true;
+						lookright = false;
+
+					}
+				}
+				if (left) {
+					posX -= (velX * dt);
+					while (wallCollision()) {
+						posX += 1;
+						right = true;
+						left = false;
+						lookright = true;
+					}
+				} else {
+					left = false;
+					right = true;
+					lookright = true;
+
+				}
+			} else if (chonkerAttackRight) {
+				posX += velX * dt;
+				while (wallCollision()) {
+					posX -= 1;
+					right = false;
+					left = false;
+					lookright = false;
+				}
+			} else if (chonkerAttackLeft) {
+				posX -= velX * dt;
 				while (wallCollision()) {
 					posX += 1;
-					right = true;
+					right = false;
 					left = false;
-					lookright = true;
 				}
-			} else {
-				left = false;
-				right = true;
-				lookright = true;
-
-			}
-		} else if (chonkerAttackRight) {
-			posX += velX * dt;
-			while (wallCollision()) {
-				posX -= 1;
-				right = false;
-				left = false;
-				lookright = false;
-			}
-		} else if (chonkerAttackLeft) {
-			posX -= velX * dt;
-			while (wallCollision()) {
-				posX += 1;
-				right = false;
-				left = false;
 			}
 		}
+		
 		if (!attacking) {
 			if (type == 0) {
 				if (lookright) {
@@ -283,11 +311,12 @@ public class Enemy extends GameObject {
 		}
 
 		if (shotCollision()) {
-			hp--;
+			
+			hp-=55;
 		}
 
 		if (slashCollision()) {
-			hp -= 10;
+			hp -= 150;
 		}
 
 		if (attacking) {
@@ -306,9 +335,9 @@ public class Enemy extends GameObject {
 						changeName("igollumattack");
 					}
 					if (posX < handler.player.get(0).posX) {
-						handler.addObject(new GollumWave(handler, posX + width, posY, true));
+						handler.addObject(new FlyingObject("gollumwave", handler, posX + width, posY, true));
 					} else {
-						handler.addObject(new GollumWave(handler, posX, posY, false));
+						handler.addObject(new FlyingObject("gollumwave", handler, posX, posY, false));
 					}
 				} else if (attackFrameCounter == 60) {
 					attackFrameCounter = 0;
@@ -362,8 +391,10 @@ public class Enemy extends GameObject {
 					playerContact = false;
 				}
 			}
-			if (playerContact && Math.sqrt(
-					Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000 && l[j].getY2() - l[j].getY1() > l[j].getX2() - l[j].getX1()) {
+			if (playerContact
+					&& Math.sqrt(
+							Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000
+					&& l[j].getY2() - l[j].getY1() > l[j].getX2() - l[j].getX1()) {
 				return true;
 			}
 		}

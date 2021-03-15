@@ -53,6 +53,8 @@ public abstract class generateMap {
 			waende.add(new Wand(2000 + 1000*i, -2000, 1000, 1000, handler));
 		}
 		
+		
+		
 		waende.add(new Wand(6000, 0, 1000, 1000, handler));
 		waende.add(new Wand(6000, -1000, 1000, 1000, handler));
 		
@@ -147,7 +149,7 @@ public abstract class generateMap {
 		enemies.add(new Enemy("chonker", 1000, 0, handler));
 		// enemies.add(new Enemy("item_t", 1500, 0, handler));
 
-		items.add(new Item(1800, 200, handler, 0));
+		items.add(new Item(1800, 200, handler, 1));
 		items.add(new Item(1650, 300, handler, 2));
 
 		Door door1 = new Door(800, 600, 100, 100, handler);
