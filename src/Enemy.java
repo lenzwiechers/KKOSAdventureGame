@@ -27,7 +27,9 @@ public class Enemy extends GameObject {
 	private int walkspeed = 5;
 
 	public boolean attacking;
-
+	private boolean chonkerAttackRight; // --> true --> chonker Attack to the right rn
+	private boolean chonkerAttackLeft; // --> true --> chonker Attack to the left rn
+	
 	private int attackCooldown = 5000;
 	private long lastAttackCounter;
 
@@ -81,12 +83,18 @@ public class Enemy extends GameObject {
 
 	public void tick(long dt) {
 
-		sCollide = false;
-		slCollide = false;
-
 		if (hp < 0) {
 			handler.removeObject(this);
 		}
+
+		if (checkContact() && System.currentTimeMillis() - lastAttackCounter > attackCooldown) {
+			attacking = true;
+			lastAttackCounter = System.currentTimeMillis();
+			attackFrameCounter = 0;
+		}
+
+		sCollide = false;
+		slCollide = false;
 
 		l[0].setLine(posX + (width / 2), posY,
 				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
@@ -98,7 +106,7 @@ public class Enemy extends GameObject {
 				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
 				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
 
-		if (checkContact()) {
+		if (checkContact() && !chonkerAttackRight && !chonkerAttackLeft) {
 			if (posX < handler.player.get(0).getPos('x')) {
 				posX += velX * dt;
 				while (wallCollision()) {
@@ -118,7 +126,7 @@ public class Enemy extends GameObject {
 				lookright = false;
 
 			}
-		} else if (right) {
+		} else if (right && !chonkerAttackRight && !chonkerAttackLeft) {
 			line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
 			right = false;
 			for (int i = 0; i < handler.waende.size(); i++) {
@@ -144,7 +152,7 @@ public class Enemy extends GameObject {
 
 			}
 
-		} else if (left) {
+		} else if (left && !chonkerAttackRight && !chonkerAttackLeft) {
 			line.setLine(posX - 5, posY + height + 5, posX - 20, posY + height + 5);
 			left = false;
 			for (int i = 0; i < handler.waende.size(); i++) {
@@ -167,6 +175,23 @@ public class Enemy extends GameObject {
 				right = true;
 				lookright = true;
 
+			}
+		} else if (chonkerAttackRight) {
+			posX += velX * dt;
+			while (wallCollision()) {
+				posX -= 1;
+				right = false;
+				left = false;
+				lookright = false;
+				chonkerAttackRight = false;
+			}
+		} else if (chonkerAttackLeft) {
+			posX -= velX * dt;
+			while (wallCollision()) {
+				posX += 1;
+				right = false;
+				left = false;
+				chonkerAttackLeft = false;
 			}
 		}
 		if (!attacking) {
@@ -222,13 +247,13 @@ public class Enemy extends GameObject {
 					}
 				} else if (!lookright) {
 					if (walkcounter >= 0 && walkcounter < walkspeed) {
-						if (name != "ichonkerwalking1") { 
-							changeName("ichonkerwalking1"); 
+						if (name != "ichonkerwalking1") {
+							changeName("ichonkerwalking1");
 						}
 						walkcounter++;
 					} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
-						if (name != "ichonkerwalking2") { 
-							changeName("ichonkerwalking2"); 
+						if (name != "ichonkerwalking2") {
+							changeName("ichonkerwalking2");
 						}
 						walkcounter++;
 					}
@@ -267,11 +292,6 @@ public class Enemy extends GameObject {
 			hp -= 10;
 		}
 
-		if (checkContact() && System.currentTimeMillis() - lastAttackCounter > attackCooldown) {
-			attacking = true;
-			lastAttackCounter = System.currentTimeMillis();
-			attackFrameCounter = 0;
-		}
 		if (attacking) {
 			if (type == 0) {
 				if (attackFrameCounter == 0) {
@@ -296,16 +316,17 @@ public class Enemy extends GameObject {
 					attackFrameCounter = 0;
 					velX = 0.0000002f;
 					attacking = false;
-
 				}
 			} else if (type == 1) {
 				if (attackFrameCounter == 0) {
 					if (right) {
 						changeName("chonkerwindup");
 						velX = 0f;
+						chonkerAttackRight = true;
 					} else {
 						changeName("ichonkerwindup");
 						velX = 0f;
+						chonkerAttackLeft = true;
 					}
 				} else if (attackFrameCounter == 60) {
 					if (right) {
@@ -324,6 +345,7 @@ public class Enemy extends GameObject {
 					attacking = false;
 					attackFrameCounter = 0;
 					velX = 0.0000001f;
+					chonkerAttackRight = chonkerAttackLeft = false;
 				}
 			} else {
 				attacking = false;
