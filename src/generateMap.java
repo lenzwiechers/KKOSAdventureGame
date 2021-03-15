@@ -67,6 +67,7 @@ public abstract class generateMap {
 		
 		waende.add(new Wand(750, -150, 30, 150, handler));
 		
+		enemies.add(new Enemy("gollumneutral", 1500, 600, handler));
 		
 		
 		
