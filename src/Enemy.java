@@ -183,7 +183,6 @@ public class Enemy extends GameObject {
 				right = false;
 				left = false;
 				lookright = false;
-				chonkerAttackRight = false;
 			}
 		} else if (chonkerAttackLeft) {
 			posX -= velX * dt;
@@ -191,7 +190,6 @@ public class Enemy extends GameObject {
 				posX += 1;
 				right = false;
 				left = false;
-				chonkerAttackLeft = false;
 			}
 		}
 		if (!attacking) {
