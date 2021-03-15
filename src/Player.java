@@ -164,9 +164,10 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		} else if (e.getKeyCode() == 69) { // e
 			inventory.showInv();
 		} else if (e.getKeyCode() == 82 && item[0] && equipped == 0) { // r
-			for (int i = 4; i > -1; i--) {
+			for (int i = 0; i < 9; i++) {
 				if (!hp[i]) {
 					hp[i] = true;
+					item[0] = false;
 					break;
 				}
 			}
