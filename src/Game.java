@@ -102,6 +102,14 @@ public class Game extends Window {
 		player.render();
 
 		generateMap.generate(handler);
+		
+		for(int i = 0; i < handler.enemies.size(); i++) {
+			System.out.println(handler.enemies.get(i).type);
+			if(handler.enemies.get(i).type == 2) {
+				panel.add(handler.enemies.get(i).bossHealthBar);
+				panel.setComponentZOrder(handler.enemies.get(i).bossHealthBar, 0);
+			}
+		}
 
 		try {
 			launcher = new Launcher(this);

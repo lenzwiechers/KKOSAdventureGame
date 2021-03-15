@@ -1,4 +1,7 @@
+import java.awt.Color;
 import java.awt.geom.Line2D;
+
+import javax.swing.JLabel;
 
 public class Enemy extends GameObject {
 
@@ -29,17 +32,19 @@ public class Enemy extends GameObject {
 	public boolean attacking;
 	private boolean chonkerAttackRight; // --> true --> chonker Attack to the right rn
 	private boolean chonkerAttackLeft; // --> true --> chonker Attack to the left rn
-	
+
 	private int attackCooldown = 5000;
 	private long lastAttackCounter;
 
-	private int type;
+	int type;
 
 	private int attackFrameCounter;
 
+	JLabel bossHealthBar;
+
 	public Enemy(String picName, int posX, int posY, ObjectHandler handler) {
 
-		super(picName, handler);
+		super("chonker", handler);
 
 		this.velX = 0.00000025f;
 		this.velY = 0.00000025f;
@@ -62,9 +67,15 @@ public class Enemy extends GameObject {
 			this.height = 96;
 			type = 1;
 		} else if (picName == "direktorin") {
-			this.velX = 0.0000002f;
+			this.velX = 0.0f;
 			this.velY = 0.0f;
 			type = 2;
+			this.height = 1000;
+			this.width = 400;
+			bossHealthBar = new JLabel();
+			bossHealthBar.setBackground(Color.RED);
+			bossHealthBar.setOpaque(true);
+			hp = 2000;
 		} else {
 			type = 3;
 		}
@@ -82,6 +93,13 @@ public class Enemy extends GameObject {
 	}
 
 	public void tick(long dt) {
+
+		if (handler.player.get(0).posX - posX < 2000 && type == 2) {
+			bossHealthBar.setVisible(true);
+			bossHealthBar.setBounds(20, 20, (int) (hp * 0.94), 20);
+		} else if (type == 2) {
+			bossHealthBar.setVisible(false);
+		}
 
 		if (hp < 0) {
 			handler.removeObject(this);
@@ -306,9 +324,9 @@ public class Enemy extends GameObject {
 						changeName("igollumattack");
 					}
 					if (posX < handler.player.get(0).posX) {
-						handler.addObject(new GollumWave(handler, posX + width, posY, true, new Vector2(handler.player.get(0).getPos('x')-25, handler.player.get(0).getPos('y')+40), this));
+						handler.addObject(new FlyingObject("gollumwave", handler, posX + width, posY, true));
 					} else {
-						handler.addObject(new GollumWave(handler, posX, posY, false, new Vector2(handler.player.get(0).getPos('x')-25, handler.player.get(0).getPos('y')+40), this));
+						handler.addObject(new FlyingObject("gollumwave", handler, posX, posY, false));
 					}
 				} else if (attackFrameCounter == 60) {
 					attackFrameCounter = 0;
@@ -362,8 +380,10 @@ public class Enemy extends GameObject {
 					playerContact = false;
 				}
 			}
-			if (playerContact && Math.sqrt(
-					Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000 && l[j].getY2() - l[j].getY1() > l[j].getX2() - l[j].getX1()) {
+			if (playerContact
+					&& Math.sqrt(
+							Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000
+					&& l[j].getY2() - l[j].getY1() > l[j].getX2() - l[j].getX1()) {
 				return true;
 			}
 		}

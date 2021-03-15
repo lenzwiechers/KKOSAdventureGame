@@ -22,7 +22,7 @@ public class ObjectHandler {
 
 	LinkedList<Item> items = new LinkedList<Item>();
 	
-	LinkedList<GollumWave> waves = new LinkedList<GollumWave>();
+	LinkedList<FlyingObject> stuff = new LinkedList<FlyingObject>();
 	
 	private int screenWidth, screenHeight;
 	private GameObject obj;
@@ -86,8 +86,8 @@ public class ObjectHandler {
 			items.add((Item) obj);
 		} else if (obj instanceof Slash) {
 			slashes.add((Slash) obj);
-		} else if ((obj) instanceof GollumWave) {
-			waves.add((GollumWave) obj);
+		} else if ((obj) instanceof FlyingObject) {
+			stuff.add((FlyingObject) obj);
 		}
 	}
 
@@ -108,8 +108,8 @@ public class ObjectHandler {
 			items.remove(obj);
 		} else if (obj instanceof Slash) {
 			slashes.remove(obj);
-		} else if ((obj) instanceof GollumWave) {
-			waves.remove(obj);
+		} else if ((obj) instanceof FlyingObject) {
+			stuff.remove(obj);
 		}
 	}
 }
