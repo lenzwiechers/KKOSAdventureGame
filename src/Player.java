@@ -42,6 +42,10 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	Game game;
 
+	public boolean dead = false;
+
+	int totalHP = 0;
+
 	public boolean[] hp = new boolean[10];
 
 	Picture h0;
@@ -259,11 +263,19 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	public void tick(long dt) {
 
+		if(dead) {
+			//WHATEVER
+		}
+		
+		totalHP = 0;
+
 		for (int i = 0; i < 10; i++) {
-			if (hp[i])
+			if (hp[i]) {
 				hx[i].setVisible(true);
-			else
+				totalHP++;
+			} else {
 				hx[i].setVisible(false);
+			}
 		}
 
 		if (dashcounter < dashlength) {
@@ -382,19 +394,64 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 
 			if (hardEnemyCollision()) {
-				HUD.HEALTH -= 2;
-				enemyContactCounter = System.currentTimeMillis();
+				if (totalHP < 2) {
+					totalHP -= 2;
+					for(int i = 9; i> -1; i--) {
+						hx[i].setVisible(false);
+					}
+					enemyContactCounter = System.currentTimeMillis();
+				} else {
+					totalHP -= 2;
+					for(int i = 9; i> -1; i--) {
+						if(hp[i]) {
+							hp[i] = false;
+							hp[i-1] = false;
+							break;
+						} 
+					}
+					enemyContactCounter = System.currentTimeMillis();
+				}
 
 			} else if (enemyCollision()) {
-				HUD.HEALTH--;
-				enemyContactCounter = System.currentTimeMillis();
+				if (totalHP < 2) {
+					totalHP -= 2;
+					for(int i = 9; i> -1; i--) {
+						hx[i].setVisible(false);
+					}
+					enemyContactCounter = System.currentTimeMillis();
+				} else {
+					totalHP -= 2;
+					for(int i = 9; i> -1; i--) {
+						if(hp[i]) {
+							hp[i] = false;
+							hp[i-1] = false;
+							break;
+						} 
+					}
+					enemyContactCounter = System.currentTimeMillis();
+				}
 			}
 		}
 
 		if (System.currentTimeMillis() - waveContactCounter > 1000) {
 			if (waveCollision()) {
-				HUD.HEALTH -= 2;
-				waveContactCounter = System.currentTimeMillis();
+				if (totalHP < 2) {
+					totalHP -= 2;
+					for(int i = 9; i> -1; i--) {
+						hx[i].setVisible(false);
+					}
+					waveContactCounter = System.currentTimeMillis();
+				} else {
+					totalHP -= 2;
+					for(int i = 9; i> -1; i--) {
+						if(hp[i]) {
+							hp[i] = false;
+							hp[i-1] = false;
+							break;
+						} 
+					}
+					waveContactCounter = System.currentTimeMillis();
+				}
 			}
 		}
 
@@ -404,6 +461,10 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		if (onWall()) {
 			velY = 0;
+		}
+
+		if (totalHP < 1) {
+			dead = true;
 		}
 
 	}
