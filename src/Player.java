@@ -164,9 +164,10 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		} else if (e.getKeyCode() == 69) { // e
 			inventory.showInv();
 		} else if (e.getKeyCode() == 82 && item[0] && equipped == 0) { // r
-			for (int i = 4; i > -1; i--) {
+			for (int i = 0; i < 9; i++) {
 				if (!hp[i]) {
 					hp[i] = true;
+					item[0] = false;
 					break;
 				}
 			}
@@ -263,10 +264,10 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	public void tick(long dt) {
 
-		if(dead) {
-			//WHATEVER
+		if (dead) {
+			// WHATEVER
 		}
-		
+
 		totalHP = 0;
 
 		for (int i = 0; i < 10; i++) {
@@ -394,20 +395,20 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 
 			if (hardEnemyCollision()) {
-				if (totalHP < 2) {
+				if (totalHP < 1) {
 					totalHP -= 2;
-					for(int i = 9; i> -1; i--) {
+					for (int i = 9; i > -1; i--) {
 						hx[i].setVisible(false);
 					}
 					enemyContactCounter = System.currentTimeMillis();
 				} else {
 					totalHP -= 2;
-					for(int i = 9; i> -1; i--) {
-						if(hp[i]) {
+					for (int i = 9; i > -1; i--) {
+						if (hp[i]) {
 							hp[i] = false;
-							hp[i-1] = false;
+							hp[i - 1] = false;
 							break;
-						} 
+						}
 					}
 					enemyContactCounter = System.currentTimeMillis();
 				}
@@ -415,18 +416,18 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else if (enemyCollision()) {
 				if (totalHP < 2) {
 					totalHP -= 2;
-					for(int i = 9; i> -1; i--) {
+					for (int i = 9; i > -1; i--) {
 						hx[i].setVisible(false);
 					}
 					enemyContactCounter = System.currentTimeMillis();
 				} else {
 					totalHP -= 2;
-					for(int i = 9; i> -1; i--) {
-						if(hp[i]) {
+					for (int i = 9; i > -1; i--) {
+						if (hp[i]) {
 							hp[i] = false;
-							hp[i-1] = false;
+							hp[i - 1] = false;
 							break;
-						} 
+						}
 					}
 					enemyContactCounter = System.currentTimeMillis();
 				}
@@ -437,18 +438,18 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			if (waveCollision()) {
 				if (totalHP < 2) {
 					totalHP -= 2;
-					for(int i = 9; i> -1; i--) {
+					for (int i = 9; i > -1; i--) {
 						hx[i].setVisible(false);
 					}
 					waveContactCounter = System.currentTimeMillis();
 				} else {
 					totalHP -= 2;
-					for(int i = 9; i> -1; i--) {
-						if(hp[i]) {
+					for (int i = 9; i > -1; i--) {
+						if (hp[i]) {
 							hp[i] = false;
-							hp[i-1] = false;
+							hp[i - 1] = false;
 							break;
-						} 
+						}
 					}
 					waveContactCounter = System.currentTimeMillis();
 				}
