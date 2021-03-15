@@ -32,8 +32,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	private int dashcooldown = 180;
 	private int cooldowncounter = dashcooldown;
 
-	public boolean[] hp = new boolean[3];
-
 	private long enemyContactCounter;
 	private long waveContactCounter;
 
@@ -44,9 +42,20 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	Game game;
 
+	public boolean[] hp = new boolean[10];
+
 	Picture h0;
 	Picture h1;
 	Picture h2;
+	Picture h3;
+	Picture h4;
+	Picture h5;
+	Picture h6;
+	Picture h7;
+	Picture h8;
+	Picture h9;
+
+	Picture[] hx = { h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 };
 
 	Inventory inventory;
 
@@ -61,21 +70,12 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		super("player", newHandler);
 
-		this.h0 = new Picture("heart");
-		this.h1 = new Picture("heart");
-		this.h2 = new Picture("heart");
-
-		h0.setBounds(Camera.xPos + 20, Camera.yPos + 20, 50, 50);
-		h1.setBounds(Camera.xPos + 80, Camera.yPos + 20, 50, 50);
-		h2.setBounds(Camera.xPos + 140, Camera.yPos + 20, 50, 50);
-
-		Game.panel.add(h0);
-		Game.panel.add(h1);
-		Game.panel.add(h2);
-
-		hp[0] = true;
-		hp[1] = true;
-		hp[2] = true;
+		for (int i = 0; i < 10; i++) {
+			this.hx[i] = new Picture("heart");
+			hx[i].setBounds(Camera.xPos + 20 + 60 * i, Camera.yPos + 20, 50, 50);
+			Game.panel.add(hx[i]);
+			hp[i] = true;
+		}
 
 		this.velX = walkSpeed;
 		this.velY = 0.00000025f;
@@ -93,29 +93,20 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		inventory = new Inventory(game);
 
 		this.LK1 = LK1;
-		
+
 		this.LK2 = LK2;
 	}
-	
+
 	public Player(ObjectHandler newHandler, Game game, JPanel newPanel) {
 
 		super("player", newHandler);
 
-		this.h0 = new Picture("heart");
-		this.h1 = new Picture("heart");
-		this.h2 = new Picture("heart");
-
-		h0.setBounds(Camera.xPos + 20, Camera.yPos + 20, 50, 50);
-		h1.setBounds(Camera.xPos + 80, Camera.yPos + 20, 50, 50);
-		h2.setBounds(Camera.xPos + 140, Camera.yPos + 20, 50, 50);
-
-		Game.panel.add(h0);
-		Game.panel.add(h1);
-		Game.panel.add(h2);
-
-		hp[0] = true;
-		hp[1] = true;
-		hp[2] = true;
+		for (int i = 0; i < 10; i++) {
+			this.hx[i] = new Picture("heart");
+			hx[i].setBounds(Camera.xPos + 20 + 60 * i, Camera.yPos + 20, 50, 50);
+			Game.panel.add(hx[i]);
+			hp[i] = true;
+		}
 
 		this.velX = walkSpeed;
 		this.velY = 0.00000025f;
@@ -132,11 +123,11 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		inventory = new Inventory(game);
 	}
-	
+
 	public void setLK1(String LK) {
 		LK1 = LK;
 	}
-	
+
 	public void setLK2(String LK) {
 		LK2 = LK;
 	}
@@ -188,11 +179,14 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else {
 				game.pause = false;
 			}
-		} 
-		else if(e.getKeyCode() == 49) equipped = 0;
-		else if(e.getKeyCode() == 50) equipped = 1;
-		else if(e.getKeyCode() == 51) equipped = 2;
-		else if(e.getKeyCode() == 52) equipped = 3;
+		} else if (e.getKeyCode() == 49)
+			equipped = 0;
+		else if (e.getKeyCode() == 50)
+			equipped = 1;
+		else if (e.getKeyCode() == 51)
+			equipped = 2;
+		else if (e.getKeyCode() == 52)
+			equipped = 3;
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -265,20 +259,13 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	public void tick(long dt) {
 
-		if (hp[0])
-			h0.setVisible(true);
-		else
-			h0.setVisible(false);
+		for (int i = 0; i < 10; i++) {
+			if (hp[i])
+				hx[i].setVisible(true);
+			else
+				hx[i].setVisible(false);
+		}
 
-		if (hp[1])
-			h1.setVisible(true);
-		else
-			h1.setVisible(false);
-
-		if (hp[2])
-			h2.setVisible(true);
-		else
-			h2.setVisible(false);
 		if (dashcounter < dashlength) {
 			this.velX = dashspeed;
 			dashcounter++;
@@ -306,7 +293,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 					this.changeName("walking2");
 				}
 				walkcounter++;
-			}  else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
+			} else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
 				if (this.name != "walking3") {
 					this.changeName("walking3");
 				}
