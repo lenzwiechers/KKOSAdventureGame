@@ -44,7 +44,7 @@ public class Enemy extends GameObject {
 
 	public Enemy(String picName, int posX, int posY, ObjectHandler handler) {
 
-		super("chonker", handler);
+		super(picName, handler);
 
 		this.velX = 0.00000025f;
 		this.velY = 0.00000025f;
@@ -70,8 +70,8 @@ public class Enemy extends GameObject {
 			this.velX = 0.0f;
 			this.velY = 0.0f;
 			type = 2;
-			this.height = 1000;
-			this.width = 400;
+			this.height = 500;
+			this.width = 200;
 			bossHealthBar = new JLabel();
 			bossHealthBar.setBackground(Color.RED);
 			bossHealthBar.setOpaque(true);
@@ -94,9 +94,9 @@ public class Enemy extends GameObject {
 
 	public void tick(long dt) {
 
-		if (handler.player.get(0).posX - posX < 2000 && type == 2) {
+		if (handler.player.get(0).posX - posX < 2000 && handler.player.get(0).posY - posY < 2000 && type == 2) {
 			bossHealthBar.setVisible(true);
-			bossHealthBar.setBounds(20, 20, (int) (hp * 0.94), 20);
+			bossHealthBar.setBounds(20, 1000, (int) (hp * 0.94), 20);
 		} else if (type == 2) {
 			bossHealthBar.setVisible(false);
 		}
@@ -111,105 +111,108 @@ public class Enemy extends GameObject {
 			attackFrameCounter = 0;
 		}
 
-		sCollide = false;
-		slCollide = false;
+		if(type != 2) {
+			sCollide = false;
+			slCollide = false;
 
-		l[0].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + 1);
-		l[1].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
-		l[2].setLine(posX + (width / 2), posY,
-				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
+			l[0].setLine(posX + (width / 2), posY,
+					handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+					handler.player.get(0).getPos('y') + 1);
+			l[1].setLine(posX + (width / 2), posY,
+					handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+					handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
+			l[2].setLine(posX + (width / 2), posY,
+					handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+					handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
 
-		if (checkContact() && !chonkerAttackRight && !chonkerAttackLeft) {
-			if (posX < handler.player.get(0).getPos('x')) {
-				posX += velX * dt;
-				while (wallCollision()) {
-					posX -= 1;
-				}
-				right = true;
-				left = false;
-				lookright = true;
-
-			} else if (posX > handler.player.get(0).getPos('x')) {
-				posX -= velX * dt;
-				while (wallCollision()) {
-					posX += 1;
-				}
-				right = false;
-				left = true;
-				lookright = false;
-
-			}
-		} else if (right && !chonkerAttackRight && !chonkerAttackLeft) {
-			line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
-			right = false;
-			for (int i = 0; i < handler.waende.size(); i++) {
-				if (line.intersects(handler.waende.get(i).getBounds())) {
+			if (checkContact() && !chonkerAttackRight && !chonkerAttackLeft) {
+				if (posX < handler.player.get(0).getPos('x')) {
+					posX += velX * dt;
+					while (wallCollision()) {
+						posX -= 1;
+					}
 					right = true;
+					left = false;
 					lookright = true;
 
-				}
-			}
-			if (right) {
-				posX += (velX * dt);
-				while (wallCollision()) {
-					posX -= 1;
+				} else if (posX > handler.player.get(0).getPos('x')) {
+					posX -= velX * dt;
+					while (wallCollision()) {
+						posX += 1;
+					}
 					right = false;
 					left = true;
 					lookright = false;
 
 				}
-			} else {
+			} else if (right && !chonkerAttackRight && !chonkerAttackLeft) {
+				line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
 				right = false;
-				left = true;
-				lookright = false;
+				for (int i = 0; i < handler.waende.size(); i++) {
+					if (line.intersects(handler.waende.get(i).getBounds())) {
+						right = true;
+						lookright = true;
 
-			}
+					}
+				}
+				if (right) {
+					posX += (velX * dt);
+					while (wallCollision()) {
+						posX -= 1;
+						right = false;
+						left = true;
+						lookright = false;
 
-		} else if (left && !chonkerAttackRight && !chonkerAttackLeft) {
-			line.setLine(posX - 5, posY + height + 5, posX - 20, posY + height + 5);
-			left = false;
-			for (int i = 0; i < handler.waende.size(); i++) {
-				if (line.intersects(handler.waende.get(i).getBounds())) {
+					}
+				} else {
+					right = false;
 					left = true;
 					lookright = false;
 
 				}
-			}
-			if (left) {
-				posX -= (velX * dt);
+
+			} else if (left && !chonkerAttackRight && !chonkerAttackLeft) {
+				line.setLine(posX - 5, posY + height + 5, posX - 20, posY + height + 5);
+				left = false;
+				for (int i = 0; i < handler.waende.size(); i++) {
+					if (line.intersects(handler.waende.get(i).getBounds())) {
+						left = true;
+						lookright = false;
+
+					}
+				}
+				if (left) {
+					posX -= (velX * dt);
+					while (wallCollision()) {
+						posX += 1;
+						right = true;
+						left = false;
+						lookright = true;
+					}
+				} else {
+					left = false;
+					right = true;
+					lookright = true;
+
+				}
+			} else if (chonkerAttackRight) {
+				posX += velX * dt;
+				while (wallCollision()) {
+					posX -= 1;
+					right = false;
+					left = false;
+					lookright = false;
+				}
+			} else if (chonkerAttackLeft) {
+				posX -= velX * dt;
 				while (wallCollision()) {
 					posX += 1;
-					right = true;
+					right = false;
 					left = false;
-					lookright = true;
 				}
-			} else {
-				left = false;
-				right = true;
-				lookright = true;
-
-			}
-		} else if (chonkerAttackRight) {
-			posX += velX * dt;
-			while (wallCollision()) {
-				posX -= 1;
-				right = false;
-				left = false;
-				lookright = false;
-			}
-		} else if (chonkerAttackLeft) {
-			posX -= velX * dt;
-			while (wallCollision()) {
-				posX += 1;
-				right = false;
-				left = false;
 			}
 		}
+		
 		if (!attacking) {
 			if (type == 0) {
 				if (lookright) {

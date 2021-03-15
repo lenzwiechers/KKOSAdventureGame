@@ -69,7 +69,7 @@ public abstract class generateMap {
 		
 		waende.add(new Wand(750, -150, 30, 150, handler));
 		
-		enemies.add(new Enemy("direktorin", 2000, 30, handler));
+		enemies.add(new Enemy("direktorin", 2000, -500, handler));
 		enemies.add(new Enemy("gollumneutral", 350, 600, handler));
 		enemies.add(new Enemy("chonker", 1000, 0, handler));
 		
