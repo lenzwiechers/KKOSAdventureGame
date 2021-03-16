@@ -186,7 +186,7 @@ public abstract class generateMap {
 		
 		// Debug
 		
-		items.add(new Item(200, 4900, handler, 2));
+		items.add(new Item(200, 4900, handler,1));
 		
 		// Debug Ende
 		
