@@ -9,8 +9,6 @@ public class Shot extends GameObject {
 	public int airTime = 0;
 
 	public double gravity;
-	
-	public float velX, velY;
 
 	Vector2 hom;
 	Vector2 tar;
@@ -24,7 +22,7 @@ public class Shot extends GameObject {
 	private boolean onWall;
 	private boolean belowWall;
 
-	public Shot(int sx, int sy, ObjectHandler newHandler, Vector2 tar, long dt) {
+	public Shot(int sx, int sy, ObjectHandler newHandler, Vector2 tar) {
 
 		super("shot", newHandler);
 
@@ -47,24 +45,6 @@ public class Shot extends GameObject {
 		this.velY = (float) acv.y;
 
 		this.handler = newHandler;
-		
-		/*
-		if (handler.player.get(0).getRight()) {
-			velX= velX * dt * shotSpeed + (handler.player.get(0).velX*dt);
-		} else if(handler.player.get(0).getLeft()) {
-			velX += velX * dt * shotSpeed - (handler.player.get(0).velX*dt);
-		}
-		else {
-			velX = velX * dt * shotSpeed;
-		}
-		if (!handler.player.get(0).onWall()) {
-			velY += velY * dt * shotSpeed + (handler.player.get(0).velY*dt);
-		} else {
-			velY += velY * dt * shotSpeed;
-		}*/
-		
-		velX = 50; 
-		velY = 50;
 	}
 
 	public Shot(ObjectHandler newHandler) {
@@ -92,10 +72,19 @@ public class Shot extends GameObject {
 	}
 
 	public void tick(long dt) {
-		
-		posX += velX;
-		posY += velY;
-		
+		if (handler.player.get(0).getRight()) {
+			posX += velX * dt * shotSpeed + (handler.player.get(0).velX*dt);
+		} else if(handler.player.get(0).getLeft()) {
+			posX += velX * dt * shotSpeed - (handler.player.get(0).velX*dt);
+		}
+		else {
+			posX += velX * dt * shotSpeed;
+		}
+		if (!handler.player.get(0).onWall()) {
+			posY += velY * dt * shotSpeed + (handler.player.get(0).velY*dt);
+		} else {
+			posY += velY * dt * shotSpeed;
+		}
 		
 		boolean inWall = false;
 		if (wallCollision()) {
