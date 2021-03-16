@@ -225,7 +225,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	public void mousePressed(MouseEvent m) {
 		if (item[1] && equipped == 1) {
-			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));
+			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY()), game.dt));
 		}
 		if (item[2] && onWall() && !lookright && equipped == 2) {
 			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 0, 3));
