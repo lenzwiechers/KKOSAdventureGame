@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JLabel;
 
@@ -44,6 +45,10 @@ public class Enemy extends GameObject {
 	private int attackFrameCounter;
 
 	JLabel bossHealthBar;
+	
+	float randomNum;
+	
+	int totalHP;
 
 	public Enemy(String picName, int posX, int posY, ObjectHandler handler) {
 
@@ -58,30 +63,34 @@ public class Enemy extends GameObject {
 		this.height = 99;
 
 		this.velX = 0.0000001f;
+		
+		randomNum = ThreadLocalRandom.current().nextInt(10, 30); // 0.0000001f
+		
+		velX = randomNum / 100000000;
 
 		if (picName == "gollumneutral") {
-			this.velX = 0.0000002f;
 			type = 0;
 			this.width = 35;
 			this.height = 35;
 		} else if (picName == "chonker") {
-			this.velX = 0.0000001f;
 			this.width = 57;
 			this.height = 96;
 			type = 1;
 		} else if (picName == "direktorin") {
-			this.velX = 0.0f;
-			this.velY = 0.0f;
+			velX = 0.0f;
+			velY = 0.0f;
 			type = 2;
 			this.height = 500;
 			this.width = 200;
 			bossHealthBar = new JLabel();
 			bossHealthBar.setBackground(Color.RED);
 			bossHealthBar.setOpaque(true);
-			hp = 2000;
+			hp = totalHP = 20000;
 		} else {
 			type = 3;
 		}
+		
+	
 
 		for (int i = 0; i < l.length; i++) {
 			l[i] = new Line2D.Float();
@@ -99,7 +108,7 @@ public class Enemy extends GameObject {
 
 		if (handler.player.get(0).posX - posX < 2000 && handler.player.get(0).posY - posY < 2000 && type == 2) {
 			bossHealthBar.setVisible(true);
-			bossHealthBar.setBounds(20, 1000, (int) (hp * 0.94), 20);
+			bossHealthBar.setBounds(20, 1000, (int) (hp * (handler.screenWidth - 40 ) / totalHP), 20);
 		} else if (type == 2) {
 			bossHealthBar.setVisible(false);
 		}
@@ -290,6 +299,7 @@ public class Enemy extends GameObject {
 			}
 
 		}
+		
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {
@@ -340,7 +350,7 @@ public class Enemy extends GameObject {
 
 				} else if (attackFrameCounter == 60) {
 					attackFrameCounter = 0;
-					velX = 0.0000002f;
+					velX = randomNum / 100000000;
 					attacking = false;
 				}
 			} else if (type == 1) {

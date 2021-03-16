@@ -72,9 +72,6 @@ public class Shot extends GameObject {
 	}
 
 	public void tick(long dt) {
-
-		this.name = "shot";
-
 		if (handler.player.get(0).getRight()) {
 			posX += velX * dt * shotSpeed + (handler.player.get(0).velX*dt);
 		} else if(handler.player.get(0).getLeft()) {

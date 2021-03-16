@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JPanel;
 
@@ -54,7 +55,7 @@ public class Game extends Window {
 	Launcher launcher;
 
 	// Delta time: siehe https://en.wikipedia.org/wiki/Delta_timing
-	private long dt;
+	public long dt;
 	private long lastT;
 
 	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -84,7 +85,7 @@ public class Game extends Window {
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
 
 		player = new Player(handler, this, panel);
-		player.setPos('y', 900);
+		player.setPos('y', 4900);
 
 		player.setPos('x', 100);
 
