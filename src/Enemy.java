@@ -47,6 +47,8 @@ public class Enemy extends GameObject {
 	JLabel bossHealthBar;
 	
 	float randomNum;
+	
+	int totalHP;
 
 	public Enemy(String picName, int posX, int posY, ObjectHandler handler) {
 
@@ -83,7 +85,7 @@ public class Enemy extends GameObject {
 			bossHealthBar = new JLabel();
 			bossHealthBar.setBackground(Color.RED);
 			bossHealthBar.setOpaque(true);
-			hp = 2000;
+			hp = totalHP = 20000;
 		} else {
 			type = 3;
 		}
@@ -106,7 +108,7 @@ public class Enemy extends GameObject {
 
 		if (handler.player.get(0).posX - posX < 2000 && handler.player.get(0).posY - posY < 2000 && type == 2) {
 			bossHealthBar.setVisible(true);
-			bossHealthBar.setBounds(20, 1000, (int) (hp * 0.94), 20);
+			bossHealthBar.setBounds(20, 1000, (int) (hp * (handler.screenWidth - 40 ) / totalHP), 20);
 		} else if (type == 2) {
 			bossHealthBar.setVisible(false);
 		}

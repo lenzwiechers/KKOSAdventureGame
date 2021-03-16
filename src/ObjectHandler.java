@@ -24,7 +24,7 @@ public class ObjectHandler {
 	
 	LinkedList<FlyingObject> stuff = new LinkedList<FlyingObject>();
 	
-	private int screenWidth, screenHeight;
+	public int screenWidth, screenHeight;
 	private GameObject obj;
 	private Enemy enemy;
 
