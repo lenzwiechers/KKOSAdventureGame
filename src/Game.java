@@ -110,6 +110,7 @@ public class Game extends Window {
 				panel.add(handler.enemies.get(i).bossHealthBar);
 				panel.setComponentZOrder(handler.enemies.get(i).bossHealthBar, 0);
 			}
+			panel.setComponentZOrder(handler.enemies.get(i), 0);
 		}
 
 		try {
