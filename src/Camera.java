@@ -7,8 +7,8 @@ public class Camera {
 	public static int xPos;
 	public static int yPos;
 
-	private static int frameXSize;
-	private static int frameYSize;
+	public static int frameXSize;
+	public static int frameYSize;
 
 	static GameObject object;
 

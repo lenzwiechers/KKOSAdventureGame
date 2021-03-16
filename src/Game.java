@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JPanel;
 
@@ -57,8 +58,8 @@ public class Game extends Window {
 	public long dt;
 	private long lastT;
 
-	static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-	static int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+	public static int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 	// Frames
 	int targetFPS = 60;
