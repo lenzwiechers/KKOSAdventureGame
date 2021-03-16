@@ -1,5 +1,10 @@
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.geom.Line2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -45,10 +50,12 @@ public class Enemy extends GameObject {
 	private int attackFrameCounter;
 
 	JLabel bossHealthBar;
-	
+
 	float randomNum;
-	
+
 	int totalHP;
+
+	Font font;
 
 	public Enemy(String picName, int posX, int posY, ObjectHandler handler) {
 
@@ -63,9 +70,9 @@ public class Enemy extends GameObject {
 		this.height = 99;
 
 		this.velX = 0.0000001f;
-		
+
 		randomNum = ThreadLocalRandom.current().nextInt(10, 30); // 0.0000001f
-		
+
 		velX = randomNum / 100000000;
 
 		if (picName == "gollumneutral") {
@@ -85,12 +92,20 @@ public class Enemy extends GameObject {
 			bossHealthBar = new JLabel();
 			bossHealthBar.setBackground(Color.RED);
 			bossHealthBar.setOpaque(true);
+			bossHealthBar.setText("D I R E K T O R I N");
+			bossHealthBar.setForeground(Color.BLACK);
+			try {
+				font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/puree____2.ttf")).deriveFont(50f);
+			    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			    ge.registerFont(font);
+			} catch (FontFormatException | IOException e) {
+				System.out.println("Font konnte nicht geladen werden");
+			}
+			bossHealthBar.setFont(font);
 			hp = totalHP = 20000;
 		} else {
 			type = 3;
 		}
-		
-	
 
 		for (int i = 0; i < l.length; i++) {
 			l[i] = new Line2D.Float();
@@ -108,7 +123,7 @@ public class Enemy extends GameObject {
 
 		if (handler.player.get(0).posX - posX < 2000 && handler.player.get(0).posY - posY < 2000 && type == 2) {
 			bossHealthBar.setVisible(true);
-			bossHealthBar.setBounds(20, 1000, (int) (hp * (handler.screenWidth - 40 ) / totalHP), 20);
+			bossHealthBar.setBounds(20, 1000, (int) (hp * (handler.screenWidth - 40) / totalHP), 70);
 		} else if (type == 2) {
 			bossHealthBar.setVisible(false);
 		}
@@ -299,7 +314,7 @@ public class Enemy extends GameObject {
 			}
 
 		}
-		
+
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {
@@ -400,9 +415,8 @@ public class Enemy extends GameObject {
 					playerContact = false;
 				}
 			}
-			if (playerContact
-					&& Math.sqrt(
-							Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000) {
+			if (playerContact && Math.sqrt(
+					Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000) {
 				return true;
 			}
 		}
