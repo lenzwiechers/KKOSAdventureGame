@@ -59,8 +59,14 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	Picture h7;
 	Picture h8;
 	Picture h9;
+	
+	Picture i0;
+	Picture i1;
+	Picture i2;
 
 	Picture[] hx = { h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 };
+	
+	Picture[] ix = { i0, i1, i2 };
 
 	Inventory inventory;
 
@@ -80,6 +86,17 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			hx[i].setBounds(Camera.xPos + 20 + 60 * i, Camera.yPos + 20, 50, 50);
 			Game.panel.add(hx[i]);
 			hp[i] = true;
+		}
+		
+		this.ix[0] = new Picture("potion");
+		this.ix[1] = new Picture("gun");
+		this.ix[2] = new Picture("sword");
+		
+		
+		for (int i = 0; i < 3; i++) {
+			ix[i].setBounds(Camera.xPos + Game.screenWidth  - 60 , Camera.yPos + 20 + 60 * i, 50, 50);
+			Game.panel.add(ix[i]);
+			item[i] = false;
 		}
 
 		this.velX = walkSpeed;
@@ -111,6 +128,17 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			hx[i].setBounds(Camera.xPos + 20 + 60 * i, Camera.yPos + 20, 50, 50);
 			Game.panel.add(hx[i]);
 			hp[i] = true;
+		}
+		
+		this.ix[0] = new Picture("potion");
+		this.ix[1] = new Picture("gun");
+		this.ix[2] = new Picture("sword");
+		
+		
+		for (int i = 0; i < 3; i++) {
+			ix[i].setBounds(Camera.xPos + Game.screenWidth  - 60 , Camera.yPos + 20 + 60 * i, 50, 50);
+			Game.panel.add(ix[i]);
+			item[i] = false;
 		}
 
 		this.velX = walkSpeed;
@@ -278,6 +306,15 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else {
 				hx[i].setVisible(false);
 			}
+		}
+		
+		for(int i = 0; i<3; i++) {
+			if(item[i]) {
+				ix[i].setVisible(true);
+			} else {
+				ix[i].setVisible(false);
+			}
+			
 		}
 
 		if (dashcounter < dashlength) {
