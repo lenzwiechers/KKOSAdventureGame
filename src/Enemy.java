@@ -108,7 +108,7 @@ public class Enemy extends GameObject {
 			handler.removeObject(this);
 			handler.player.get(0).money += rand.nextInt(201) + 200;
 			if (rand.nextInt(99) < 15) {
-				handler.addObject(new Item(posX, posY, handler, 1));
+				handler.addObject(new Item(posX, posY, handler, 0));
 			}
 		}
 

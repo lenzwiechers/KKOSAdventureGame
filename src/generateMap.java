@@ -127,8 +127,8 @@ public abstract class generateMap {
 		waende.add(new Wand(3300, 0, 500, 50, handler));
 
 		items.add(new Item(3385, -30, handler, 0));
-		items.add(new Item(3485, -30, handler, 0));
-		items.add(new Item(3585, -30, handler, 0));
+		items.add(new Item(3485, -30, handler, 1));
+		items.add(new Item(3585, -30, handler, 2));
 	}
 
 	public static void generateRoom1(ObjectHandler handler) {

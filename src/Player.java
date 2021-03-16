@@ -63,10 +63,16 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	Picture i0;
 	Picture i1;
 	Picture i2;
+	
+	Picture e0;
+	Picture e1;
+	Picture e2;
 
 	Picture[] hx = { h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 };
 	
 	Picture[] ix = { i0, i1, i2 };
+	
+	Picture[] ex = { e0, e1, h2 };
 
 	Inventory inventory;
 
@@ -81,6 +87,12 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		super("player", newHandler);
 
+		for (int i = 0; i < 3; i++) {
+			this.ex[i] = new Picture("equipped");
+			ex[i].setBounds(Camera.xPos + Game.screenWidth  - 90 , Camera.yPos + 20 + 60*i, 50, 50);
+			Game.panel.add(ex[i]);
+		}
+		
 		for (int i = 0; i < 10; i++) {
 			this.hx[i] = new Picture("heart");
 			hx[i].setBounds(Camera.xPos + 20 + 60 * i, Camera.yPos + 20, 50, 50);
@@ -98,7 +110,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			Game.panel.add(ix[i]);
 			item[i] = false;
 		}
-
+		
 		this.velX = walkSpeed;
 		this.velY = 0.00000025f;
 
@@ -141,6 +153,12 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			item[i] = false;
 		}
 
+		for (int i = 0; i < 3; i++) {
+			this.ex[i] = new Picture("equipped");
+			ex[i].setBounds(Camera.xPos + Game.screenWidth  - 90 , Camera.yPos + 20 + 60*i, 50, 50);
+			Game.panel.add(ex[i]);
+		}
+		
 		this.velX = walkSpeed;
 		this.velY = 0.00000025f;
 
@@ -191,12 +209,13 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			this.velX = sprintSpeed;
 			sprinting = true;
 		} else if (e.getKeyCode() == 69) { // e
-			inventory.showInv();
+			//inventory.showInv();
 		} else if (e.getKeyCode() == 82 && item[0] && equipped == 0) { // r
 			for (int i = 0; i < 9; i++) {
 				if (!hp[i]) {
 					hp[i] = true;
 					item[0] = false;
+					equipped = 3;
 					break;
 				}
 			}
@@ -213,13 +232,13 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else {
 				game.pause = false;
 			}
-		} else if (e.getKeyCode() == 49)
+		} else if (e.getKeyCode() == 49) // 1
 			equipped = 0;
-		else if (e.getKeyCode() == 50)
+		else if (e.getKeyCode() == 50)	// 2
 			equipped = 1;
-		else if (e.getKeyCode() == 51)
+		else if (e.getKeyCode() == 51) // 3
 			equipped = 2;
-		else if (e.getKeyCode() == 52)
+		else if (e.getKeyCode() == 52) // 4
 			equipped = 3;
 	}
 
@@ -254,15 +273,19 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	public void mousePressed(MouseEvent m) {
 		if (item[1] && equipped == 1) {
 			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));
+			equipped = 3;
 		}
 		if (item[2] && onWall() && !lookright && equipped == 2) {
 			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 0, 3));
+			equipped = 3;
 		}
 		if (item[2] && onWall() && lookright && equipped == 2) {
 			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 1, 3));
+			equipped = 3;
 		}
 		if (item[2] && !onWall() && equipped == 2) {
 			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 2, 3));
+			equipped = 3;
 		}
 	}
 
@@ -314,7 +337,14 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else {
 				ix[i].setVisible(false);
 			}
-			
+		}
+		
+		for(int i = 0; i<3; i++) {
+			if(item[i] && equipped == i) {
+				ex[i].setVisible(true);
+			} else{
+				ex[i].setVisible(false);
+			}
 		}
 
 		if (dashcounter < dashlength) {
