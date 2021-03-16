@@ -57,8 +57,8 @@ public class Game extends Window {
 	private long dt;
 	private long lastT;
 
-	static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-	static int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+	public static int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 	// Frames
 	int targetFPS = 60;
