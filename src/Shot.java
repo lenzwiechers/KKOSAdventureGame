@@ -59,20 +59,8 @@ public class Shot extends GameObject {
 		this.handler = newHandler;
 	}
 
-	/*
-	 * public void collision(GameObject obj) {
-	 * if(getBounds().intersects(obj.getBounds())) { handler.removeObject(this); } }
-	 */
-
-	public void addGravity() {
-
-		if (velY < 0.0000020f) {
-			velY += 0.000000030f;
-		}
-	}
-
 	public void tick(long dt) {
-		if (handler.player.get(0).getRight()) {
+		/*if (handler.player.get(0).getRight()) {
 			posX += velX * dt * shotSpeed + (handler.player.get(0).velX*dt);
 		} else if(handler.player.get(0).getLeft()) {
 			posX += velX * dt * shotSpeed - (handler.player.get(0).velX*dt);
@@ -84,25 +72,14 @@ public class Shot extends GameObject {
 			posY += velY * dt * shotSpeed + (handler.player.get(0).velY*dt);
 		} else {
 			posY += velY * dt * shotSpeed;
-		}
+		}*/
 		
-		boolean inWall = false;
-		if (wallCollision()) {
-			inWall = true;
-		}
-
-		if (inWall) {
+		posX += velX * dt * shotSpeed;
+		posY += velY * dt * shotSpeed;
+		
+		if(wallCollision()) {
 			handler.removeObject(this);
 		}
-
-		if (onWall()) {
-			handler.removeObject(this);
-		}
-
-		// addGravity();
-		/*
-		 * if (posX < -50) { posX = 1299; }
-		 */
 	}
 
 }
