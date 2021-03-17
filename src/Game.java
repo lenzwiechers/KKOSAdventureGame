@@ -84,7 +84,7 @@ public class Game extends Window {
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
 
 		player = new Player(handler, this, panel);
-		player.setPos('y', 900); // 4900
+		player.setPos('y', 4900); // 4900
 
 		player.setPos('x', 100);
 
@@ -123,7 +123,7 @@ public class Game extends Window {
 	}
 
 	public void run() {
-		
+
 		while (!running) {
 			delay(10);
 		}

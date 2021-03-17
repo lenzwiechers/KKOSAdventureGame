@@ -2,6 +2,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.awt.Point;
 
 import javax.swing.JPanel;
@@ -230,8 +231,9 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			if (!game.pause) {
 				game.pause = true;
 			} else {
-				game.pause = false;
+				game.pause = false;;
 			}
+			
 		} else if (e.getKeyCode() == 49) // 1
 			equipped = 0;
 		else if (e.getKeyCode() == 50)	// 2
@@ -311,9 +313,11 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void tick(long dt) {
+		
+		// System.out.println(Game.pause);
 
 		if (dead) {
-			// WHATEVER
+			game.dispatchEvent(new WindowEvent(game, WindowEvent.WINDOW_CLOSING));
 		}
 
 		totalHP = 0;
