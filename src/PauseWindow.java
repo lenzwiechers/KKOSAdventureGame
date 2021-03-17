@@ -93,7 +93,21 @@ public class PauseWindow extends JPanel {
 						writer.write(Integer.toString(game.handler.items.get(i).type));
 						writer.write("\n");
 					}
+					
 					writer.write("END OF ITEMS");
+					
+					writer.write("\n");
+					
+					for(int i = 0; i < game.handler.enemies.size(); i++) {
+						writer.write(Integer.toString(game.handler.enemies.get(i).getPos('x')));
+						writer.write("\n");
+						writer.write(Integer.toString(game.handler.enemies.get(i).getPos('y')));
+						writer.write("\n");
+						writer.write(Integer.toString(game.handler.enemies.get(i).type));
+						writer.write("\n");
+					}
+					
+					writer.write("END OF ENEMIES");
 					
 					writer.close();
 					

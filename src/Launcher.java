@@ -38,6 +38,8 @@ public class Launcher extends Window {
 	BufferedReader reader;
 	
 	String line;
+	
+	int x, y, type;
 
 	public Launcher(Game game) throws MalformedURLException {
 		super("Game Launcher", 1920 / 2 - 512, 1080 / 2 - 384, 1024, 768);
@@ -150,21 +152,37 @@ public class Launcher extends Window {
 					
 					game.handler.items.clear();
 					
-					for(int i = 0; i < game.handler.items.size(); i++) {
-						System.out.println(i);
-					}
-					
 					line = reader.readLine();
 					
 					while(!(line.equals("END OF ITEMS"))) {
-						int x = Integer.parseInt(line);
+						x = Integer.parseInt(line);
 						System.out.println("x: " + x);
-						int y = Integer.parseInt(reader.readLine());
+						y = Integer.parseInt(reader.readLine());
 						System.out.println("y: " + y);
-						int type = Integer.parseInt(reader.readLine());
+						type = Integer.parseInt(reader.readLine());
 						System.out.println("type: " + type);
 						game.handler.addObject(new Item(x, y, game.handler, type));
-						System.out.println("a");
+						System.out.println("---------------------------");
+						line = reader.readLine();
+					}
+					
+					for(int i = 0; i < game.handler.enemies.size(); i++) {
+						game.handler.objects.remove(game.handler.enemies.get(i));
+					}
+					
+					game.handler.enemies.clear();
+					
+					line = reader.readLine();
+					
+					while(!(line.equals("END OF ENEMIES"))) {
+						x = Integer.parseInt(line);
+						System.out.println("x: " + x);
+						y = Integer.parseInt(reader.readLine());
+						System.out.println("y: " + y);
+						type = Integer.parseInt(reader.readLine());
+						System.out.println("type: " + type);
+						game.handler.addObject(new Enemy(type, x, y, game.handler));
+						System.out.println("---------------------------");
 						line = reader.readLine();
 					}
 					

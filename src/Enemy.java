@@ -57,9 +57,9 @@ public class Enemy extends GameObject {
 
 	Font font;
 
-	public Enemy(String picName, int posX, int posY, ObjectHandler handler) {
+	public Enemy(int type, int posX, int posY, ObjectHandler handler) {
 
-		super(picName, handler);
+		super("chonker", handler);
 
 		this.velX = 0.00000025f;
 		this.velY = 0.00000025f;
@@ -74,16 +74,21 @@ public class Enemy extends GameObject {
 		randomNum = ThreadLocalRandom.current().nextInt(10, 30); // 0.0000001f
 
 		velX = randomNum / 100000000;
+		
+		this.type = type;
 
-		if (picName == "gollumneutral") {
+		if (type == 0) {
+			changeName("gollumneutral");
 			type = 0;
 			this.width = 35;
 			this.height = 35;
-		} else if (picName == "chonker") {
+		} else if (type == 1) {
+			changeName("chonker");
 			this.width = 57;
 			this.height = 96;
 			type = 1;
-		} else if (picName == "direktorin") {
+		} else if (type == 2) {
+			changeName("direktorin");
 			velX = 0.0f;
 			velY = 0.0f;
 			type = 2;
