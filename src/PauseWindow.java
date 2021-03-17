@@ -83,6 +83,18 @@ public class PauseWindow extends JPanel {
 					
 					writer.write(Integer.toString(game.handler.player.get(0).totalHP));
 					
+					writer.write("\n");
+					
+					for(int i = 0; i < game.handler.items.size(); i++) {
+						writer.write(Integer.toString(game.handler.items.get(i).getPos('x')));
+						writer.write("\n");
+						writer.write(Integer.toString(game.handler.items.get(i).getPos('y')));
+						writer.write("\n");
+						writer.write(Integer.toString(game.handler.items.get(i).type));
+						writer.write("\n");
+					}
+					writer.write("END OF ITEMS");
+					
 					writer.close();
 					
 					System.out.println("Successfully wrote to the file.");

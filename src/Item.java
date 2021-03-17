@@ -7,7 +7,7 @@ public class Item extends GameObject {
 	public boolean inAir = false;
 	public int airTime = 0;
 
-	public int which;
+	public int type;
 
 	public double gravity;
 
@@ -19,13 +19,13 @@ public class Item extends GameObject {
 
 	boolean picked;
 
-	public Item(int posX, int posY, ObjectHandler newHandler, int which) {
+	public Item(int posX, int posY, ObjectHandler newHandler, int type) {
 		
 
 		super("item_t", newHandler);
-		this.which = which;
+		this.type = type;
 				
-		if (which == 0) {
+		if (type == 0) {
 			this.changeName("potion");
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
@@ -36,7 +36,7 @@ public class Item extends GameObject {
 			this.posY = posY;
 
 			this.changeName("potion");
-		} else if (which == 1) {
+		} else if (type == 1) {
 			this.changeName("gun");
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
@@ -47,7 +47,7 @@ public class Item extends GameObject {
 			this.posY = posY;
 
 			this.changeName("gun");
-		} else if (which == 2) {
+		} else if (type == 2) {
 			this.changeName("sword");
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
@@ -80,7 +80,7 @@ public class Item extends GameObject {
 	public void collision(Player player) {
 		if (getBounds().intersects(player.getBounds())) {
 			picked = true;
-			player.item[which] = true;
+			player.item[type] = true;
 			player.inventory.addItem(this);
 			handler.removeObject(this);
 		}
