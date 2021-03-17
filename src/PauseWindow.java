@@ -3,6 +3,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -32,6 +34,8 @@ public class PauseWindow extends JPanel {
 	JButton returnButton;
 
 	URL url1;
+	
+	FileWriter writer;
 
 	public PauseWindow(Game game) {
 		this.setLocation(1920 / 2 - 270, 1080 / 2 - 270);
@@ -64,11 +68,35 @@ public class PauseWindow extends JPanel {
 		saveButton.setForeground(Color.BLACK);
 		add(saveButton);
 
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					writer = new FileWriter("assets/saveFile.txt");
+					writer.write(Integer.toString(game.handler.player.get(0).posX));
+					writer.write("\n");
+					writer.write(Integer.toString(game.handler.player.get(0).posY));
+					writer.close();
+					System.out.println("Successfully wrote to the file.");
+					System.out.println(game.handler.player.get(0).posX);
+					game.closeGame();
+				} catch (IOException e2) {
+					System.out.println("An error occurred.");
+					e2.printStackTrace();
+				}
+			}
+		});
+
 		quitButton = new JButton("Quit Game");
 		quitButton.setBounds(100, 400, 340, 30);
 		quitButton.setBackground(Color.MAGENTA);
 		quitButton.setForeground(Color.BLACK);
 		add(quitButton);
+		
+		quitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.closeGame();
+			}
+		});
 
 		pauseLabel1 = new JLabel("PAUSE");
 		pauseLabel1.setBounds(142, 20, 255, 70);

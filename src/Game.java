@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 import javax.swing.JLabel;
@@ -47,7 +50,7 @@ public class Game extends Window {
 		}
 	};
 
-	static ObjectHandler handler = new ObjectHandler(panel);
+	ObjectHandler handler = new ObjectHandler(panel);
 
 	public Player player;
 
@@ -74,7 +77,7 @@ public class Game extends Window {
 	public Game() {
 
 		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel);
-
+		
 		// panel.setBackground(Color.GRAY);
 
 		pauseMenu = new PauseWindow(this);
@@ -181,5 +184,9 @@ public class Game extends Window {
 		} else {
 			return var;
 		}
+	}
+	
+	public void closeGame() {
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 }
