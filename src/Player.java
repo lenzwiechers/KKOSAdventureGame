@@ -2,7 +2,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
 import java.awt.Point;
 
 import javax.swing.JPanel;
@@ -132,6 +131,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	public Player(ObjectHandler newHandler, Game game, JPanel newPanel) {
 
 		super("player", newHandler);
+		
+		
 
 		for (int i = 0; i < 10; i++) {
 			this.hx[i] = new Picture("heart");
@@ -310,8 +311,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void tick(long dt) {
-
-		// System.out.println(Game.pause);
 
 		if (totalHP <= 0) {
 			game.closeGame();

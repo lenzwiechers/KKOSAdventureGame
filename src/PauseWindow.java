@@ -72,12 +72,21 @@ public class PauseWindow extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					writer = new FileWriter("assets/saveFile.txt");
+					
 					writer.write(Integer.toString(game.handler.player.get(0).posX));
+					
 					writer.write("\n");
+					
 					writer.write(Integer.toString(game.handler.player.get(0).posY));
+					
+					writer.write("\n");
+					
+					writer.write(Integer.toString(game.handler.player.get(0).totalHP));
+					
 					writer.close();
+					
 					System.out.println("Successfully wrote to the file.");
-					System.out.println(game.handler.player.get(0).posX);
+					
 					game.closeGame();
 				} catch (IOException e2) {
 					System.out.println("An error occurred.");

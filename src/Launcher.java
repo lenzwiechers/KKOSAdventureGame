@@ -36,6 +36,8 @@ public class Launcher extends Window {
 	public ChooseLK chooseLK;
 	
 	BufferedReader reader;
+	
+	String line;
 
 	public Launcher(Game game) throws MalformedURLException {
 		super("Game Launcher", 1920 / 2 - 512, 1080 / 2 - 384, 1024, 768);
@@ -126,15 +128,23 @@ public class Launcher extends Window {
 			public void actionPerformed(ActionEvent e) {
 				// JOptionPane.showMessageDialog(null, "Not implemented yet", "ERROR!", JOptionPane.ERROR_MESSAGE);
 				try {
+					
 					reader = new BufferedReader(new FileReader("assets/saveFile.txt"));
-					String line = reader.readLine();
-					if(line != null) {
-						game.handler.player.get(0).setPos('x', Integer.parseInt(line));
-					}
+					
 					line = reader.readLine();
-					if(line != null) {
-						game.handler.player.get(0).setPos('y', Integer.parseInt(line));
+					
+					game.handler.player.get(0).setPos('x', Integer.parseInt(line));
+					
+					line = reader.readLine();
+					game.handler.player.get(0).setPos('y', Integer.parseInt(line));
+					
+					line = reader.readLine();
+					game.handler.player.get(0).totalHP = Integer.parseInt(line);
+					for(int i = 9; i > Integer.parseInt(line) - 1; i--) {
+						game.handler.player.get(0).hp[i] = false;
 					}
+					
+					
 					reader.close();
 					startGame(game, true);
 				} catch(Exception e2) {
