@@ -134,7 +134,6 @@ public class Game extends Window {
 		System.out.println("-> Game started");
 		System.out.println();
 		while (running) {
-			System.out.println(handler.items.size());
 			if (pause) {
 				System.out.println("-> Game paused");
 				System.out.println();
