@@ -24,14 +24,16 @@ public class Item extends GameObject {
 
 		super("item_t", newHandler);
 		this.type = type;
+		
+		this.width = 50;
+		this.height = 50;
 				
 		if (type == 0) {
 			this.changeName("potion");
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
-			this.width = 30;
-			this.height = 30;
+			
 			this.posX = posX;
 			this.posY = posY;
 
@@ -41,8 +43,6 @@ public class Item extends GameObject {
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
-			this.width = 30;
-			this.height = 30;
 			this.posX = posX;
 			this.posY = posY;
 
