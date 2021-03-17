@@ -43,8 +43,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	Game game;
 
-	public boolean dead = false;
-
 	int totalHP = 0;
 	int money = 0;
 
@@ -60,26 +58,26 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	Picture h7;
 	Picture h8;
 	Picture h9;
-	
+
 	Picture i0;
 	Picture i1;
 	Picture i2;
-	
+
 	Picture e0;
 	Picture e1;
 	Picture e2;
 
 	Picture[] hx = { h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 };
-	
+
 	Picture[] ix = { i0, i1, i2 };
-	
+
 	Picture[] ex = { e0, e1, h2 };
 
 	Inventory inventory;
 
 	String LK1, LK2;
 
-	private float walkSpeed = 0.00000025f; //0.00000025f | 0.00000125f
+	private float walkSpeed = 0.00000025f; // 0.00000025f | 0.00000125f
 	private float sprintSpeed = 0.0000004f;
 
 	private boolean sprinting;
@@ -90,28 +88,27 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		for (int i = 0; i < 3; i++) {
 			this.ex[i] = new Picture("equipped");
-			ex[i].setBounds(Camera.xPos + Game.screenWidth  - 90 , Camera.yPos + 20 + 60*i, 50, 50);
+			ex[i].setBounds(Camera.xPos + Game.screenWidth - 90, Camera.yPos + 20 + 60 * i, 50, 50);
 			Game.panel.add(ex[i]);
 		}
-		
+
 		for (int i = 0; i < 10; i++) {
 			this.hx[i] = new Picture("heart");
 			hx[i].setBounds(Camera.xPos + 20 + 60 * i, Camera.yPos + 20, 50, 50);
 			Game.panel.add(hx[i]);
 			hp[i] = true;
 		}
-		
+
 		this.ix[0] = new Picture("potion");
 		this.ix[1] = new Picture("gun");
 		this.ix[2] = new Picture("sword");
-		
-		
+
 		for (int i = 0; i < 3; i++) {
-			ix[i].setBounds(Camera.xPos + Game.screenWidth  - 60 , Camera.yPos + 20 + 60 * i, 50, 50);
+			ix[i].setBounds(Camera.xPos + Game.screenWidth - 60, Camera.yPos + 20 + 60 * i, 50, 50);
 			Game.panel.add(ix[i]);
 			item[i] = false;
 		}
-		
+
 		this.velX = walkSpeed;
 		this.velY = 0.00000025f;
 
@@ -142,24 +139,23 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			Game.panel.add(hx[i]);
 			hp[i] = true;
 		}
-		
+
 		this.ix[0] = new Picture("potion");
 		this.ix[1] = new Picture("gun");
 		this.ix[2] = new Picture("sword");
-		
-		
+
 		for (int i = 0; i < 3; i++) {
-			ix[i].setBounds(Camera.xPos + Game.screenWidth  - 60 , Camera.yPos + 20 + 60 * i, 50, 50);
+			ix[i].setBounds(Camera.xPos + Game.screenWidth - 60, Camera.yPos + 20 + 60 * i, 50, 50);
 			Game.panel.add(ix[i]);
 			item[i] = false;
 		}
 
 		for (int i = 0; i < 3; i++) {
 			this.ex[i] = new Picture("equipped");
-			ex[i].setBounds(Camera.xPos + Game.screenWidth  - 90 , Camera.yPos + 20 + 60*i, 50, 50);
+			ex[i].setBounds(Camera.xPos + Game.screenWidth - 90, Camera.yPos + 20 + 60 * i, 50, 50);
 			Game.panel.add(ex[i]);
 		}
-		
+
 		this.velX = walkSpeed;
 		this.velY = 0.00000025f;
 
@@ -210,7 +206,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			this.velX = sprintSpeed;
 			sprinting = true;
 		} else if (e.getKeyCode() == 69) { // e
-			//inventory.showInv();
+			// inventory.showInv();
 		} else if (e.getKeyCode() == 82 && item[0] && equipped == 0) { // r
 			for (int i = 0; i < 9; i++) {
 				if (!hp[i]) {
@@ -231,12 +227,13 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			if (!game.pause) {
 				game.pause = true;
 			} else {
-				game.pause = false;;
+				game.pause = false;
+				;
 			}
-			
+
 		} else if (e.getKeyCode() == 49) // 1
 			equipped = 0;
-		else if (e.getKeyCode() == 50)	// 2
+		else if (e.getKeyCode() == 50) // 2
 			equipped = 1;
 		else if (e.getKeyCode() == 51) // 3
 			equipped = 2;
@@ -313,10 +310,10 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void tick(long dt) {
-		
+
 		// System.out.println(Game.pause);
 
-		if (dead) {
+		if (totalHP <= 0) {
 			game.closeGame();
 		}
 
@@ -330,19 +327,19 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 				hx[i].setVisible(false);
 			}
 		}
-		
-		for(int i = 0; i<3; i++) {
-			if(item[i]) {
+
+		for (int i = 0; i < 3; i++) {
+			if (item[i]) {
 				ix[i].setVisible(true);
 			} else {
 				ix[i].setVisible(false);
 			}
 		}
-		
-		for(int i = 0; i<3; i++) {
-			if(item[i] && equipped == i) {
+
+		for (int i = 0; i < 3; i++) {
+			if (item[i] && equipped == i) {
 				ex[i].setVisible(true);
-			} else{
+			} else {
 				ex[i].setVisible(false);
 			}
 		}
@@ -531,13 +528,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		if (onWall()) {
 			velY = 0;
 		}
-
-		if (totalHP < 1) {
-			dead = true;
-		}
 		
-		// System.out.println("x: " + posX + " | y: " + posY);
-
 	}
 
 	public void mouseEntered(MouseEvent m) {
