@@ -52,8 +52,6 @@ public class Item extends GameObject {
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
-			this.width = 15;
-			this.height = 45;
 			this.posX = posX;
 			this.posY = posY;
 
