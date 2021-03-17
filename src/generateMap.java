@@ -58,7 +58,7 @@ public abstract class generateMap {
 		waende.add(new Wand(1000, -3100, 1000, 100, handler));
 		waende.add(new Wand(2000, -3000, 100, 1000, handler));
 
-		enemies.add(new Enemy("direktorin", 500, -2000, handler));
+		enemies.add(new Enemy(2, 500, -2000, handler));
 	}
 
 	public static void generateStartRoom(ObjectHandler handler) {
@@ -104,14 +104,14 @@ public abstract class generateMap {
 
 		waende.add(new Wand(750, -150, 30, 150, handler));
 
-		enemies.add(new Enemy("gollumneutral", 800, -100, handler));
+		enemies.add(new Enemy(0, 800, -100, handler));
 
 		waende.add(new Wand(1450, 500, 500, 20, handler));
 		waende.add(new Wand(1250, 700, 100, 200, handler));
 		waende.add(new Wand(1250, 900, 300, 100, handler));
 
-		enemies.add(new Enemy("gollumneutral", 1900, 840, handler));
-		enemies.add(new Enemy("chonker", 2150, 800, handler));
+		enemies.add(new Enemy(0, 1900, 840, handler));
+		enemies.add(new Enemy(1, 2150, 800, handler));
 
 		waende.add(new Wand(2150, 600, 100, 20, handler));
 		waende.add(new Wand(2350, 500, 300, 20, handler));
@@ -136,10 +136,10 @@ public abstract class generateMap {
 
 		waende.add(new Wand(4700, 200, 600, 20, handler));
 
-		enemies.add(new Enemy("chonker", 4800, 100, handler));
-		enemies.add(new Enemy("chonker", 5100, 50, handler));
-		enemies.add(new Enemy("gollumneutral", 4800, 900, handler));
-		enemies.add(new Enemy("gollumneutral", 5200, 900, handler));
+		enemies.add(new Enemy(1, 4800, 100, handler));
+		enemies.add(new Enemy(1, 5100, 50, handler));
+		enemies.add(new Enemy(0, 4800, 900, handler));
+		enemies.add(new Enemy(0, 5200, 900, handler));
 
 		waende.add(new Wand(5500, -500, 200, 1000, handler));
 		waende.add(new Wand(5500, 500, 200, 310, handler));
@@ -174,7 +174,7 @@ public abstract class generateMap {
 
 		// Debug
 
-		items.add(new Item(200, 4900, handler, 2));
+		items.add(new Item(200, 4900, handler, 1));
 
 		// Debug Ende
 
@@ -218,14 +218,14 @@ public abstract class generateMap {
 		waende.add(new Wand(1000, 3700, 100, 300, handler));
 		waende.add(new Wand(950, 4900, 50, 100, handler));
 
-		enemies.add(new Enemy("chonker", 780, 4860, handler));
+		enemies.add(new Enemy(1, 780, 4860, handler));
 
-		enemies.add(new Enemy("gollumneutral", 50, 4600, handler));
-		enemies.add(new Enemy("gollumneutral", 150, 4600, handler));
-		enemies.add(new Enemy("gollumneutral", 250, 4600, handler));
-		enemies.add(new Enemy("gollumneutral", 350, 4600, handler));
-		enemies.add(new Enemy("gollumneutral", 450, 4600, handler));
-		enemies.add(new Enemy("gollumneutral", 550, 4600, handler));
+		enemies.add(new Enemy(0, 50, 4600, handler));
+		enemies.add(new Enemy(0, 150, 4600, handler));
+		enemies.add(new Enemy(0, 250, 4600, handler));
+		enemies.add(new Enemy(0, 350, 4600, handler));
+		enemies.add(new Enemy(0, 450, 4600, handler));
+		enemies.add(new Enemy(0, 550, 4600, handler));
 
 		waende.add(new Wand(600, 4550, 100, 20, handler));
 		waende.add(new Wand(400, 4450, 100, 20, handler));
@@ -245,17 +245,17 @@ public abstract class generateMap {
 		waende.add(new Wand(1300, 4200, 37, 10, handler));
 		waende.add(new Wand(1300, 4199, 1, 1, handler));
 		waende.add(new Wand(1336, 4199, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 1301, 4165, handler));
+		enemies.add(new Enemy(0, 1301, 4165, handler));
 
 		waende.add(new Wand(1300, 4400, 37, 10, handler));
 		waende.add(new Wand(1300, 4399, 1, 1, handler));
 		waende.add(new Wand(1336, 4399, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 1301, 4365, handler));
+		enemies.add(new Enemy(0, 1301, 4365, handler));
 
 		waende.add(new Wand(1300, 4600, 37, 10, handler));
 		waende.add(new Wand(1300, 4599, 1, 1, handler));
 		waende.add(new Wand(1336, 4599, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 1301, 4565, handler));
+		enemies.add(new Enemy(0, 1301, 4565, handler));
 
 		waende.add(new Wand(1700, 4600, 100, 20, handler));
 		waende.add(new Wand(1600, 4800, 100, 20, handler));
@@ -264,50 +264,50 @@ public abstract class generateMap {
 		waende.add(new Wand(2300, 4600, 37, 10, handler));
 		waende.add(new Wand(2300, 4599, 1, 1, handler));
 		waende.add(new Wand(2336, 4599, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 2301, 4565, handler));
+		enemies.add(new Enemy(0, 2301, 4565, handler));
 
 		waende.add(new Wand(2200, 4300, 100, 20, handler));
 
 		waende.add(new Wand(2600, 4400, 37, 10, handler));
 		waende.add(new Wand(2600, 4399, 1, 1, handler));
 		waende.add(new Wand(2636, 4399, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 2601, 4365, handler));
+		enemies.add(new Enemy(0, 2601, 4365, handler));
 
 		waende.add(new Wand(2500, 4100, 100, 20, handler));
 
 		waende.add(new Wand(2800, 4200, 37, 10, handler));
 		waende.add(new Wand(2800, 4199, 1, 1, handler));
 		waende.add(new Wand(2836, 4199, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 2801, 4165, handler));
+		enemies.add(new Enemy(0, 2801, 4165, handler));
 
 		waende.add(new Wand(2800, 3900, 100, 20, handler));
 
 		waende.add(new Wand(3100, 4000, 37, 10, handler));
 		waende.add(new Wand(3100, 3999, 1, 1, handler));
 		waende.add(new Wand(3136, 3999, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 3101, 3965, handler));
+		enemies.add(new Enemy(0, 3101, 3965, handler));
 
 		waende.add(new Wand(3100, 3700, 100, 20, handler));
 
 		waende.add(new Wand(3300, 4200, 37, 10, handler));
 		waende.add(new Wand(3300, 4199, 1, 1, handler));
 		waende.add(new Wand(3336, 4199, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 3301, 4165, handler));
+		enemies.add(new Enemy(0, 3301, 4165, handler));
 
 		waende.add(new Wand(4100, 4500, 37, 10, handler));
 		waende.add(new Wand(4100, 4499, 1, 1, handler));
 		waende.add(new Wand(4136, 4499, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 4101, 4465, handler));
+		enemies.add(new Enemy(0, 4101, 4465, handler));
 
 		waende.add(new Wand(3300, 4400, 37, 10, handler));
 		waende.add(new Wand(3300, 4399, 1, 1, handler));
 		waende.add(new Wand(3336, 4399, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 3301, 4365, handler));
+		enemies.add(new Enemy(0, 3301, 4365, handler));
 
 		waende.add(new Wand(3300, 4600, 37, 10, handler));
 		waende.add(new Wand(3300, 4599, 1, 1, handler));
 		waende.add(new Wand(3336, 4599, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 3301, 4565, handler));
+		enemies.add(new Enemy(0, 3301, 4565, handler));
 
 		waende.add(new Wand(3600, 4500, 300, 20, handler));
 
