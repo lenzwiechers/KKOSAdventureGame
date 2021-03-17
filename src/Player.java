@@ -43,7 +43,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	Game game;
 
-	int totalHP = 0;
+	int totalHP = 10;
 	int money = 0;
 
 	public boolean[] hp = new boolean[10];
