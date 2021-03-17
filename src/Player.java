@@ -317,7 +317,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		// System.out.println(Game.pause);
 
 		if (dead) {
-			game.dispatchEvent(new WindowEvent(game, WindowEvent.WINDOW_CLOSING));
+			game.closeGame();
 		}
 
 		totalHP = 0;

@@ -1,7 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -32,6 +34,8 @@ public class Launcher extends Window {
 	public Game game;
 	
 	public ChooseLK chooseLK;
+	
+	BufferedReader reader;
 
 	public Launcher(Game game) throws MalformedURLException {
 		super("Game Launcher", 1920 / 2 - 512, 1080 / 2 - 384, 1024, 768);
@@ -115,12 +119,27 @@ public class Launcher extends Window {
 
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				startGame(game);
+				startGame(game, false);
 			}
 		});
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Not implemented yet", "ERROR!", JOptionPane.ERROR_MESSAGE);
+				// JOptionPane.showMessageDialog(null, "Not implemented yet", "ERROR!", JOptionPane.ERROR_MESSAGE);
+				try {
+					reader = new BufferedReader(new FileReader("assets/saveFile.txt"));
+					String line = reader.readLine();
+					if(line != null) {
+						game.handler.player.get(0).setPos('x', Integer.parseInt(line));
+					}
+					line = reader.readLine();
+					if(line != null) {
+						game.handler.player.get(0).setPos('y', Integer.parseInt(line));
+					}
+					reader.close();
+					startGame(game, true);
+				} catch(Exception e2) {
+					System.out.println("FEHLER: " + e2);
+				}
 			}
 		});
 		exitButton.addActionListener(new ActionListener() {
@@ -133,15 +152,21 @@ public class Launcher extends Window {
 		});
 	}
 	
-	public void startGame(Game game) {		
-		chooseLK.setVisible(true);
-		chooseLK.init();
+	public void startGame(Game game, boolean loading) {	
 		
 		System.out.println("-> Launcher closed");
 		System.out.println();
 		
-		System.out.println("-> LK window opened");
-		System.out.println();
+		if(!loading) {
+			chooseLK.setVisible(true);
+			chooseLK.init();
+			
+			System.out.println("-> LK window opened");
+			System.out.println();
+		} else {
+			game.setVisible(true);
+			game.running = true;
+		}
 		
 		dispose();
 	}
