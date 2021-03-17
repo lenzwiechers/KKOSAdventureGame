@@ -1,5 +1,5 @@
+import java.awt.Component;
 import java.util.LinkedList;
-
 import javax.swing.JPanel;
 
 public class ObjectHandler {
@@ -21,9 +21,11 @@ public class ObjectHandler {
 	LinkedList<Slash> slashes = new LinkedList<Slash>();
 
 	LinkedList<Item> items = new LinkedList<Item>();
-	
+
 	LinkedList<FlyingObject> stuff = new LinkedList<FlyingObject>();
-	
+
+	LinkedList<TutorialLabel> tutorialLabels = new LinkedList<TutorialLabel>();
+
 	public int screenWidth, screenHeight;
 	private GameObject obj;
 	private Enemy enemy;
@@ -69,9 +71,9 @@ public class ObjectHandler {
 		}
 	}
 
-	public void addObject(GameObject obj) {
-		panel.add(obj);
-		objects.add(obj);
+	public void addObject(Object obj) {
+		panel.add((Component) obj);
+		objects.add((GameObject) obj);
 		if (obj instanceof Wand) {
 			waende.add((Wand) obj);
 		} else if (obj instanceof Enemy) {
@@ -88,6 +90,9 @@ public class ObjectHandler {
 			slashes.add((Slash) obj);
 		} else if ((obj) instanceof FlyingObject) {
 			stuff.add((FlyingObject) obj);
+		} else if (obj instanceof TutorialLabel) {
+			tutorialLabels.add((TutorialLabel) obj);
+			System.out.println("done");
 		}
 	}
 

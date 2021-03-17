@@ -23,19 +23,22 @@ public class Picture extends JLabel { // Die übergeordnete Klasse ist JLabel
 		super(); // Aufrufen der übergeordneten Klasse
 
 		this.name = name;
+		
+		if(name != "") {
+			
+			try {
 
-		try {
+				pic = ImageIO.read(new File("assets/" + name + ".png")); // Einlesen der Datei aus dem "assets" - Ordner
 
-			pic = ImageIO.read(new File("assets/" + name + ".png")); // Einlesen der Datei aus dem "assets" - Ordner
+				this.setIcon(new ImageIcon(pic)); // Das eingelesene BufferedImage pic wird auf das JLabel (diese Klasse)
+													// geladen
 
-			this.setIcon(new ImageIcon(pic)); // Das eingelesene BufferedImage pic wird auf das JLabel (diese Klasse)
-												// geladen
+			} catch (IOException ex) {
 
-		} catch (IOException ex) {
+				// Falls es ein Problem mit dem Einlesen der Datei gibt:
+				JOptionPane.showMessageDialog(null, "Please check your file paths", "Error", JOptionPane.ERROR_MESSAGE);
 
-			// Falls es ein Problem mit dem Einlesen der Datei gibt:
-			JOptionPane.showMessageDialog(null, "Please check your file paths", "Error", JOptionPane.ERROR_MESSAGE);
-
+			}
 		}
 
 	}

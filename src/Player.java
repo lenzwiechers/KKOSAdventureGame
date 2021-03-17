@@ -531,6 +531,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		if (totalHP < 1) {
 			dead = true;
 		}
+		
+		// System.out.println("x: " + posX + " | y: " + posY);
 
 	}
 

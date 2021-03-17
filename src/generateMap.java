@@ -1,4 +1,7 @@
+import java.awt.Color;
 import java.util.LinkedList;
+
+import javax.swing.JLabel;
 
 public abstract class generateMap {
 
@@ -6,6 +9,7 @@ public abstract class generateMap {
 	static LinkedList<Door> tueren = new LinkedList<Door>();
 	static LinkedList<Item> items = new LinkedList<Item>();
 	static LinkedList<Enemy> enemies = new LinkedList<Enemy>();
+	static LinkedList<JLabel> tutorialLabels = new LinkedList<JLabel>();
 
 	public static void generate(ObjectHandler handler) {
 		generateStartRoom(handler);
@@ -19,7 +23,10 @@ public abstract class generateMap {
 		generateBossRoom(handler);
 		
 		generateTestRoom(handler);
-
+		
+		for(int i = 0; i < tutorialLabels.size(); i++) {
+			handler.addObject(tutorialLabels.get(i));
+		}
 		for (int i = 0; i < waende.size(); i++) {
 			handler.addObject(waende.get(i));
 		}
@@ -32,6 +39,7 @@ public abstract class generateMap {
 		for (int i = 0; i < enemies.size(); i++) {
 			handler.addObject(enemies.get(i));
 		}
+		
 	}
 	
 	public static void generateTestRoom(ObjectHandler handler) {
@@ -57,7 +65,9 @@ public abstract class generateMap {
 		// Startraum Generierung
 
 		// Grenzen: 0, -1000, 6000, 1000
-
+		
+		tutorialLabels.add(new TutorialLabel(600, 600, 400, 400, "<html><body>HELLO! MOVE YOUR PLAYER WITH THE 'A', AND 'D' KEYS, AND JUMP WITH SPACE!</body></html>", Color.WHITE));
+		
 		// Umriss
 
 		waende.add(new Wand(0, 1000, 1000, 1000, handler));

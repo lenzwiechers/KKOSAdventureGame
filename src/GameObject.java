@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Rectangle;
 
 public abstract class GameObject extends Picture {
@@ -25,6 +27,21 @@ public abstract class GameObject extends Picture {
 
 		this.handler = handler;
 
+	}
+	
+	public GameObject(int posX, int posY, int width, int height, String text, Color color) {
+		super("");
+		
+		this.posX = posX;
+		this.posY = posY;
+		this.width = width;
+		this.height = height;
+		
+		setText(text);
+		
+		setForeground(color);
+		
+		setFont(new Font("Serif", Font.PLAIN, 40));
 	}
 
 	public int getPos(char coordinate) {

@@ -1,8 +1,7 @@
 import java.awt.*;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Game extends Window {
@@ -77,15 +76,15 @@ public class Game extends Window {
 		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel);
 
 		// panel.setBackground(Color.GRAY);
-		
+
 		pauseMenu = new PauseWindow(this);
-		
+
 		this.add(pauseMenu);
 
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
 
 		player = new Player(handler, this, panel);
-		player.setPos('y', 4900);
+		player.setPos('y', 900); // 4900
 
 		player.setPos('x', 100);
 
@@ -103,10 +102,10 @@ public class Game extends Window {
 		player.render();
 
 		generateMap.generate(handler);
-		
-		for(int i = 0; i < handler.enemies.size(); i++) {
+
+		for (int i = 0; i < handler.enemies.size(); i++) {
 			System.out.println(handler.enemies.get(i).type);
-			if(handler.enemies.get(i).type == 2) {
+			if (handler.enemies.get(i).type == 2) {
 				panel.add(handler.enemies.get(i).bossHealthBar);
 				panel.setComponentZOrder(handler.enemies.get(i).bossHealthBar, 0);
 			}
@@ -124,6 +123,7 @@ public class Game extends Window {
 	}
 
 	public void run() {
+		
 		while (!running) {
 			delay(10);
 		}
@@ -139,9 +139,9 @@ public class Game extends Window {
 					delay(10);
 				}
 				lastT = System.nanoTime(); // delta time
-				
+
 				pauseMenu.setVisible(false);
-				
+
 				System.out.println("-> Game resumed");
 				System.out.println();
 			}
