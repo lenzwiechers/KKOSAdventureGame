@@ -109,6 +109,13 @@ public class PauseWindow extends JPanel {
 					
 					writer.write("END OF ENEMIES");
 					
+					writer.write("\n");
+					
+					for(int i = 0; i < 3; i ++) {
+						writer.write(Boolean.toString(game.handler.player.get(0).item[i]));
+						writer.write("\n");
+					}
+					
 					writer.close();
 					
 					System.out.println("Successfully wrote to the file.");

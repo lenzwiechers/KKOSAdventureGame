@@ -20,7 +20,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	private boolean jump = false;
 
-	boolean[] item = new boolean[4];
+	boolean[] item = new boolean[3];
 
 	public boolean pause = false;
 	public boolean pauseRelease = false;
