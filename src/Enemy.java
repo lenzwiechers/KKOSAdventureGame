@@ -92,8 +92,8 @@ public class Enemy extends GameObject {
 			velX = 0.0f;
 			velY = 0.0f;
 			type = 2;
-			this.height = 500;
-			this.width = 200;
+			this.height = 1000;
+			this.width = 400;
 			bossHealthBar = new JLabel();
 			bossHealthBar.setBackground(Color.RED);
 			bossHealthBar.setOpaque(true);
@@ -128,7 +128,7 @@ public class Enemy extends GameObject {
 
 		if (handler.player.get(0).posX - posX < 2000 && handler.player.get(0).posY - posY < 2000 && type == 2) {
 			bossHealthBar.setVisible(true);
-			bossHealthBar.setBounds(20, 1000, (int) (hp * (handler.screenWidth - 40) / totalHP), 70);
+			bossHealthBar.setBounds(20, handler.screenHeight - 80, (int) (hp * (handler.screenWidth - 40) / totalHP), 70);
 		} else if (type == 2) {
 			bossHealthBar.setVisible(false);
 		}
@@ -411,15 +411,14 @@ public class Enemy extends GameObject {
 				}
 			} else if (type == 2) {
 				if (attackFrameCounter == 0) {
-					changeName("chonker"); // spawnEnemyFrame
-				} else if (attackFrameCounter == 30) {
-					handler.addObject(new Enemy(0, posX, posY, handler));
-					handler.addObject(new Enemy(1, posX, posY, handler));
+					changeName("direktorin_summon"); // spawnEnemyFrame
+				} else if (attackFrameCounter == 70) {
+					handler.addObject(new Enemy((int) (Math.random() * 2), posX, posY, handler));
 					changeName("direktorin");
-				} else if (attackFrameCounter == 60) {
-					changeName("chonker"); // Schussframe
-				} else if (attackFrameCounter == 90) {
-					handler.addObject(new FlyingObject("verwarnung", handler, posX, posY, new Vector2(
+				} else if (attackFrameCounter == 140) {
+					changeName("direktorin_verwarnung"); // Schussframe
+				} else if (attackFrameCounter == 210) {
+					handler.addObject(new FlyingObject("verwarnung", handler, posX + 20, posY + 300, new Vector2(
 							handler.player.get(0).getPos('x') + 25, handler.player.get(0).getPos('y'))));
 					changeName("direktorin");
 					attacking = false;
@@ -442,7 +441,7 @@ public class Enemy extends GameObject {
 				}
 			}
 			if (playerContact && Math.sqrt(
-					Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 1000) {
+					Math.pow(l[j].getX2() - l[j].getX1(), 2) + Math.pow(l[j].getY2() - l[j].getY1(), 2)) <= 2000) {
 				return true;
 			}
 		}
