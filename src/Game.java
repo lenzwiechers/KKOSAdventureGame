@@ -13,7 +13,7 @@ public class Game extends Window {
 
 	public boolean pause; // speichert ob das Spiel pausiert wird
 
-	private final static boolean debug = true; // wenn true, werden die Linien vom Player zu den Gegnern (Lines of
+	private final static boolean debug = false; // wenn true, werden die Linien vom Player zu den Gegnern (Lines of
 												// Sight) gerenderrt
 
 	static JPanel panel = new JPanel() { // Panel auf dem alle Objekte gerendert werden
@@ -90,11 +90,9 @@ public class Game extends Window {
 		handler = new ObjectHandler(panel, screenWidth, screenHeight); // ObjectHandler wird erschaffen
 
 		player = new Player(handler, this, panel);
-		player.setPos('y', 12900); // 8900
+		player.setPos('y', 900); // 8900
 
-		player.setPos('x', 50); // 50
-
-		player.setPos('x', 5950);
+		player.setPos('x', 50);
 
 		cam = new Camera(handler, player, screenWidth, screenHeight); // Camera wird erschaffen
 

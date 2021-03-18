@@ -195,6 +195,14 @@ public class Launcher extends Window {
 					line = reader.readLine();
 					
 					game.handler.player.get(0).setDash(Boolean.parseBoolean(line));
+					
+					line = reader.readLine();
+					
+					game.handler.player.get(0).LK1 = line;
+					
+					line = reader.readLine();
+					
+					game.handler.player.get(0).LK2 = line;
 
 					reader.close();
 					startGame(game, true);
