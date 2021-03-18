@@ -32,7 +32,7 @@ public class Enemy extends GameObject {
 
 	int hp = 100;
 
-	private boolean right = true;
+	private boolean right = true;                                                                                       // AKTUELLE GANGRICHTUNG (BENUTZT FÜR ANIMATION)
 	private boolean left;
 	private boolean lookright = true;
 	private int walkcounter = 0;
@@ -77,7 +77,7 @@ public class Enemy extends GameObject {
 
 		this.type = type;
 
-		if (type == 0) {
+		if (type == 0) {                                                                     
 			changeName("gollumneutral");
 			type = 0;
 			this.width = 35;
@@ -250,15 +250,14 @@ public class Enemy extends GameObject {
 		if (!attacking) {
 			if (type == 0) {
 				if (lookright) {
-					if (walkcounter >= 0 && walkcounter < walkspeed) {
+					if (walkcounter >= 0 && walkcounter < walkspeed) {         
 						if (this.name != "gollumwalking1") {
 							this.changeName("gollumwalking1");
 						}
-						walkcounter++;
+						walkcounter++;                                                                                     	//NACH RECHTS LAUFEN MIT ANIMATION (ALLE PAAR TICKS FRAMEWECHSEL)
 					} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
 						if (this.name != "gollumwalking2") {
-							this.changeName("gollumwalking2");
-						}
+							this.changeName("gollumwalking2");                                      								
 						walkcounter++;
 					}
 					if (walkcounter == 2 * walkspeed) {
@@ -268,7 +267,8 @@ public class Enemy extends GameObject {
 				} else if (!lookright) {
 					if (walkcounter >= 0 && walkcounter < walkspeed) {
 						if (this.name != "igollumwalking1") {
-							this.changeName("igollumwalking1");
+							this.changeName("igollumwalking1");                                                              //NACH LINKS LAUFEN MIT ANIMATION (ALLE PAAR TICKS FRAMEWECHSEL)
+						}
 
 						}
 						walkcounter++;
@@ -282,8 +282,7 @@ public class Enemy extends GameObject {
 						walkcounter = 0;
 					}
 				}
-			} else if (type == 1) {
-				if (lookright) {
+			} else if (type == 1) {                                                                                             // DAS GLEICHE WIE BEI GOLLUM
 					if (walkcounter >= 0 && walkcounter < walkspeed) {
 						if (name != "chonkerwalking1") {
 							changeName("chonkerwalking1");
@@ -318,8 +317,7 @@ public class Enemy extends GameObject {
 
 			}
 
-		}
-
+		
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {
@@ -356,16 +354,16 @@ public class Enemy extends GameObject {
 			}
 		}
 
-		if (attacking) {
+		if (attacking) {                                                                                       				 //WENN ATTACKIEREND WIRD GOLLUM ERST ANGEHALTEN           
 			if (type == 0) {
 				if (attackFrameCounter == 0) {
 					velX = 0;
-					if (right) {
+					if (right) {																							//GOLLUM WECHSELT ZU SEINEM AUFLADE FRAME
 						changeName("gollumwindup");
 					} else {
 						changeName("igollumwindup");
 					}
-				} else if (attackFrameCounter == 30) {
+				} else if (attackFrameCounter == 30) {                                                                     //UND NACH KURZER ZEIT ZU SCHUSS ANIMATION (IMMER IN ANHÄNGIGKEIT ZUR LAUFRICHTUNG)
 					if (right) {
 						changeName("gollumattack");
 					} else {
@@ -380,7 +378,7 @@ public class Enemy extends GameObject {
 					attacking = false;
 				}
 			} else if (type == 1) {
-				if (attackFrameCounter == 0) {
+				if (attackFrameCounter == 0) {                                                        //GLEICHES PRINZIEP WIE BEI GOLLUM NUR OHNE STEHEN BLEIBEN 
 					if (right) {
 						changeName("chonkerwindup");
 						velX = 0f;

@@ -203,7 +203,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 
 	public void keyPressed(KeyEvent e) {
-
+                                                                                                             //AUF TASTENDRUCK:
 		// System.out.println(e.getKeyCode());
 
 		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) { // d/right arrow																//NACH RECHTS GEHEN
@@ -358,7 +358,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			this.velX = dashspeed;
 			dashcounter++;
 			if (dashcounter == dashlength) {
-				if (sprinting) {																												//DASH (ALSO WIRD DIE X GESCHWINDIGKEIT GEÄNDERT FALLS NÖTIG)
+				if (sprinting) {																												//DASH (ERHÖTE GESCHWINDIGKEIT FÜR FESTE ANZAHL TICKS)
 					this.velX = sprintSpeed;
 				} else {
 					this.velX = walkSpeed;
@@ -379,7 +379,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
 				if (this.name != "walking2") {
 					this.changeName("walking2");
-				}																																//NACH RECHTS LAUFEN MIT ANIMATION
+				}																																//NACH RECHTS LAUFEN MIT ANIMATION (ALLE PAAR TICKS FRAMEWECHSEL)
 				walkcounter++;
 			} else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
 				if (this.name != "walking3") {
@@ -408,7 +408,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
 				if (this.name != "iwalking2") {
 					this.changeName("iwalking2");
-				}																																//NACH LINKS LAUFEN MIT ANIMATION
+				}																																//NACH LINKS LAUFEN MIT ANIMATION (ALLE PAAR TICKS FRAMEWECHSEL)
 				walkcounter++;
 			} else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
 				if (this.name != "iwalking3") {
@@ -445,7 +445,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		}
 
 		if (onWall() && lookright && !right) {																						// HIER WERDEN VERSCHIEDENE SPRITES AUDGEWÄHLT
-			if (this.name != "player") {																							// JE NACH DEM, WO DER PLAYER IST
+			if (this.name != "player") {																							// JE NACH DEM, WIE DER PLAYER AUSGERICHTET IST (R/L/ SPRINGEND)
 				this.changeName("player");
 			}
 		}
