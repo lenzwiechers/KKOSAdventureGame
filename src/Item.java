@@ -1,5 +1,4 @@
 
-
 public class Item extends GameObject {
 
 	private static final long serialVersionUID = 2917881703989759480L;
@@ -20,20 +19,18 @@ public class Item extends GameObject {
 	boolean picked;
 
 	public Item(int posX, int posY, ObjectHandler newHandler, int type) {
-		
 
 		super("item_t", newHandler);
 		this.type = type;
-		
+
 		this.width = 50;
 		this.height = 50;
-				
+
 		if (type == 0) {
 			this.changeName("potion");
 			this.velX = 0.00000024f;
 			this.velY = 0.00000025f;
 
-			
 			this.posX = posX;
 			this.posY = posY;
 
@@ -56,6 +53,13 @@ public class Item extends GameObject {
 			this.posY = posY;
 
 			this.changeName("sword");
+		} else if (type == 3) {
+			this.changeName("dash");
+			this.velX = 0.00000024f;
+			this.velY = 0.00000025f;
+
+			this.posX = posX;
+			this.posY = posY;
 		}
 		this.handler = newHandler;
 	}
@@ -77,10 +81,15 @@ public class Item extends GameObject {
 
 	public void collision(Player player) {
 		if (getBounds().intersects(player.getBounds())) {
-			picked = true;
-			player.item[type] = true;
-			player.inventory.addItem(this);
-			handler.removeObject(this);
+			if (type == 3) {
+				player.setDash(true);
+				handler.removeObject(this);
+			} else {
+				picked = true;
+				player.item[type] = true;
+				player.inventory.addItem(this);
+				handler.removeObject(this);
+			}
 		}
 	}
 
@@ -93,7 +102,6 @@ public class Item extends GameObject {
 
 	public void tick(long dt) {
 
-		
 		addGravity();
 
 		collision(handler.player.get(0));
