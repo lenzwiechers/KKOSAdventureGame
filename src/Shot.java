@@ -31,16 +31,16 @@ public class Shot extends GameObject {
 		this.posX = sx;
 		this.posY = sy;
 
-		this.hom = new Vector2((float) (posX - Game.cam.xPos), (float) (posY - Game.cam.yPos));
+		this.hom = new Vector2((float) (posX - Game.cam.xPos), (float) (posY - Game.cam.yPos));							//VEKTOR VOM START ZUM PLAYER
 
 		// this.tar = tar;
 
-		this.acv = Vector2.subtract(tar, hom);
+		this.acv = Vector2.subtract(tar, hom);																			//VEKTOR VON START ZU ZIEL - HEIMVEKTOR = VEKTOR VOM PLAYER ZUM ZIEL
 
 		// tar.norm();
 
-		acv.norm();
-
+		acv.norm();																										//ENDGUELTIGER VEKTOR WIRD NORMIERT DAMIT SHOTS NICHT SCHNELLER SIND FALLS MANN WEITER WEG CLICKT																					//ENDGUELTIGER VEKTOR WIRD NORMIERT DAMIT SHOTS NICHT SCHNELLER SIND FALLS MANN WEITER WEG CLICKT
+		
 		this.velX = (float) acv.x;
 		this.velY = (float) acv.y;
 
@@ -74,11 +74,11 @@ public class Shot extends GameObject {
 			posY += velY * dt * shotSpeed;
 		}*/
 		
-		posX += velX * dt * shotSpeed;
+		posX += velX * dt * shotSpeed;																		// X UND Y GESCHWINDIGKEITEN WERDEN AUF RICHTIGE WERTE "GESTRECKT"
 		posY += velY * dt * shotSpeed;
 		
 		if(wallCollision()) {
-			handler.removeObject(this);
+			handler.removeObject(this);																		// FALLS DER SHOT GEGEN DIE WAND KNALLT WIRD ER ENTFERNT
 		}
 	}
 

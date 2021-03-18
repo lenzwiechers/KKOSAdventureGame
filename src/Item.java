@@ -28,39 +28,18 @@ public class Item extends GameObject {
 
 		if (type == 0) {
 			this.changeName("potion");
-			this.velX = 0.00000024f;
-			this.velY = 0.00000025f;
-
-			this.posX = posX;
-			this.posY = posY;
-
-			this.changeName("potion");
 		} else if (type == 1) {
-			this.changeName("gun");
-			this.velX = 0.00000024f;
-			this.velY = 0.00000025f;
-
-			this.posX = posX;
-			this.posY = posY;
-
-			this.changeName("gun");
+			this.changeName("gun");																											// NAME DES ITEMS WIRD FESTGELLEGT
 		} else if (type == 2) {
-			this.changeName("sword");
-			this.velX = 0.00000024f;
-			this.velY = 0.00000025f;
-
-			this.posX = posX;
-			this.posY = posY;
-
 			this.changeName("sword");
 		} else if (type == 3) {
 			this.changeName("dash");
-			this.velX = 0.00000024f;
-			this.velY = 0.00000025f;
-
-			this.posX = posX;
-			this.posY = posY;
 		}
+		this.velX = 0.00000024f;
+		this.velY = 0.00000025f;
+
+		this.posX = posX;
+		this.posY = posY;
 		this.handler = newHandler;
 	}
 
@@ -85,7 +64,7 @@ public class Item extends GameObject {
 				player.setDash(true);
 				handler.removeObject(this);
 			} else {
-				picked = true;
+				picked = true;																								//KOLLISION MIT SPIELER
 				player.item[type] = true;
 				player.inventory.addItem(this);
 				handler.removeObject(this);
@@ -97,14 +76,14 @@ public class Item extends GameObject {
 
 		if (velY < 0.0000020f) {
 			velY += 0.000000030f;
-		}
+		}																									//GRAVITATION FÜRS ITEM
 	}
 
 	public void tick(long dt) {
 
-		addGravity();
+		addGravity();																										//GRAVITATION
 
-		collision(handler.player.get(0));
+		collision(handler.player.get(0));																						//SPIELER NIMMT DAS ITEM AUF
 
 		posY += velY * dt;
 		boolean inWall = false;
