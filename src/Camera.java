@@ -32,11 +32,22 @@ public class Camera {
 		return false;
 	}
 
-	public void tick() {
+	public void tick(boolean bossroom) {
 
-		xPos = player.getPos('x') - (frameXSize / 2) + (player.getSize('x') / 2);
-		yPos = player.getPos('y') - (frameYSize / 2) + (player.getSize('y') / 2);
-
+		if (!bossroom) {
+			xPos = player.getPos('x') - (frameXSize / 2) + (player.getSize('x') / 2);
+			yPos = player.getPos('y') - (frameYSize / 2) + (player.getSize('y') / 2);
+			
+			handler.player.get(0).setBounds(frameXSize / 2 - player.getSize('x') / 2,
+					frameYSize / 2 - player.getSize('y') / 2, player.getSize('x'), player.getSize('y'));
+		} else {
+			xPos = -500;
+			yPos = 15720;
+			
+			handler.player.get(0).setBounds(handler.player.get(0).getPos('x') - xPos,
+					handler.player.get(0).getPos('y') - yPos, handler.player.get(0).getSize('x'),
+					handler.player.get(0).getSize('y'));
+		}
 		for (int i = 0; i < handler.objects.size(); i++) {
 			object = handler.objects.get(i);
 			if (!(object instanceof Player) && isInScreen(object)) {
@@ -44,8 +55,7 @@ public class Camera {
 						object.getSize('y'));
 			}
 		}
-		handler.player.get(0).setBounds(frameXSize / 2 - player.getSize('x') / 2,
-				frameYSize / 2 - player.getSize('y') / 2, player.getSize('x'), player.getSize('y'));
+		
 	}
 
 	public static void renderAll() {

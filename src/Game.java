@@ -13,7 +13,7 @@ public class Game extends Window {
 
 	public boolean pause; // speichert ob das Spiel pausiert wird
 
-	private final static boolean debug = false; // wenn true, werden die Linien vom Player zu den Gegnern (Lines of
+	private final static boolean debug = true; // wenn true, werden die Linien vom Player zu den Gegnern (Lines of
 												// Sight) gerenderrt
 
 	static JPanel panel = new JPanel() { // Panel auf dem alle Objekte gerendert werden
@@ -61,7 +61,8 @@ public class Game extends Window {
 	public long dt;
 	private long lastT;
 
-	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width; // wird f�r verschiedene Objekte/
+	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width; // wird f�r verschiedene
+																						// Objekte/
 																						// Methoden verwendet
 	public static int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
@@ -89,11 +90,11 @@ public class Game extends Window {
 		handler = new ObjectHandler(panel, screenWidth, screenHeight); // ObjectHandler wird erschaffen
 
 		player = new Player(handler, this, panel);
-		player.setPos('y', 12900); 	// 8900
+		player.setPos('y', 12900); // 8900
 
-		player.setPos('x', 50);		// 50
+		player.setPos('x', 50); // 50
 
-		player.setPos('x', 20);
+		player.setPos('x', 5950);
 
 		cam = new Camera(handler, player, screenWidth, screenHeight); // Camera wird erschaffen
 
@@ -118,8 +119,8 @@ public class Game extends Window {
 			}
 			panel.setComponentZOrder(handler.enemies.get(i), 0); // Enemies werden ganz oben gerendert
 		}
-		
-		for(int i = 0; i < handler.tutorialLabels.size(); i++) {
+
+		for (int i = 0; i < handler.tutorialLabels.size(); i++) {
 			panel.setComponentZOrder(handler.tutorialLabels.get(i), 0); // TutorialLabels werden ganz oben gerendert
 		}
 
@@ -138,6 +139,7 @@ public class Game extends Window {
 		while (!running) {
 			delay(10);
 		}
+		
 		lastT = System.nanoTime(); // delta time
 		System.out.println("-> Game started");
 		System.out.println();
@@ -166,7 +168,12 @@ public class Game extends Window {
 
 			// Handler und Cam ticken:
 			handler.tick(dt);
-			cam.tick();
+
+			if (handler.player.get(0).getPos('y') >= 14920) {
+				cam.tick(true);
+			} else {
+				cam.tick(false);
+			}
 
 			if (frameTime - ((System.currentTimeMillis() - timer)) > 0) {
 				delay(frameTime - (System.currentTimeMillis() - timer));
