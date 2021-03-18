@@ -13,24 +13,26 @@ public class FlyingObject extends GameObject {
 	Vector2 tar;
 	Vector2 acv;
 
-	public FlyingObject(ObjectHandler handler, int wx, int wy, Vector2 newTar, Enemy newEnemy) {
-		super("gollumWave", handler);
+	public FlyingObject(String name, ObjectHandler handler, int wx, int wy, Vector2 newTar) {
+		super(name, handler);
 
 		this.posX = wx;
 		this.posY = wy;
-		
-		this.width = 35;
-		this.height = 35;
-		
-		this.enemy = newEnemy;
+
+		if (name == "gollumWave") {
+			width = 35;
+			height = 35;
+		} else if(name == "verwarnung") {
+			width = 300;
+			height = 100;
+		}
 		this.handler = handler;
-		
+
 		this.tar = newTar;
-		this.hom = new Vector2((float)posX, (float)posY);
+		this.hom = new Vector2((float) posX, (float) posY);
 		this.acv = Vector2.subtract(tar, hom);
 		acv.norm();
-		
-		
+
 		this.velX = (float) acv.x;
 		this.velY = (float) acv.y;
 	}
