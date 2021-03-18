@@ -560,14 +560,56 @@ public abstract class generateMap {
 		waende.add(new Wand(1900, 12450, 50, 20, handler));
 		
 		waende.add(new Wand(700, 12250, 100, 20, handler));
+		waende.add(new Wand(400, 12050, 100, 20, handler));
+		waende.add(new Wand(1100, 11900, 200, 20, handler));
+		
+		waende.add(new Wand(1950, 12000, 100, 1000, handler));
+		
+		waende.add(new Wand(2050, 12800, 50, 20, handler));
+		waende.add(new Wand(2200, 12600, 100, 20, handler));
+		waende.add(new Wand(2500, 12400, 100, 20, handler));
+		waende.add(new Wand(2050, 12200, 150, 20, handler));
+		
+		waende.add(new Wand(2300, 11900, 100, 20, handler));
+		waende.add(new Wand(2800, 11700, 200, 20, handler));
+		waende.add(new Wand(3700, 12500, 500, 20, handler));
 
+		waende.add(new Wand(4500, 12600, 200, 20, handler));
+		waende.add(new Wand(4800, 12400, 100, 20, handler));
+		waende.add(new Wand(4600, 12200, 100, 20, handler));
+		waende.add(new Wand(5100, 12000, 50, 20, handler));
+		
+		waende.add(new Wand(4400, 11600, 20, 720, handler));
+		waende.add(new Wand(4400, 11600, 1000, 20, handler));
+		waende.add(new Wand(5400, 11600, 300, 20, handler));
+		
+		waende.add(new Wand(4300, 12300, 100, 20, handler));
+		waende.add(new Wand(4000, 12150, 100, 20, handler));
+		waende.add(new Wand(3800, 12000, 50, 20, handler));
+		waende.add(new Wand(3780, 11000, 20, 1000, handler));
+		waende.add(new Wand(3780, 12000, 20, 20, handler));
+		waende.add(new Wand(4200, 11800, 200, 20, handler));
+		waende.add(new Wand(4000, 11600, 50, 20, handler));
+		waende.add(new Wand(3800, 11400, 100, 20, handler));
+		waende.add(new Wand(4200, 11200, 200, 20, handler));
+		waende.add(new Wand(4400, 11100, 1000, 500, handler));
+		waende.add(new Wand(5400, 11100, 300, 500, handler));
+		
+		items.add(new Item(4500, 11150, handler, 0));
+		items.add(new Item(4600, 11150, handler, 0));
+		items.add(new Item(4700, 11150, handler, 0));
+		
+		waende.add(new Wand(5700, 12000, 100, 900, handler));
+		waende.add(new Wand(5500, 12000, 100, 1000, handler));
+		waende.add(new Wand(5700, 11100, 100, 900, handler));
+		
 		// Innen Ende
 	}
 
 	public static void generateBossRoom(ObjectHandler handler) {
 		// Bossebene Generierung
 		
-		// Grenzen: 0, 16020, 1720, 17000
+		// Grenzen: 0, 15920, 1720, 17000
 		
 		// Verbindung
 		
