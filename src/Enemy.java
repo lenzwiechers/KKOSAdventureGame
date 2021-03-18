@@ -61,8 +61,8 @@ public class Enemy extends GameObject {
 
 		super("chonker", handler);
 
-		this.velX = 0.00000025f;
-		this.velY = 0.00000025f;
+		velX = 0.00000025f;
+		velY = 0.00000025f;
 
 		this.posX = posX;
 		this.posY = posY;
@@ -74,7 +74,7 @@ public class Enemy extends GameObject {
 		randomNum = ThreadLocalRandom.current().nextInt(10, 30); // 0.0000001f
 
 		velX = randomNum / 100000000;
-		
+
 		this.type = type;
 
 		if (type == 0) {
@@ -101,8 +101,8 @@ public class Enemy extends GameObject {
 			bossHealthBar.setForeground(Color.BLACK);
 			try {
 				font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/puree____2.ttf")).deriveFont(50f);
-			    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			    ge.registerFont(font);
+				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+				ge.registerFont(font);
 			} catch (FontFormatException | IOException e) {
 				System.out.println("Font konnte nicht geladen werden");
 			}
@@ -147,105 +147,103 @@ public class Enemy extends GameObject {
 			attackFrameCounter = 0;
 		}
 
-		if (type != 2) {
-			sCollide = false;
-			slCollide = false;
+		sCollide = false;
+		slCollide = false;
 
-			l[0].setLine(posX + (width / 2), posY,
-					handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-					handler.player.get(0).getPos('y') + 1);
-			l[1].setLine(posX + (width / 2), posY,
-					handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-					handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
-			l[2].setLine(posX + (width / 2), posY,
-					handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
-					handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
+		l[0].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + 1);
+		l[1].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + (handler.player.get(0).getSize('y') / 2));
+		l[2].setLine(posX + (width / 2), posY,
+				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
+				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
 
-			if (checkContact() && !chonkerAttackRight && !chonkerAttackLeft) {
-				if (posX < handler.player.get(0).getPos('x')) {
-					posX += velX * dt;
-					while (wallCollision()) {
-						posX -= 1;
-					}
-					right = true;
-					left = false;
-					lookright = true;
-
-				} else if (posX > handler.player.get(0).getPos('x')) {
-					posX -= velX * dt;
-					while (wallCollision()) {
-						posX += 1;
-					}
-					right = false;
-					left = true;
-					lookright = false;
-
-				}
-			} else if (right && !chonkerAttackRight && !chonkerAttackLeft) {
-				line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
-				right = false;
-				for (int i = 0; i < handler.waende.size(); i++) {
-					if (line.intersects(handler.waende.get(i).getBounds())) {
-						right = true;
-						lookright = true;
-
-					}
-				}
-				if (right) {
-					posX += (velX * dt);
-					while (wallCollision()) {
-						posX -= 1;
-						right = false;
-						left = true;
-						lookright = false;
-
-					}
-				} else {
-					right = false;
-					left = true;
-					lookright = false;
-
-				}
-
-			} else if (left && !chonkerAttackRight && !chonkerAttackLeft) {
-				line.setLine(posX - 5, posY + height + 5, posX - 20, posY + height + 5);
-				left = false;
-				for (int i = 0; i < handler.waende.size(); i++) {
-					if (line.intersects(handler.waende.get(i).getBounds())) {
-						left = true;
-						lookright = false;
-
-					}
-				}
-				if (left) {
-					posX -= (velX * dt);
-					while (wallCollision()) {
-						posX += 1;
-						right = true;
-						left = false;
-						lookright = true;
-					}
-				} else {
-					left = false;
-					right = true;
-					lookright = true;
-
-				}
-			} else if (chonkerAttackRight) {
+		if (checkContact() && !chonkerAttackRight && !chonkerAttackLeft) {
+			if (posX < handler.player.get(0).getPos('x')) {
 				posX += velX * dt;
 				while (wallCollision()) {
 					posX -= 1;
-					right = false;
-					left = false;
-					lookright = false;
 				}
-			} else if (chonkerAttackLeft) {
+				right = true;
+				left = false;
+				lookright = true;
+
+			} else if (posX > handler.player.get(0).getPos('x')) {
 				posX -= velX * dt;
 				while (wallCollision()) {
 					posX += 1;
-					right = false;
-					left = false;
 				}
+				right = false;
+				left = true;
+				lookright = false;
+
+			}
+		} else if (right && !chonkerAttackRight && !chonkerAttackLeft) {
+			line.setLine(posX + width + 5, posY + height + 5, posX + width + 20, posY + height + 5);
+			right = false;
+			for (int i = 0; i < handler.waende.size(); i++) {
+				if (line.intersects(handler.waende.get(i).getBounds())) {
+					right = true;
+					lookright = true;
+
+				}
+			}
+			if (right) {
+				posX += (velX * dt);
+				while (wallCollision()) {
+					posX -= 1;
+					right = false;
+					left = true;
+					lookright = false;
+
+				}
+			} else {
+				right = false;
+				left = true;
+				lookright = false;
+
+			}
+
+		} else if (left && !chonkerAttackRight && !chonkerAttackLeft) {
+			line.setLine(posX - 5, posY + height + 5, posX - 20, posY + height + 5);
+			left = false;
+			for (int i = 0; i < handler.waende.size(); i++) {
+				if (line.intersects(handler.waende.get(i).getBounds())) {
+					left = true;
+					lookright = false;
+
+				}
+			}
+			if (left) {
+				posX -= (velX * dt);
+				while (wallCollision()) {
+					posX += 1;
+					right = true;
+					left = false;
+					lookright = true;
+				}
+			} else {
+				left = false;
+				right = true;
+				lookright = true;
+
+			}
+		} else if (chonkerAttackRight) {
+			posX += velX * dt;
+			while (wallCollision()) {
+				posX -= 1;
+				right = false;
+				left = false;
+				lookright = false;
+			}
+		} else if (chonkerAttackLeft) {
+			posX -= velX * dt;
+			while (wallCollision()) {
+				posX += 1;
+				right = false;
+				left = false;
 			}
 		}
 
@@ -316,6 +314,8 @@ public class Enemy extends GameObject {
 						walkcounter = 0;
 					}
 				}
+			} else if (type == 2) {
+
 			}
 
 		}
@@ -336,7 +336,7 @@ public class Enemy extends GameObject {
 			this.velY = 0;
 		}
 
-		if (gravity) {
+		if (gravity && type != 2) {
 			addGravity();
 		}
 
@@ -364,9 +364,8 @@ public class Enemy extends GameObject {
 					} else {
 						changeName("igollumattack");
 					}
-					handler.addObject(new FlyingObject(handler, posX + width, posY,
-							new Vector2(handler.player.get(0).getPos('x') - 25, handler.player.get(0).getPos('y') + 40),
-							this));
+					handler.addObject(new FlyingObject("gollumWave", handler, posX + width, posY, new Vector2(
+							handler.player.get(0).getPos('x') + 25, handler.player.get(0).getPos('y') + 40)));
 
 				} else if (attackFrameCounter == 60) {
 					attackFrameCounter = 0;
@@ -403,12 +402,27 @@ public class Enemy extends GameObject {
 					velX = 0.0000001f;
 					chonkerAttackRight = chonkerAttackLeft = false;
 				}
+			} else if (type == 2) {
+				if (attackFrameCounter == 0) {
+					changeName("chonker"); // spawnEnemyFrame
+				} else if (attackFrameCounter == 30) {
+					handler.addObject(new Enemy(0, posX, posY, handler));
+					handler.addObject(new Enemy(1, posX, posY, handler));
+					changeName("direktorin");
+				} else if (attackFrameCounter == 60) {
+					changeName("chonker"); // Schussframe
+				} else if (attackFrameCounter == 90) {
+					handler.addObject(new FlyingObject("verwarnung", handler, posX, posY, new Vector2(
+							handler.player.get(0).getPos('x') + 25, handler.player.get(0).getPos('y'))));
+					changeName("direktorin");
+					attacking = false;
+					attackFrameCounter = 0;
+				}
 			} else {
 				attacking = false;
 			}
 			attackFrameCounter++;
 		}
-
 	}
 
 	public boolean checkContact() {

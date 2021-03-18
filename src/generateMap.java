@@ -58,7 +58,7 @@ public abstract class generateMap {
 		waende.add(new Wand(1000, -3100, 1000, 100, handler));
 		waende.add(new Wand(2000, -3000, 100, 1000, handler));
 
-		enemies.add(new Enemy(2, 500, -2000, handler));
+		enemies.add(new Enemy(2, 500, -1500, handler));
 	}
 
 	public static void generateStartRoom(ObjectHandler handler) {
