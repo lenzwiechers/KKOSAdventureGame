@@ -153,7 +153,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		for (int i = 0; i < 3; i++) {
 			this.ex[i] = new Picture("equipped");
-			ex[i].setBounds(Camera.xPos + Game.screenWidth - 90, Camera.yPos + 20 + 60 * i, 50, 50);
+			ex[i].setBounds(Camera.xPos + Game.screenWidth - 60, Camera.yPos + 20 + 60 * i, 50, 50);
 			Game.panel.add(ex[i]);
 		}
 
@@ -465,67 +465,196 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			posY -= Math.signum(velY);
 
 		}
-
-		if (System.currentTimeMillis() - enemyContactCounter > 1000) {
-
-			if (hardEnemyCollision()) {
-				if (totalHP < 2) {
-					totalHP -= 2;
-					for (int i = 9; i > -1; i--) {
-						hx[i].setVisible(false);
-					}
-					enemyContactCounter = System.currentTimeMillis();
-				} else {
-					totalHP -= 2;
-					for (int i = 9; i > -1; i--) {
-						if (hp[i]) {
-							hp[i] = false;
-							hp[i - 1] = false;
-							break;
+		
+		if ((LK1.equals("Englisch") || LK2.equals("Englisch"))&&(!LK1.equals("Deutsch") || !LK2.equals("Deutsch"))) {
+			if (System.currentTimeMillis() - enemyContactCounter > 1000) {
+				if (hardEnemyCollision() > 1) {
+					if (totalHP < 2) {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							hx[i].setVisible(false);
 						}
-					}
-					enemyContactCounter = System.currentTimeMillis();
-				}
-
-			} else if (enemyCollision()) {
-				if (totalHP < 2) {
-					totalHP -= 2;
-					for (int i = 9; i > -1; i--) {
-						hx[i].setVisible(false);
-					}
-					enemyContactCounter = System.currentTimeMillis();
-				} else {
-					totalHP -= 2;
-					for (int i = 9; i > -1; i--) {
-						if (hp[i]) {
-							hp[i] = false;
-							hp[i - 1] = false;
-							break;
+						enemyContactCounter = System.currentTimeMillis();
+					} else {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							if (hp[i]) {
+								hp[i] = false;
+								hp[i - 1] = false;
+								break;
+							}
 						}
+						enemyContactCounter = System.currentTimeMillis();
 					}
-					enemyContactCounter = System.currentTimeMillis();
+
+				} else if (enemyCollision()> 1) {
+					if (totalHP < 2) {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							hx[i].setVisible(false);
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					} else {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							if (hp[i]) {
+								hp[i] = false;
+								hp[i - 1] = false;
+								break;
+							}
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					}
 				}
 			}
-		}
 
-		if (System.currentTimeMillis() - waveContactCounter > 1000) {
-			if (waveCollision()) {
-				if (totalHP < 2) {
-					totalHP -= 2;
-					for (int i = 9; i > -1; i--) {
-						hx[i].setVisible(false);
-					}
-					waveContactCounter = System.currentTimeMillis();
-				} else {
-					totalHP -= 2;
-					for (int i = 9; i > -1; i--) {
-						if (hp[i]) {
-							hp[i] = false;
-							hp[i - 1] = false;
-							break;
+			if (System.currentTimeMillis() - waveContactCounter > 1000) {
+				if (waveCollision() >1) {
+					if (totalHP < 2) {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							hx[i].setVisible(false);
 						}
+						waveContactCounter = System.currentTimeMillis();
+					} else {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							if (hp[i]) {
+								hp[i] = false;
+								hp[i - 1] = false;
+								break;
+							}
+						}
+						waveContactCounter = System.currentTimeMillis();
 					}
-					waveContactCounter = System.currentTimeMillis();
+				}
+			}
+		} 
+		
+		else if ((LK1.equals("Deutsch") || LK2.equals("Deutsch")) && (!LK1.equals("Englisch") || !LK2.equals("Englisch"))) {
+			if (System.currentTimeMillis() - enemyContactCounter > 1000) {
+				if ((0 == hardEnemyCollision()) || (hardEnemyCollision() == 2)) {
+					if (totalHP < 2) {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							hx[i].setVisible(false);
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					} else {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							if (hp[i]) {
+								hp[i] = false;
+								hp[i - 1] = false;
+								break;
+							}
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					}
+
+				} else if ((enemyCollision() == 0) || (enemyCollision() == 1) ) {
+					if (totalHP < 2) {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							hx[i].setVisible(false);
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					} else {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							if (hp[i]) {
+								hp[i] = false;
+								hp[i - 1] = false;
+								break;
+							}
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					}
+				}
+			}
+
+			if (System.currentTimeMillis() - waveContactCounter > 1000) {
+				if ((waveCollision() == 0) || (waveCollision() == 1)) {
+					if (totalHP < 2) {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							hx[i].setVisible(false);
+						}
+						waveContactCounter = System.currentTimeMillis();
+					} else {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							if (hp[i]) {
+								hp[i] = false;
+								hp[i - 1] = false;
+								break;
+							}
+						}
+						waveContactCounter = System.currentTimeMillis();
+					}
+				}
+			}
+		} else if((!LK1.equals("Deutsch") || !LK2.equals("Deutsch")) && (!LK1.equals("Englisch") || !LK2.equals("Englisch"))){
+			if (System.currentTimeMillis() - enemyContactCounter > 1000) {
+				if (hardEnemyCollision() != -1) {
+					if (totalHP < 2) {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							hx[i].setVisible(false);
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					} else {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							if (hp[i]) {
+								hp[i] = false;
+								hp[i - 1] = false;
+								break;
+							}
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					}
+
+				} else if (enemyCollision() != -1) {
+					if (totalHP < 2) {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							hx[i].setVisible(false);
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					} else {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							if (hp[i]) {
+								hp[i] = false;
+								hp[i - 1] = false;
+								break;
+							}
+						}
+						enemyContactCounter = System.currentTimeMillis();
+					}
+				}
+			}
+
+			if (System.currentTimeMillis() - waveContactCounter > 1000) {
+				if (waveCollision() != -1) {
+					if (totalHP < 2) {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							hx[i].setVisible(false);
+						}
+						waveContactCounter = System.currentTimeMillis();
+					} else {
+						totalHP -= 2;
+						for (int i = 9; i > -1; i--) {
+							if (hp[i]) {
+								hp[i] = false;
+								hp[i - 1] = false;
+								break;
+							}
+						}
+						waveContactCounter = System.currentTimeMillis();
+					}
 				}
 			}
 		}
