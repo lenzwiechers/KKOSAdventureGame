@@ -24,6 +24,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	public boolean pause = false;
 	public boolean pauseRelease = false;
+	
+	public boolean dashPicked;
 
 	private int equipped = -1;
 	private int dashlength = 10;
@@ -191,6 +193,14 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	public boolean getJump() {
 		return this.jump;
+	}
+
+	public void setDash(boolean dash) {
+		dashPicked = dash;
+	}
+
+	public boolean getDash() {
+		return dashPicked;
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -455,8 +465,12 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			posY -= Math.signum(velY);
 
 		}
-		
-		if ((LK1.equals("Englisch") || LK2.equals("Englisch"))&&(!LK1.equals("Deutsch") || !LK2.equals("Deutsch"))) {
+
+		if ((LK1.equals("Deutsch") || LK2.equals("Deutsch"))
+				&& (LK1.equals("Englisch") || LK2.equals("Englisch"))) {
+
+		} else if ((LK1.equals("Englisch") || LK2.equals("Englisch"))
+				&& (!LK1.equals("Deutsch") || !LK2.equals("Deutsch"))) {
 			if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 				if (hardEnemyCollision() > 1) {
 					if (totalHP < 2) {
@@ -477,7 +491,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 						enemyContactCounter = System.currentTimeMillis();
 					}
 
-				} else if (enemyCollision()> 1) {
+				} else if (enemyCollision() > 1) {
 					if (totalHP < 2) {
 						totalHP -= 2;
 						for (int i = 9; i > -1; i--) {
@@ -499,7 +513,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 
 			if (System.currentTimeMillis() - waveContactCounter > 1000) {
-				if (waveCollision() >1) {
+				if (waveCollision() > 1) {
 					if (totalHP < 2) {
 						totalHP -= 2;
 						for (int i = 9; i > -1; i--) {
@@ -519,9 +533,10 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 					}
 				}
 			}
-		} 
-		
-		else if ((LK1.equals("Deutsch") || LK2.equals("Deutsch")) && (!LK1.equals("Englisch") || !LK2.equals("Englisch"))) {
+		}
+
+		else if ((LK1.equals("Deutsch") || LK2.equals("Deutsch"))
+				&& (!LK1.equals("Englisch") || !LK2.equals("Englisch"))) {
 			if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 				if ((0 == hardEnemyCollision()) || (hardEnemyCollision() == 2)) {
 					if (totalHP < 2) {
@@ -542,7 +557,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 						enemyContactCounter = System.currentTimeMillis();
 					}
 
-				} else if ((enemyCollision() == 0) || (enemyCollision() == 1) ) {
+				} else if ((enemyCollision() == 0) || (enemyCollision() == 1)) {
 					if (totalHP < 2) {
 						totalHP -= 2;
 						for (int i = 9; i > -1; i--) {
@@ -584,7 +599,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 					}
 				}
 			}
-		} else if((!LK1.equals("Deutsch") || !LK2.equals("Deutsch")) && (!LK1.equals("Englisch") || !LK2.equals("Englisch"))){
+		} else if ((!LK1.equals("Deutsch") || !LK2.equals("Deutsch"))
+				&& (!LK1.equals("Englisch") || !LK2.equals("Englisch"))) {
 			if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 				if (hardEnemyCollision() != -1) {
 					if (totalHP < 2) {
