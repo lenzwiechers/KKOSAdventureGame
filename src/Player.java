@@ -303,7 +303,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	}
 
 	public void enterDoor(Door door) {
-		if (door != null) {
+		if (door != null && door.exitDoor != null) {
 			this.setPos('x', door.getExitX());
 			this.setPos('y', door.getExitY());
 			Camera.renderAll();

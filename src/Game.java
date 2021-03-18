@@ -87,9 +87,9 @@ public class Game extends Window {
 		handler = new ObjectHandler(panel, screenWidth, screenHeight);
 
 		player = new Player(handler, this, panel);
-		player.setPos('y', 4900); // 4900
+		player.setPos('y', 16900);
 
-		player.setPos('x', 100);
+		player.setPos('x', 50);
 
 		cam = new Camera(handler, player, screenWidth, screenHeight);
 
@@ -133,6 +133,8 @@ public class Game extends Window {
 		lastT = System.nanoTime(); // delta time
 		System.out.println("-> Game started");
 		System.out.println();
+		System.out.println("LK1: " + player.LK1);
+		System.out.println("LK2: " + player.LK2);
 		while (running) {
 			if (pause) {
 				System.out.println("-> Game paused");
