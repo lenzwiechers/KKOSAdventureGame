@@ -101,33 +101,39 @@ public abstract class GameObject extends Picture {
 		return false;
 	}
 
-	public boolean enemyCollision() {
+	public int enemyCollision() {
 		for (int i = 0; i < handler.enemies.size(); i++) {
 			if (collision(handler.enemies.get(i))) {
-				return true;
+				if(handler.enemies.get(i).type ==0) return 0;
+				if(handler.enemies.get(i).type ==1) return 1;
+				if(handler.enemies.get(i).type ==2) return 2;
 			}
 		}
-		return false;
+		return -1;
 	}
 
-	public boolean hardEnemyCollision() { // wenn ein Gegner gerade im attack modus ist
+	public int hardEnemyCollision() { // wenn ein Gegner gerade im attack modus ist
 
 		for (int i = 0; i < handler.enemies.size(); i++) {
 			if (collision(handler.enemies.get(i)) && handler.enemies.get(i).attacking) {
-				return true;
+				if(handler.enemies.get(i).type ==0) return 0;
+				if(handler.enemies.get(i).type ==1) return 1;
+				if(handler.enemies.get(i).type ==2) return 2;
 			}
 		}
-		return false;
+		return -1;
 	}
 
-	public boolean waveCollision() {
+	public int waveCollision() {
 		for (int i = 0; i < handler.stuff.size(); i++) {
 			if (collision(handler.stuff.get(i))) {
 				handler.removeObject(handler.stuff.get(i));
-				return true;
+				if(handler.enemies.get(i).type ==0) return 0;
+				if(handler.enemies.get(i).type ==1) return 1;
+				if(handler.enemies.get(i).type ==2) return 2;
 			}
 		}
-		return false;
+		return -1;
 	}
 
 	public boolean wallCollision() {

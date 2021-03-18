@@ -341,12 +341,19 @@ public class Enemy extends GameObject {
 		}
 
 		if (shotCollision()) {
-
-			hp -= 55;
+			if (handler.player.get(0).LK1.equals("Informatik") || handler.player.get(0).LK2.equals("Informatik")) {
+				hp -= 110;
+			} else {
+				hp -= 55;
+			}
 		}
 
 		if (slashCollision()) {
-			hp -= 150;
+			if (handler.player.get(0).LK1.equals("Sport") || handler.player.get(0).LK2.equals("Sport")) {
+				hp -= 300;
+			} else {
+				hp -= 150;
+			}
 		}
 
 		if (attacking) {
