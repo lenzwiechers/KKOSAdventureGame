@@ -36,6 +36,9 @@ public abstract class generateMap {
 		for (int i = 0; i < enemies.size(); i++) {
 			handler.addObject(enemies.get(i));
 		}
+		for(int i = 0; i < tutorialLabels.size(); i++) {
+			handler.addObject(tutorialLabels.get(i));
+		}
 
 	}
 

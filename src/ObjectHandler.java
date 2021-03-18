@@ -92,7 +92,6 @@ public class ObjectHandler {
 			stuff.add((FlyingObject) obj);
 		} else if (obj instanceof TutorialLabel) {
 			tutorialLabels.add((TutorialLabel) obj);
-			System.out.println("done");
 		}
 	}
 

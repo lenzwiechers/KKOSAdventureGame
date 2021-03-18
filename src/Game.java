@@ -90,9 +90,9 @@ public class Game extends Window {
 
 		player = new Player(handler, this, panel); // Player wird erschaffen
 
-		player.setPos('y', 16900); // Player wird an die richtige Postion gesetzt
+		player.setPos('y', 900); // Player wird an die richtige Postion gesetzt
 
-		player.setPos('x', 50);
+		player.setPos('x', 20);
 
 		cam = new Camera(handler, player, screenWidth, screenHeight); // Camera wird erschaffen
 
@@ -116,6 +116,10 @@ public class Game extends Window {
 																					// gerendert
 			}
 			panel.setComponentZOrder(handler.enemies.get(i), 0); // Enemies werden ganz oben gerendert
+		}
+		
+		for(int i = 0; i < handler.tutorialLabels.size(); i++) {
+			panel.setComponentZOrder(handler.tutorialLabels.get(i), 0); // TutorialLabels werden ganz oben gerendert
 		}
 
 		try {
