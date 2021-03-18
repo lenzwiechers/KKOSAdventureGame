@@ -1,4 +1,5 @@
-
+// Main - Klasse
+// Hier wird das Spiel gestartet
 public class Main {
 
 	@SuppressWarnings("unused")

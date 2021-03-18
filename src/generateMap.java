@@ -267,12 +267,12 @@ public abstract class generateMap {
 		waende.add(new Wand(1300, 4200, 37, 10, handler));
 		waende.add(new Wand(1300, 4199, 1, 1, handler));
 		waende.add(new Wand(1336, 4199, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 1301, 4165, handler));
+		enemies.add(new Enemy(0, 1301, 4165, handler));
 
 		waende.add(new Wand(1300, 4600, 37, 10, handler));
 		waende.add(new Wand(1300, 4599, 1, 1, handler));
 		waende.add(new Wand(1336, 4599, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 1301, 4565, handler));
+		enemies.add(new Enemy(0, 1301, 4565, handler));
 
 		waende.add(new Wand(1700, 4600, 100, 20, handler));
 		waende.add(new Wand(1600, 4800, 100, 20, handler));
@@ -281,7 +281,7 @@ public abstract class generateMap {
 		waende.add(new Wand(2300, 4600, 37, 10, handler));
 		waende.add(new Wand(2300, 4599, 1, 1, handler));
 		waende.add(new Wand(2336, 4599, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 2301, 4565, handler));
+		enemies.add(new Enemy(0, 2301, 4565, handler));
 
 		waende.add(new Wand(2200, 4300, 100, 20, handler));
 
@@ -290,7 +290,7 @@ public abstract class generateMap {
 		waende.add(new Wand(2800, 4200, 37, 10, handler));
 		waende.add(new Wand(2800, 4199, 1, 1, handler));
 		waende.add(new Wand(2836, 4199, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 2801, 4165, handler));
+		enemies.add(new Enemy(0, 2801, 4165, handler));
 
 		waende.add(new Wand(2800, 3900, 100, 20, handler));
 
@@ -299,12 +299,12 @@ public abstract class generateMap {
 		waende.add(new Wand(3300, 4200, 37, 10, handler));
 		waende.add(new Wand(3300, 4199, 1, 1, handler));
 		waende.add(new Wand(3336, 4199, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 3301, 4165, handler));
+		enemies.add(new Enemy(0, 3301, 4165, handler));
 
 		waende.add(new Wand(3300, 4400, 37, 10, handler));
 		waende.add(new Wand(3300, 4399, 1, 1, handler));
 		waende.add(new Wand(3336, 4399, 1, 1, handler));
-		enemies.add(new Enemy("gollumneutral", 3301, 4365, handler));
+		enemies.add(new Enemy(0, 3301, 4365, handler));
 
 		waende.add(new Wand(3600, 4500, 300, 20, handler));
 
@@ -314,9 +314,9 @@ public abstract class generateMap {
 		waende.add(new Wand(5800, 4700, 200, 300, handler));
 		waende.add(new Wand(5500, 4850, 200, 20, handler));
 
-		enemies.add(new Enemy("chonker", 4720, 4800, handler));
-		enemies.add(new Enemy("chonker", 4770, 4800, handler));
-		enemies.add(new Enemy("chonker", 4840, 4800, handler));
+		enemies.add(new Enemy(1, 4720, 4800, handler));
+		enemies.add(new Enemy(1, 4770, 4800, handler));
+		enemies.add(new Enemy(1, 4840, 4800, handler));
 
 		// Innen Ende
 
@@ -498,6 +498,8 @@ public abstract class generateMap {
 		waende.add(new Wand(750, 16700, 200, 20, handler));
 		waende.add(new Wand(550, 16850, 50, 20, handler));
 		waende.add(new Wand(1050, 16500, 10, 100, handler));
+		
+		enemies.add(new Enemy(2, 1100, 16200, handler)); // Boss wird gespawnt
 		
 		// Innen Ende
 	}

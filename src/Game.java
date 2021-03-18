@@ -11,15 +11,16 @@ public class Game extends Window {
 
 	private static final long serialVersionUID = 6680112103815633456L;
 
-	public boolean pause;
+	public boolean pause; // speichert ob das Spiel pausiert wird
 
-	private final static boolean debug = false;
+	private final static boolean debug = false; // wenn true, werden die Linien vom Player zu den Gegnern (Lines of
+												// Sight) gerenderrt
 
-	static JPanel panel = new JPanel() {
+	static JPanel panel = new JPanel() { // Panel auf dem alle Objekte gerendert werden
 
 		private static final long serialVersionUID = -5196824841345897510L;
 
-		protected void paintComponent(Graphics g) {
+		protected void paintComponent(Graphics g) { // Diese Methode rendert Die Lines Of Sight
 
 			Graphics2D g2 = (Graphics2D) g;
 			super.paintComponent(g);
@@ -50,17 +51,18 @@ public class Game extends Window {
 		}
 	};
 
-	ObjectHandler handler = new ObjectHandler(panel);
+	ObjectHandler handler = new ObjectHandler(panel); // ObjectHandler wird erschaffen
 
-	public Player player;
+	public Player player; // Player wird deklariert
 
-	Launcher launcher;
+	Launcher launcher; // Launcher wird deklarieert
 
 	// Delta time: siehe https://en.wikipedia.org/wiki/Delta_timing
 	public long dt;
 	private long lastT;
 
-	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width; // wird für verschiedene Objekte/
+																						// Methoden verwendet
 	public static int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 	// Frames
@@ -71,58 +73,59 @@ public class Game extends Window {
 
 	boolean running = false;
 
-	PauseWindow pauseMenu;
-	static Camera cam;
+	PauseWindow pauseMenu; // PauseMenu wird deklariert
+	static Camera cam; // Camera wird deklariert
 
-	public Game() {
+	public Game() { // Konstruktor von Game
 
-		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel);
-		
+		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel); // Aufrufen der übergeordneten Klasse
+
 		// panel.setBackground(Color.GRAY);
 
-		pauseMenu = new PauseWindow(this);
+		pauseMenu = new PauseWindow(this); // PauseMenu wird erschaffen
 
 		this.add(pauseMenu);
 
-		handler = new ObjectHandler(panel, screenWidth, screenHeight);
+		handler = new ObjectHandler(panel, screenWidth, screenHeight); // ObjectHandler wird erschaffen
 
-		player = new Player(handler, this, panel);
-		player.setPos('y', 16900);
+		player = new Player(handler, this, panel); // Player wird erschaffen
+
+		player.setPos('y', 16900); // Player wird an die richtige Postion gesetzt
 
 		player.setPos('x', 50);
 
-		cam = new Camera(handler, player, screenWidth, screenHeight);
+		cam = new Camera(handler, player, screenWidth, screenHeight); // Camera wird erschaffen
 
+		// Wichtige Listener werden geaddet
 		this.addKeyListener(player);
 		this.addMouseListener(player);
 
-		panel.add(player);
+		panel.add(player); // Player aufs Panel
 
-		player.setVisible(true);
+		handler.addObject(player); // Player wird dem ObjectHandler hinzugefügt
 
-		handler.addObject(player);
+		player.render(); // Player muss ein Mal gerendert werden
 
-		player.render();
-
-		generateMap.generate(handler);
+		generateMap.generate(handler); // Map wird generiert
 
 		for (int i = 0; i < handler.enemies.size(); i++) {
 			System.out.println(handler.enemies.get(i).type);
 			if (handler.enemies.get(i).type == 2) {
-				panel.add(handler.enemies.get(i).bossHealthBar);
-				panel.setComponentZOrder(handler.enemies.get(i).bossHealthBar, 0);
+				panel.add(handler.enemies.get(i).bossHealthBar); // BossHealthBar wird dem Panel hinzugefügt
+				panel.setComponentZOrder(handler.enemies.get(i).bossHealthBar, 0); // BossHealthBar wird ganz oben
+																					// gerendert
 			}
-			panel.setComponentZOrder(handler.enemies.get(i), 0);
+			panel.setComponentZOrder(handler.enemies.get(i), 0); // Enemies werden ganz oben gerendert
 		}
 
 		try {
-			launcher = new Launcher(this);
-		} catch (MalformedURLException e) {
+			launcher = new Launcher(this); // Launcher wird erschaffen
+		} catch (MalformedURLException e) { // falls was schiefläuft
 			running = true;
 			this.setVisible(true);
 		}
 
-		run();
+		run(); // game wird gestartet
 	}
 
 	public void run() {
@@ -136,7 +139,7 @@ public class Game extends Window {
 		System.out.println("LK1: " + player.LK1);
 		System.out.println("LK2: " + player.LK2);
 		while (running) {
-			if (pause) {
+			if (pause) { // falls pausiert wird
 				System.out.println("-> Game paused");
 				System.out.println();
 				pauseMenu.setVisible(true);
@@ -156,14 +159,14 @@ public class Game extends Window {
 			dt = System.nanoTime() - lastT; // delta time
 			lastT = System.nanoTime(); // delta timne
 
+			// Handler und Cam ticken:
 			handler.tick(dt);
-
 			cam.tick();
 
 			if (frameTime - ((System.currentTimeMillis() - timer)) > 0) {
 				delay(frameTime - (System.currentTimeMillis() - timer));
 			}
-			panel.repaint();
+			panel.repaint(); // Lines of Sight werden neu gerendert
 		}
 	}
 
@@ -187,8 +190,8 @@ public class Game extends Window {
 			return var;
 		}
 	}
-	
-	public void closeGame() {
+
+	public void closeGame() { // Methode zum Beenden des Programms
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 }
