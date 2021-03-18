@@ -545,10 +545,21 @@ public abstract class generateMap {
 		waende.add(new Wand(0, 12700, 100, 20, handler));
 		waende.add(new Wand(800, 12500, 50, 500, handler));
 		
+		enemies.add(new Enemy(1, 700, 12400, handler));
+		
 		waende.add(new Wand(200, 12500, 100, 20, handler));
 		waende.add(new Wand(600, 12500, 200, 20, handler));
-		waende.add(new Wand(1350, 12400, 200, 20, handler));
-		waende.add(new Wand(1000, 12700, 200, 20, handler));
+		
+		waende.add(new Wand(1450, 12400, 200, 20, handler));
+		waende.add(new Wand(1100, 12700, 200, 20, handler));
+		
+		enemies.add(new Enemy(1, 1450, 12900, handler));
+		
+		waende.add(new Wand(1500, 12850, 200, 20, handler));
+		waende.add(new Wand(1800, 12650, 100, 20, handler));
+		waende.add(new Wand(1900, 12450, 50, 20, handler));
+		
+		waende.add(new Wand(700, 12250, 100, 20, handler));
 
 		// Innen Ende
 	}
@@ -597,7 +608,6 @@ public abstract class generateMap {
 		
 		waende.add(new Wand(750, 16700, 200, 20, handler));
 		waende.add(new Wand(550, 16850, 50, 20, handler));
-		waende.add(new Wand(1050, 16500, 10, 100, handler));
 		
 		enemies.add(new Enemy(2, 1100, 16200, handler)); // Boss wird gespawnt
 		
