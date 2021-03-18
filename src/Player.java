@@ -26,8 +26,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	public boolean pause = false;
 	public boolean pauseRelease = false;
-	
-	public boolean dashPicked;
 
 	private int equipped = -1;
 	private int dashlength = 10;
@@ -203,13 +201,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		return dashPicked;
 	}
 
-	public void setDash(boolean dash) {
-		dashPicked = dash;
-	}
-
-	public boolean getDash() {
-		return dashPicked;
-	}
 
 	public void keyPressed(KeyEvent e) {
 
