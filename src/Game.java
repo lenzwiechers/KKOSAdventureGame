@@ -61,7 +61,7 @@ public class Game extends Window {
 	public long dt;
 	private long lastT;
 
-	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width; // wird für verschiedene Objekte/
+	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width; // wird fï¿½r verschiedene Objekte/
 																						// Methoden verwendet
 	public static int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
@@ -78,7 +78,7 @@ public class Game extends Window {
 
 	public Game() { // Konstruktor von Game
 
-		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel); // Aufrufen der übergeordneten Klasse
+		super("Epic Adventure Game", 0, 0, screenWidth, screenHeight, panel); // Aufrufen der ï¿½bergeordneten Klasse
 
 		// panel.setBackground(Color.GRAY);
 
@@ -88,9 +88,10 @@ public class Game extends Window {
 
 		handler = new ObjectHandler(panel, screenWidth, screenHeight); // ObjectHandler wird erschaffen
 
-		player = new Player(handler, this, panel); // Player wird erschaffen
+		player = new Player(handler, this, panel);
+		player.setPos('y', 12900); 	// 8900
 
-		player.setPos('y', 900); // Player wird an die richtige Postion gesetzt
+		player.setPos('x', 50);		// 50
 
 		player.setPos('x', 20);
 
@@ -102,7 +103,7 @@ public class Game extends Window {
 
 		panel.add(player); // Player aufs Panel
 
-		handler.addObject(player); // Player wird dem ObjectHandler hinzugefügt
+		handler.addObject(player); // Player wird dem ObjectHandler hinzugefï¿½gt
 
 		player.render(); // Player muss ein Mal gerendert werden
 
@@ -111,7 +112,7 @@ public class Game extends Window {
 		for (int i = 0; i < handler.enemies.size(); i++) {
 			System.out.println(handler.enemies.get(i).type);
 			if (handler.enemies.get(i).type == 2) {
-				panel.add(handler.enemies.get(i).bossHealthBar); // BossHealthBar wird dem Panel hinzugefügt
+				panel.add(handler.enemies.get(i).bossHealthBar); // BossHealthBar wird dem Panel hinzugefï¿½gt
 				panel.setComponentZOrder(handler.enemies.get(i).bossHealthBar, 0); // BossHealthBar wird ganz oben
 																					// gerendert
 			}
@@ -124,7 +125,7 @@ public class Game extends Window {
 
 		try {
 			launcher = new Launcher(this); // Launcher wird erschaffen
-		} catch (MalformedURLException e) { // falls was schiefläuft
+		} catch (MalformedURLException e) { // falls was schieflï¿½uft
 			running = true;
 			this.setVisible(true);
 		}

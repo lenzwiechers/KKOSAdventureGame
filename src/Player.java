@@ -20,6 +20,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	private boolean jump = false;
 
+	private boolean dashPicked = false;
+
 	boolean[] item = new boolean[3];
 
 	public boolean pause = false;
@@ -131,8 +133,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	public Player(ObjectHandler newHandler, Game game, JPanel newPanel) {
 
 		super("player", newHandler);
-		
-		
 
 		for (int i = 0; i < 10; i++) {
 			this.hx[i] = new Picture("heart");
@@ -192,6 +192,14 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	public boolean getJump() {
 		return this.jump;
 	}
+	
+	public void setDash(boolean dash) {
+		dashPicked = dash;
+	}
+	
+	public boolean getDash() {
+		return dashPicked;
+	}
 
 	public void keyPressed(KeyEvent e) {
 
@@ -218,9 +226,11 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 				}
 			}
 		} else if (e.getKeyCode() == 83) { // s
-			if (dashcounter == dashlength && cooldowncounter == dashcooldown) {
-				dashcounter = 0;
-				cooldowncounter = 0;
+			if (dashPicked) {
+				if (dashcounter == dashlength && cooldowncounter == dashcooldown) {
+					dashcounter = 0;
+					cooldowncounter = 0;
+				}
 			}
 		} else if (e.getKeyCode() == 70) { // f
 			enterDoor(atDoor());
@@ -527,7 +537,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		if (onWall()) {
 			velY = 0;
 		}
-		
+
 	}
 
 	public void mouseEntered(MouseEvent m) {
