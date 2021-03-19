@@ -43,7 +43,7 @@ public class Camera {
 					frameYSize / 2 - player.getSize('y') / 2, player.getSize('x'), player.getSize('y'));
 		} else {
 			xPos = -50;
-			yPos = 15820;
+			yPos = 15920;
 			
 			handler.player.get(0).setBounds(handler.player.get(0).getPos('x') - xPos,
 					handler.player.get(0).getPos('y') - yPos, handler.player.get(0).getSize('x'),

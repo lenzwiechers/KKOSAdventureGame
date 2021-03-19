@@ -112,7 +112,7 @@ public class Game extends Window {
 			System.out.println(handler.enemies.get(i).type);
 			if (handler.enemies.get(i).type == 2) {
 				panel.add(handler.enemies.get(i).bossHealthBar); // BossHealthBar wird dem Panel hinzugef�gt
-				panel.setComponentZOrder(handler.enemies.get(i).bossHealthBar, 0); // BossHealthBar wird ganz oben
+				panel.setComponentZOrder(handler.enemies.get(i).bossHealthBar, 1); // BossHealthBar wird ganz oben
 																					// gerendert
 			}
 			panel.setComponentZOrder(handler.enemies.get(i), 0); // Enemies werden ganz oben gerendert
@@ -120,6 +120,10 @@ public class Game extends Window {
 
 		for (int i = 0; i < handler.tutorialLabels.size(); i++) {
 			panel.setComponentZOrder(handler.tutorialLabels.get(i), 0); // TutorialLabels werden ganz oben gerendert
+		}
+		
+		for(int i = 0; i < 3; i++) {
+			panel.setComponentZOrder(handler.player.get(0).ix[i], 0);
 		}
 
 		try {

@@ -104,12 +104,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		this.ix[1] = new Picture("gun");
 		this.ix[2] = new Picture("sword");
 
-		for (int i = 0; i < 3; i++) {
-			ix[i].setBounds(Camera.xPos + Game.screenWidth - 60, Camera.yPos + 20 + 60 * i, 50, 50);
-			Game.panel.add(ix[i]);
-			item[i] = false;
-		}
-
 		this.velX = walkSpeed;
 		this.velY = 0.00000025f;
 
@@ -148,7 +142,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		for (int i = 0; i < 3; i++) {
 			ix[i].setBounds(Camera.xPos + Game.screenWidth - 60, Camera.yPos + 20 + 60 * i, 50, 50);
 			Game.panel.add(ix[i]);																													//TEIL VON ITEM OVERLAY (ERTSMAL UNSICHTBAR)
-			item[i] = false;
+			item[i] = true;
 		}
 
 		for (int i = 0; i < 3; i++) {

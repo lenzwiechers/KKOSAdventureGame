@@ -128,7 +128,7 @@ public class Enemy extends GameObject {
 
 		if (handler.player.get(0).posX - posX < 2000 && handler.player.get(0).posY - posY < 2000 && type == 2) {
 			bossHealthBar.setVisible(true);
-			bossHealthBar.setBounds(20, handler.screenHeight - 80, (int) (hp * (handler.screenWidth - 40) / totalHP),
+			bossHealthBar.setBounds(20, 100, (int) (hp * (handler.screenWidth - 100) / totalHP),
 					70);
 		} else if (type == 2) {
 			bossHealthBar.setVisible(false);
