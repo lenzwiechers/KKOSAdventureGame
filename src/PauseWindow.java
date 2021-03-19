@@ -127,6 +127,12 @@ public class PauseWindow extends JPanel {
 					
 					writer.write(Boolean.toString(game.handler.player.get(0).getDash()));
 					
+					writer.write("\n");
+					writer.write("\n");
+					writer.write(game.handler.player.get(0).LK1);
+					writer.write("\n");
+					writer.write(game.handler.player.get(0).LK2);
+					
 					writer.close();
 					
 					System.out.println("Successfully wrote to the file.");
