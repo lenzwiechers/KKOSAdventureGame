@@ -104,6 +104,10 @@ public abstract class generateMap {
 		tutorialLabels.add(new TutorialLabel(3350, 300, 400, 400,
 				"<html><body>PRESSING 'L-SHIFT' MAKES YOU FASTER ALLOWING YOU TO JUMP FURTHER!</body></html>",
 				Color.WHITE));
+		
+		tutorialLabels.add(new TutorialLabel(3350, -400, 400, 400,
+				"<html><body>PRESS 'R' TO USE A HEALTH POTION!</body></html>",
+				Color.BLACK));
 
 		waende.add(new Wand(500, 0, 50, 1000, handler));
 		waende.add(new Wand(300, 200, 200, 20, handler));
