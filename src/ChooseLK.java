@@ -35,6 +35,8 @@ public class ChooseLK extends Window {
 		this.setVisible(false);
 
 		this.game = game;
+		
+		//Setzt alle Menüs und Buttons
 
 		String LKs[] = { "Informatik", "Sport", "Biologie", "Deutsch", "Englisch", };
 
@@ -95,6 +97,7 @@ public class ChooseLK extends Window {
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Setzt den LK des Players
 				if (!((String) LK1.getItemAt(LK1.getSelectedIndex()) == (String) LK2.getItemAt(LK2.getSelectedIndex()))) {
 					game.player.setLK1((String) LK1.getItemAt(LK1.getSelectedIndex()));
 					game.player.setLK2((String) LK2.getItemAt(LK2.getSelectedIndex()));
@@ -102,6 +105,8 @@ public class ChooseLK extends Window {
 					game.player.setLK1((String) LK1.getItemAt(LK1.getSelectedIndex()));
 					game.player.setLK2("No LK");
 				}
+				
+				//Bringt das Game in den Vordergrund
 				game.setVisible(true);
 				game.running = true;
 

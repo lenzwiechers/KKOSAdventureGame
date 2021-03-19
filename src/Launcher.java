@@ -48,6 +48,8 @@ public class Launcher extends Window {
 		System.out.println();
 
 		this.game = game;
+		
+		//Setzt alle Buttons und panels
 
 		chooseLK = new ChooseLK(game);
 
@@ -60,6 +62,8 @@ public class Launcher extends Window {
 
 		label.setBounds(0, 0, 1024, 768);
 		this.add(label);
+		
+		//Wandelt eine URL in ein image um
 
 		URL url1 = new URL("https://i0.wp.com/trippy.me/wp-content/uploads/psychedelic-gradient.gif?resize=540%2C540");
 		URL url2 = new URL("https://cdn130.picsart.com/316707967251201.gif");
@@ -86,6 +90,8 @@ public class Launcher extends Window {
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(null, "Please check your file paths", "Error", JOptionPane.ERROR_MESSAGE);
 		}
+		
+		//Macht die bilder in ein Icon
 
 		Icon labelIcon = new ImageIcon(url3);
 		Icon b1Icon = new ImageIcon(b1Image);
@@ -121,6 +127,7 @@ public class Launcher extends Window {
 
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Startet das Game
 				startGame(game, false);
 			}
 		});
@@ -128,6 +135,9 @@ public class Launcher extends Window {
 			public void actionPerformed(ActionEvent e) {
 				// JOptionPane.showMessageDialog(null, "Not implemented yet", "ERROR!",
 				// JOptionPane.ERROR_MESSAGE);
+				
+				//Speichert das Spiel
+				
 				try {
 
 					reader = new BufferedReader(new FileReader("assets/saveFile.txt"));
@@ -213,6 +223,7 @@ public class Launcher extends Window {
 		});
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Schließt das Spiel
 				System.out.println("-> Game closed");
 				System.out.println();
 				dispose();
@@ -227,6 +238,7 @@ public class Launcher extends Window {
 		System.out.println();
 
 		if (!loading) {
+			//Bringt das LK wählen in den Vordergrund
 			chooseLK.setVisible(true);
 			chooseLK.init();
 

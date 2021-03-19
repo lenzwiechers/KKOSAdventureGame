@@ -663,6 +663,8 @@ public abstract class generateMap {
 		// Innen
 
 		waende.add(new Wand(0, 16780, 100, 20, handler));
+		
+		waende.add(new Wand(0, 16620, 50, 20, handler));
 
 		waende.add(new Wand(0, 16220, 50, 20, handler));
 		items.add(new Item(10, 16170, handler, 0));
@@ -670,7 +672,7 @@ public abstract class generateMap {
 		waende.add(new Wand(0, 16420, 50, 20, handler));
 		items.add(new Item(10, 16370, handler, 0));
 
-		waende.add(new Wand(200, 16600, 100, 20, handler));
+		//waende.add(new Wand(200, 16600, 100, 20, handler));
 
 		waende.add(new Wand(750, 16700, 200, 20, handler));
 		waende.add(new Wand(550, 16850, 50, 20, handler));

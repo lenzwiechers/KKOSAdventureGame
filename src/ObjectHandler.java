@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 public class ObjectHandler {
 
 	public JPanel panel;
+	
+	//Listen aller Objekte
+	//Verschiedene Listem werden verwendet um Loops für Kollision mit wänden zu verringern
 
 	LinkedList<GameObject> objects = new LinkedList<GameObject>();
 
@@ -45,11 +48,16 @@ public class ObjectHandler {
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 	}
+	
+	
 
 	public void tick(long dt) {
+		//Geht alle Objekte durch
 		for (int i = 0; i < objects.size(); i++) {
 			obj = objects.get(i);
+			//Falls ein Objekt ein Gegner ist:
 			if (obj instanceof Enemy) {
+				//Gegner werden nur getickt wenn sie in der nähe des Spielers sind
 				if (player.get(0).getPos('x') + player.get(0).getSize('x') - (1.5 * screenWidth) <= obj.getPos('x')
 						&& player.get(0).getPos('x') + player.get(0).getSize('x') + (1.5 * screenWidth) >= obj
 								.getPos('x')
@@ -66,14 +74,17 @@ public class ObjectHandler {
 				}
 
 			} else {
+				//Alle anderen Objekte werden getickt
 				obj.tick(dt);
 			}
 		}
 	}
 
 	public void addObject(Object obj) {
+		//Fügt das Objekt dem panel hinzu und der Liste aller Objekte
 		panel.add((Component) obj);
 		objects.add((GameObject) obj);
+		//Fügt das Objekt den entsprechenden Listen hinzu
 		if (obj instanceof Wand) {
 			waende.add((Wand) obj);
 		} else if (obj instanceof Enemy) {
@@ -96,8 +107,10 @@ public class ObjectHandler {
 	}
 
 	public void removeObject(GameObject obj) {
+		//Entfernt das Objekt vom panel un der Liste aller Objekte
 		objects.remove(obj);
 		panel.remove(obj);
+		//Entfernt das Objekt aus den entsprechenden Listen
 		if (obj instanceof Wand) {
 			waende.remove(obj);
 		} else if (obj instanceof Enemy) {

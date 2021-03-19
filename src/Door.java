@@ -5,9 +5,11 @@ public class Door extends GameObject {
 	private static final long serialVersionUID = 8628846381003012337L;
 
 	public Door exitDoor;		//Zugeordnete Tuer
-	public int exitX, exitY;
-	public int tpPosX, tpPosY;
-
+	public int exitX, exitY;	//Ausgang der zugeordneten Tuer
+	public int tpPosX, tpPosY;	//Eigener Ausgang
+	
+	
+	//Konstruktoren
 	public Door(ObjectHandler handler) {
 		super("Door", handler);
 	}
@@ -23,15 +25,20 @@ public class Door extends GameObject {
 		setTpPos();
 	}
 
+	
+	//Methode für Kollision
 	public Rectangle getTpBounds() {
 		return new Rectangle(posX + 10, posY + 10, width - 20, height - 10);
 	}
 
+	
 	public void setTpPos() {
 		this.tpPosX = posX + width / 2 - handler.player.get(0).getSize('x') / 2;
 		this.tpPosY = posY + height - (handler.player.get(0).getSize('y'));
 	}
 
+	
+	//"Verbindet" eine Tür mit einer anderen
 	public void connectExit(Door exit) {
 		this.exitDoor = exit;
 
