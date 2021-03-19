@@ -41,16 +41,16 @@ public class Launcher extends Window {
 
 	int x, y, type;
 
-	public Launcher(Game game) throws MalformedURLException {
+	@SuppressWarnings("unused")
+	public Launcher(Game game) throws MalformedURLException { // Konstruktor
 		super("Game Launcher", 1920 / 2 - 512, 1080 / 2 - 384, 1024, 768);
 
 		System.out.println("-> Launcher started");
 		System.out.println();
 
 		this.game = game;
-		
-		//Setzt alle Buttons und panels
 
+		// Setzt alle Buttons und panels
 		chooseLK = new ChooseLK(game);
 
 		b1Panel.setBounds(412, 117, 200, 100);
@@ -62,9 +62,8 @@ public class Launcher extends Window {
 
 		label.setBounds(0, 0, 1024, 768);
 		this.add(label);
-		
-		//Wandelt eine URL in ein image um
 
+		// Wandelt eine URL in ein image um, welches dann gerendert werden soll:
 		URL url1 = new URL("https://i0.wp.com/trippy.me/wp-content/uploads/psychedelic-gradient.gif?resize=540%2C540");
 		URL url2 = new URL("https://cdn130.picsart.com/316707967251201.gif");
 		URL url3 = new URL("https://i.pinimg.com/originals/53/e9/21/53e921ba67680b1f145c778b7eab5131.gif");
@@ -90,9 +89,8 @@ public class Launcher extends Window {
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(null, "Please check your file paths", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		
-		//Macht die bilder in ein Icon
 
+		// Macht die bilder in ein Icon
 		Icon labelIcon = new ImageIcon(url3);
 		Icon b1Icon = new ImageIcon(b1Image);
 		Icon b2Icon = new ImageIcon(b2Image);
@@ -101,6 +99,7 @@ public class Launcher extends Window {
 		label.setIcon(labelIcon);
 		label.setVisible(true);
 
+		// Einstellen der Buttons:
 		b1Panel.setLayout(null);
 		b2Panel.setLayout(null);
 		b3Panel.setLayout(null);
@@ -125,36 +124,38 @@ public class Launcher extends Window {
 
 		exitButton.setSize(200, 100);
 
+		// Action Listener für die Buttons:
+		// Falls der playButton gedrückt wird:
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Startet das Game
+				// Startet das Game
 				startGame(game, false);
 			}
 		});
+		// Falls der loadButton gedrückt wird:
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// JOptionPane.showMessageDialog(null, "Not implemented yet", "ERROR!",
-				// JOptionPane.ERROR_MESSAGE);
-				
-				//Speichert das Spiel
-				
+
+				// Lädt das Spiel:
 				try {
 
-					reader = new BufferedReader(new FileReader("assets/saveFile.txt"));
+					reader = new BufferedReader(new FileReader("assets/saveFile.txt")); // Reader der die Datei ausliest
 
+					// Laden des Players:
 					line = reader.readLine();
-
 					game.handler.player.get(0).setPos('x', Integer.parseInt(line));
 
 					line = reader.readLine();
 					game.handler.player.get(0).setPos('y', Integer.parseInt(line));
 
+					// Laden der HP des Players:
 					line = reader.readLine();
 					game.handler.player.get(0).totalHP = Integer.parseInt(line);
 					for (int i = 9; i > Integer.parseInt(line) - 1; i--) {
 						game.handler.player.get(0).hp[i] = false;
 					}
 
+					// Laden der Items auf der Map:
 					for (int i = 0; i < game.handler.items.size(); i++) {
 						game.handler.objects.remove(game.handler.items.get(i));
 					}
@@ -175,6 +176,7 @@ public class Launcher extends Window {
 						line = reader.readLine();
 					}
 
+					// Laden der Gegner auf der Map:
 					for (int i = 0; i < game.handler.enemies.size(); i++) {
 						game.handler.objects.remove(game.handler.enemies.get(i));
 					}
@@ -194,36 +196,39 @@ public class Launcher extends Window {
 						System.out.println("---------------------------");
 						line = reader.readLine();
 					}
-					
-					for(int i = 0; i < 3; i++) {
+
+					// Laden des Inventars des Players:
+					for (int i = 0; i < 3; i++) {
 						line = reader.readLine();
 						game.handler.player.get(0).item[i] = Boolean.parseBoolean(line);
 					}
-					
+
 					line = reader.readLine();
-					
+
+					// Laden, ob dash möglich ist:
 					line = reader.readLine();
-					
 					game.handler.player.get(0).setDash(Boolean.parseBoolean(line));
-					
+
+					// Laden der LKs:
 					line = reader.readLine();
-					
 					game.handler.player.get(0).LK1 = line;
-					
+
 					line = reader.readLine();
-					
 					game.handler.player.get(0).LK2 = line;
 
 					reader.close();
-					startGame(game, true);
-				} catch (Exception e2) {
+					startGame(game, true); // Game wird gestartet
+
+				} catch (Exception e2) { // Falls was schiefläuft
 					System.out.println("FEHLER: " + e2);
 				}
 			}
 		});
+
+		// Falls der exitButton gedrückt wird:
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Schließt das Spiel
+				// Schließt das Spiel
 				System.out.println("-> Game closed");
 				System.out.println();
 				dispose();
@@ -232,23 +237,23 @@ public class Launcher extends Window {
 		});
 	}
 
+	// Methode die das Spiel startet
 	public void startGame(Game game, boolean loading) {
 
 		System.out.println("-> Launcher closed");
 		System.out.println();
 
 		if (!loading) {
-			//Bringt das LK wählen in den Vordergrund
+			// Bringt das LK wählen in den Vordergrund
 			chooseLK.setVisible(true);
-			chooseLK.init();
 
 			System.out.println("-> LK window opened");
 			System.out.println();
-		} else {
+		} else { // Falls das Spiel aus der saveFile geladen wird:
 			game.setVisible(true);
 			game.running = true;
 		}
 
-		dispose();
+		dispose(); // Launcher wird geschlossen
 	}
 }

@@ -1,12 +1,10 @@
 import java.awt.*;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+// In dieser Klasse werden alle wichtigen Objekte erschaffen, und das Spiel findet hier statt.
 public class Game extends Window {
 
 	private static final long serialVersionUID = 6680112103815633456L;
@@ -26,8 +24,9 @@ public class Game extends Window {
 			super.paintComponent(g);
 
 			if (debug) {
-				g2.setStroke(new BasicStroke(3));
+				g2.setStroke(new BasicStroke(3)); // Einstellen der Dicke der Lines
 
+				// Von jedem Gegner wird eine Line of Sight zum Spieler gerendert:
 				for (int i = 0; i < generateMap.enemies.size(); i++) {
 					if (generateMap.enemies.get(i).isInScreen) {
 						if (generateMap.enemies.get(i).checkContact()) {
@@ -61,7 +60,7 @@ public class Game extends Window {
 	public long dt;
 	private long lastT;
 
-	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width; // wird f�r verschiedene
+	public static int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width; // wird fuer verschiedene
 																						// Objekte/
 																						// Methoden verwendet
 	public static int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -89,10 +88,11 @@ public class Game extends Window {
 
 		handler = new ObjectHandler(panel, screenWidth, screenHeight); // ObjectHandler wird erschaffen
 
-		player = new Player(handler, this, panel);
-		player.setPos('y', 900); 	
-		
-		player.setPos('x', 50);	
+		player = new Player(handler, this, panel); // Player wird erschaffen
+
+		player.setPos('y', 900);
+
+		player.setPos('x', 50);
 
 		cam = new Camera(handler, player, screenWidth, screenHeight); // Camera wird erschaffen
 
@@ -111,7 +111,7 @@ public class Game extends Window {
 		for (int i = 0; i < handler.enemies.size(); i++) {
 			System.out.println(handler.enemies.get(i).type);
 			if (handler.enemies.get(i).type == 2) {
-				panel.add(handler.enemies.get(i).bossHealthBar); // BossHealthBar wird dem Panel hinzugef�gt
+				panel.add(handler.enemies.get(i).bossHealthBar); // BossHealthBar wird dem Panel hinzugefuegt
 				panel.setComponentZOrder(handler.enemies.get(i).bossHealthBar, 1); // BossHealthBar wird ganz oben
 																					// gerendert
 			}
@@ -121,8 +121,9 @@ public class Game extends Window {
 		for (int i = 0; i < handler.tutorialLabels.size(); i++) {
 			panel.setComponentZOrder(handler.tutorialLabels.get(i), 0); // TutorialLabels werden ganz oben gerendert
 		}
-		
-		for(int i = 0; i < 3; i++) {
+
+		// Inventar wird nach ganz oben gerendert
+		for (int i = 0; i < 3; i++) {
 			panel.setComponentZOrder(handler.player.get(0).ix[i], 0);
 		}
 
@@ -141,7 +142,7 @@ public class Game extends Window {
 		while (!running) {
 			delay(10);
 		}
-		
+
 		lastT = System.nanoTime(); // delta time
 		System.out.println("-> Game started");
 		System.out.println();

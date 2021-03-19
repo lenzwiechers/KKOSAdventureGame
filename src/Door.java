@@ -1,5 +1,6 @@
 import java.awt.Rectangle;
 
+// Tuer
 public class Door extends GameObject {
 
 	private static final long serialVersionUID = 8628846381003012337L;

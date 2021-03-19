@@ -1,4 +1,5 @@
 
+// Item-Klasse
 public class Item extends GameObject {
 
 	private static final long serialVersionUID = 2917881703989759480L;
@@ -12,13 +13,9 @@ public class Item extends GameObject {
 
 	ObjectHandler handler;
 
-	private boolean collide;
-	private boolean onWall;
-	private boolean belowWall;
-
 	boolean picked;
 
-	public Item(int posX, int posY, ObjectHandler newHandler, int type) {
+	public Item(int posX, int posY, ObjectHandler newHandler, int type) { // Konstruktor1
 
 		super("item_t", newHandler);
 		this.type = type;
@@ -26,10 +23,11 @@ public class Item extends GameObject {
 		this.width = 50;
 		this.height = 50;
 
+		// verschiedene Item-typen:
 		if (type == 0) {
 			this.changeName("potion");
 		} else if (type == 1) {
-			this.changeName("gun");																											// NAME DES ITEMS WIRD FESTGELLEGT
+			this.changeName("gun"); // NAME DES ITEMS WIRD FESTGELLEGT
 		} else if (type == 2) {
 			this.changeName("sword");
 		} else if (type == 3) {
@@ -43,7 +41,7 @@ public class Item extends GameObject {
 		this.handler = newHandler;
 	}
 
-	public Item(ObjectHandler newHandler) {
+	public Item(ObjectHandler newHandler) { // Konstruktor2
 
 		super("item_t", newHandler);
 
@@ -58,33 +56,21 @@ public class Item extends GameObject {
 		this.handler = newHandler;
 	}
 
-	public void collision(Player player) {
-		if (getBounds().intersects(player.getBounds())) {
-			if (type == 3) {
-				player.setDash(true);
-				handler.removeObject(this);
-			} else {
-				picked = true;																								//KOLLISION MIT SPIELER
-				player.item[type] = true;
-				player.inventory.addItem(this);
-				handler.removeObject(this);
-			}
-		}
-	}
-
 	public void addGravity() {
 
 		if (velY < 0.0000020f) {
 			velY += 0.000000030f;
-		}																									//GRAVITATION FÜRS ITEM
+		} // GRAVITATION FÜRS ITEM
 	}
-
+	
+	// Methode die ständig im Spiel aufgerufen wird, um Veränderungen herbeizuführen
 	public void tick(long dt) {
 
-		addGravity();																										//GRAVITATION
+		addGravity(); // GRAVITATION
 
-		collision(handler.player.get(0));																						//SPIELER NIMMT DAS ITEM AUF
+		collision(handler.player.get(0)); // SPIELER NIMMT DAS ITEM AUF
 
+		// generelle Veraenderungen
 		posY += velY * dt;
 		boolean inWall = false;
 		if (wallCollision()) {

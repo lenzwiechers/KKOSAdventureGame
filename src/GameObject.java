@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
 
+// abstrakte Klasse für alle Spielobjekte
 public abstract class GameObject extends Picture {
 
 	private static final long serialVersionUID = 5520024489816059648L;
@@ -21,29 +22,30 @@ public abstract class GameObject extends Picture {
 
 	ObjectHandler handler;
 
-	public GameObject(String picName, ObjectHandler handler) {
+	public GameObject(String picName, ObjectHandler handler) { // Konstruktor1
 
 		super(picName);
 
 		this.handler = handler;
 
 	}
-	
-	public GameObject(int posX, int posY, int width, int height, String text, Color color) {
+
+	public GameObject(int posX, int posY, int width, int height, String text, Color color) { // Konstruktor2
 		super("");
-		
+
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
 		this.height = height;
-		
+
 		setText(text);
-		
+
 		setForeground(color);
-		
+
 		setFont(new Font("Serif", Font.PLAIN, 40));
 	}
 
+	// Methode um die Koordinaten herauszufinden:
 	public int getPos(char coordinate) {
 		if (coordinate == 'x' || coordinate == 'X') {
 			return posX;
@@ -55,10 +57,12 @@ public abstract class GameObject extends Picture {
 		}
 	}
 
+	// Für Kollision mit anderen Objekten:
 	public Rectangle getBounds() {
 		return new Rectangle(posX, posY, width, height);
 	}
 
+	// Methode zum Setzen der Position:
 	public void setPos(char coordinate, int newVal) {
 		if (coordinate == 'x' || coordinate == 'X') {
 			posX = newVal;
@@ -67,6 +71,7 @@ public abstract class GameObject extends Picture {
 		}
 	}
 
+	// Methode um die Groeße herauszufinden
 	public int getSize(char coordinate) {
 		if (coordinate == 'x' || coordinate == 'X') {
 			return width;
@@ -78,6 +83,7 @@ public abstract class GameObject extends Picture {
 		}
 	}
 
+	// Methode um die Groeße zu veraendern:
 	public void setSize(char coordinate, int newVal) {
 		if (coordinate == 'x' || coordinate == 'X') {
 			width = newVal;
@@ -94,6 +100,7 @@ public abstract class GameObject extends Picture {
 
 	}
 
+	// Verschiedene Methoden für Kollision mit anderen Objekten:
 	public boolean collision(GameObject obj) {
 		if (getBounds().intersects(obj.getBounds())) {
 			return true;
@@ -104,9 +111,12 @@ public abstract class GameObject extends Picture {
 	public int enemyCollision() {
 		for (int i = 0; i < handler.enemies.size(); i++) {
 			if (collision(handler.enemies.get(i))) {
-				if(handler.enemies.get(i).type ==0) return 0;
-				if(handler.enemies.get(i).type ==1) return 1;
-				if(handler.enemies.get(i).type ==2) return 2;
+				if (handler.enemies.get(i).type == 0)
+					return 0;
+				if (handler.enemies.get(i).type == 1)
+					return 1;
+				if (handler.enemies.get(i).type == 2)
+					return 2;
 			}
 		}
 		return -1;
@@ -116,9 +126,12 @@ public abstract class GameObject extends Picture {
 
 		for (int i = 0; i < handler.enemies.size(); i++) {
 			if (collision(handler.enemies.get(i)) && handler.enemies.get(i).attacking) {
-				if(handler.enemies.get(i).type ==0) return 0;
-				if(handler.enemies.get(i).type ==1) return 1;
-				if(handler.enemies.get(i).type ==2) return 2;
+				if (handler.enemies.get(i).type == 0)
+					return 0;
+				if (handler.enemies.get(i).type == 1)
+					return 1;
+				if (handler.enemies.get(i).type == 2)
+					return 2;
 			}
 		}
 		return -1;
@@ -128,9 +141,12 @@ public abstract class GameObject extends Picture {
 		for (int i = 0; i < handler.stuff.size(); i++) {
 			if (collision(handler.stuff.get(i))) {
 				handler.removeObject(handler.stuff.get(i));
-				if(handler.enemies.get(i).type ==0) return 0;
-				if(handler.enemies.get(i).type ==1) return 1;
-				if(handler.enemies.get(i).type ==2) return 2;
+				if (handler.enemies.get(i).type == 0)
+					return 0;
+				if (handler.enemies.get(i).type == 1)
+					return 1;
+				if (handler.enemies.get(i).type == 2)
+					return 2;
 			}
 		}
 		return -1;
@@ -181,6 +197,7 @@ public abstract class GameObject extends Picture {
 		return slCollide;
 	}
 
+	// Um herauszufinden, ob sich das Objekt gerade auf einer Wand befindet:
 	public boolean onWall() {
 		onWall = false;
 
@@ -195,6 +212,7 @@ public abstract class GameObject extends Picture {
 		return onWall;
 	}
 
+	// Um herauszufinden ob sich das Objekt gerade unter einer Wand befindet:
 	public boolean belowWall() {
 		belowWall = false;
 
@@ -209,6 +227,7 @@ public abstract class GameObject extends Picture {
 		return belowWall;
 	}
 
+	// Methode die Gravitation erhöht:
 	public void addGravity() {
 
 		if (velY < 0.0000020f && !(this instanceof Wand)) {

@@ -12,10 +12,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
+// Klasse für das Pausemenue
 public class PauseWindow extends JPanel {
 
 	private static final long serialVersionUID = -8583415179057020252L;
@@ -37,16 +36,20 @@ public class PauseWindow extends JPanel {
 	
 	FileWriter writer;
 
-	public PauseWindow(Game game) {
-		this.setLocation(1920 / 2 - 270, 1080 / 2 - 270);
+	public PauseWindow(Game game) { // Konstruktor
+		
+		// Einstellen des Aeußerlichen:
+		this.setLocation(Game.screenWidth / 2 - 270, Game.screenHeight / 2 - 270);
 		this.setSize(540, 540);
 
 		this.setLayout(null);
 
 		this.setVisible(false);
 
+		
 		this.game = game;
 
+		// returnButton mit Listener:
 		returnButton = new JButton("Return to Game");
 		returnButton.setBounds(100, 300, 340, 30);
 		returnButton.setBackground(Color.MAGENTA);
@@ -62,6 +65,7 @@ public class PauseWindow extends JPanel {
 			}
 		});
 
+		// saveButton mit Listener:
 		saveButton = new JButton("Save and quit");
 		saveButton.setBounds(100, 350, 340, 30);
 		saveButton.setBackground(Color.MAGENTA);
@@ -70,12 +74,13 @@ public class PauseWindow extends JPanel {
 
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Schreiben der wichtigen Daten in die saveFile:
 				try {
 					writer = new FileWriter("assets/saveFile.txt");
 					
 					writer.write(Integer.toString(game.handler.player.get(0).posX));
 					
-					writer.write("\n");
+					writer.write("\n"); // Neue Zeile
 					
 					writer.write(Integer.toString(game.handler.player.get(0).posY));
 					
@@ -126,14 +131,15 @@ public class PauseWindow extends JPanel {
 					
 					System.out.println("Successfully wrote to the file.");
 					
-					game.closeGame();
-				} catch (IOException e2) {
+					game.closeGame(); // Game wird beendet
+				} catch (IOException e2) { // Falls was schieflaeuft
 					System.out.println("An error occurred.");
 					e2.printStackTrace();
 				}
 			}
 		});
 
+		// quitButton mit Listener:
 		quitButton = new JButton("Quit Game");
 		quitButton.setBounds(100, 400, 340, 30);
 		quitButton.setBackground(Color.MAGENTA);
@@ -146,6 +152,7 @@ public class PauseWindow extends JPanel {
 			}
 		});
 
+		// pauseLabel
 		pauseLabel1 = new JLabel("PAUSE");
 		pauseLabel1.setBounds(142, 20, 255, 70);
 		pauseLabel1.setFont(new Font("Serif", Font.PLAIN, 80));
