@@ -142,7 +142,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		for (int i = 0; i < 3; i++) {
 			ix[i].setBounds(Camera.xPos + Game.screenWidth - 60, Camera.yPos + 20 + 60 * i, 50, 50);
 			Game.panel.add(ix[i]);																													//TEIL VON ITEM OVERLAY (ERTSMAL UNSICHTBAR)
-			item[i] = true;
+			item[i] = false;
 		}
 
 		for (int i = 0; i < 3; i++) {
