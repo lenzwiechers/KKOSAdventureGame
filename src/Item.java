@@ -62,7 +62,20 @@ public class Item extends GameObject {
 			velY += 0.000000030f;
 		} // GRAVITATION FÜRS ITEM
 	}
-	
+
+	public void collision(Player player) {
+		if (getBounds().intersects(player.getBounds())) {
+			if (type == 3) {
+				player.setDash(true);
+				handler.removeObject(this);
+			} else {
+				picked = true; // KOLLISION MIT SPIELER
+				player.item[type] = true;
+				handler.removeObject(this);
+			}
+		}
+	}
+
 	// Methode die ständig im Spiel aufgerufen wird, um Veränderungen herbeizuführen
 	public void tick(long dt) {
 
