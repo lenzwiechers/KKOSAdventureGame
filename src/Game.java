@@ -90,9 +90,9 @@ public class Game extends Window {
 		handler = new ObjectHandler(panel, screenWidth, screenHeight); // ObjectHandler wird erschaffen
 
 		player = new Player(handler, this, panel);
-		player.setPos('y', 900); // 8900
-
-		player.setPos('x', 50);
+		player.setPos('y', 900); 	
+		
+		player.setPos('x', 50);	
 
 		cam = new Camera(handler, player, screenWidth, screenHeight); // Camera wird erschaffen
 

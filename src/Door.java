@@ -4,7 +4,7 @@ public class Door extends GameObject {
 
 	private static final long serialVersionUID = 8628846381003012337L;
 
-	public Door exitDoor;
+	public Door exitDoor;		//Zugeordnete Tuer
 	public int exitX, exitY;
 	public int tpPosX, tpPosY;
 
