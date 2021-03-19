@@ -6,6 +6,7 @@ import java.awt.Point;
 
 import javax.swing.JPanel;
 
+// Spieler - Klasse
 public class Player extends GameObject implements KeyListener, MouseListener {
 
 	private static final long serialVersionUID = 2917881703989759480L;
@@ -74,8 +75,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	Picture[] ex = { e0, e1, h2 };
 
-	Inventory inventory;
-
 	String LK1, LK2;
 
 	private float walkSpeed = 0.00000025f; // 0.00000025f | 0.00000125f
@@ -83,71 +82,33 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	private boolean sprinting;
 
-	public Player(ObjectHandler newHandler, Game game, JPanel newPanel, String LK1, String LK2) {
-
-		super("player", newHandler);
-
-		for (int i = 0; i < 3; i++) {
-			this.ex[i] = new Picture("equipped");
-			ex[i].setBounds(Camera.xPos + Game.screenWidth - 90, Camera.yPos + 20 + 60 * i, 50, 50);
-			Game.panel.add(ex[i]);
-		}
-
-		for (int i = 0; i < 10; i++) {
-			this.hx[i] = new Picture("heart");																											// NICHT BENUTZTER KONSTRUKTOR
-			hx[i].setBounds(Camera.xPos + 20 + 60 * i, Camera.yPos + 20, 50, 50);
-			Game.panel.add(hx[i]);
-			hp[i] = true;
-		}
-
-		this.ix[0] = new Picture("potion");
-		this.ix[1] = new Picture("gun");
-		this.ix[2] = new Picture("sword");
-
-		this.velX = walkSpeed;
-		this.velY = 0.00000025f;
-
-		this.width = 50;
-		this.height = 80;
-		this.posX = 170;
-		this.posY = 100;
-
-		handler = newHandler;
-		panel = newPanel;
-
-		this.game = game;
-
-		inventory = new Inventory(game);
-
-		this.LK1 = LK1;
-
-		this.LK2 = LK2;
-	}
-
-	public Player(ObjectHandler newHandler, Game game, JPanel newPanel) {
+	public Player(ObjectHandler newHandler, Game game, JPanel newPanel) { // Konstruktor
 
 		super("player", newHandler);
 
 		for (int i = 0; i < 10; i++) {
 			this.hx[i] = new Picture("heart");
-			hx[i].setBounds(Camera.xPos + 20 + 60 * i, Camera.yPos + 20, 50, 50);																	//HERZ OVERLAY (ERTSMAL UNSICHTBAR)
+			hx[i].setBounds(Camera.xPos + 20 + 60 * i, Camera.yPos + 20, 50, 50); // HERZ OVERLAY (ERTSMAL UNSICHTBAR)
 			Game.panel.add(hx[i]);
 			hp[i] = true;
 		}
 
 		this.ix[0] = new Picture("potion");
-		this.ix[1] = new Picture("gun");																											//ITEM OVERLAY (ERTSMAL UNSICHTBAR)
+		this.ix[1] = new Picture("gun"); // ITEM OVERLAY (ERTSMAL UNSICHTBAR)
 		this.ix[2] = new Picture("sword");
 
 		for (int i = 0; i < 3; i++) {
 			ix[i].setBounds(Camera.xPos + Game.screenWidth - 60, Camera.yPos + 20 + 60 * i, 50, 50);
-			Game.panel.add(ix[i]);																													//TEIL VON ITEM OVERLAY (ERTSMAL UNSICHTBAR)
+			Game.panel.add(ix[i]); // TEIL VON ITEM OVERLAY (ERTSMAL UNSICHTBAR)
 			item[i] = false;
 		}
 
 		for (int i = 0; i < 3; i++) {
 			this.ex[i] = new Picture("equipped");
-			ex[i].setBounds(Camera.xPos + Game.screenWidth - 60, Camera.yPos + 20 + 60 * i, 50, 50);												//AUSGEWÄHLTES ITEM OVERLAY (ERSTMAL UNSICHTBAR)
+			ex[i].setBounds(Camera.xPos + Game.screenWidth - 60, Camera.yPos + 20 + 60 * i, 50, 50); // AUSGEWÄHLTES
+																										// ITEM OVERLAY
+																										// (ERSTMAL
+																										// UNSICHTBAR)
 			Game.panel.add(ex[i]);
 		}
 
@@ -163,8 +124,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		panel = newPanel;
 
 		this.game = game;
-
-		inventory = new Inventory(game);
 	}
 
 	public void setLK1(String LK) {
@@ -177,7 +136,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	public boolean getLeft() {
 		return this.left;
-	}																																				//BASIC GET SET METHODEN
+	} // BASIC GET SET METHODEN
 
 	public boolean getRight() {
 		return this.right;
@@ -186,32 +145,30 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 	public boolean getJump() {
 		return this.jump;
 	}
-	
+
 	public void setDash(boolean dash) {
 		dashPicked = dash;
 	}
-	
+
 	public boolean getDash() {
 		return dashPicked;
 	}
 
-
 	public void keyPressed(KeyEvent e) {
-                                                                                                             //AUF TASTENDRUCK:
+		// AUF TASTENDRUCK:
 		// System.out.println(e.getKeyCode());
 
-		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) { // d/right arrow																//NACH RECHTS GEHEN
+		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) { // d/right arrow //NACH RECHTS GEHEN
 			right = true;
-		} else if (e.getKeyCode() == 65 || e.getKeyCode() == 37) { // a/left arrow															//NACH LINKS GEHEN
+		} else if (e.getKeyCode() == 65 || e.getKeyCode() == 37) { // a/left arrow //NACH LINKS GEHEN
 			left = true;
-		} else if (e.getKeyCode() == 32) { // Space bar																						//SPRINGEN
-			jump = true;																															//ALLE TASTEN DRÜCKE
+		} else if (e.getKeyCode() == 32) { // Space bar //SPRINGEN
+			jump = true; // ALLE TASTEN DRÜCKE
 		} else if (e.getKeyCode() == 16) { // Shift
-			this.velX = sprintSpeed;																										//SPRINTEN
+			this.velX = sprintSpeed; // SPRINTEN
 			sprinting = true;
-		} else if (e.getKeyCode() == 69) { // e
-			// inventory.showInv();
-		} else if (e.getKeyCode() == 82 && item[0] && equipped == 0) { // r																	//POTION DRINKEN FALLS AUSGEWÄHLT UND AUFGENOMMEN
+		} else if (e.getKeyCode() == 82 && item[0] && equipped == 0) { // r //POTION DRINKEN FALLS AUSGEWÄHLT UND
+																		// AUFGENOMMEN
 			for (int i = 0; i < 9; i++) {
 				if (!hp[i]) {
 					hp[i] = true;
@@ -220,17 +177,17 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 					break;
 				}
 			}
-		} else if (e.getKeyCode() == 83) { // s																								//DASHEN
+		} else if (e.getKeyCode() == 83) { // s //DASHEN
 			if (dashPicked) {
 				if (dashcounter == dashlength && cooldowncounter == dashcooldown) {
 					dashcounter = 0;
 					cooldowncounter = 0;
 				}
 			}
-		} else if (e.getKeyCode() == 70) { // f																								//IN TÜR EINTRETEN
+		} else if (e.getKeyCode() == 70) { // f //IN TÜR EINTRETEN
 			enterDoor(atDoor());
 		} else if (e.getKeyCode() == 27) { // ESC
-			if (!game.pause) {																												//PAUSIEREN
+			if (!game.pause) { // PAUSIEREN
 				game.pause = true;
 			} else {
 				game.pause = false;
@@ -238,7 +195,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 
 		} else if (e.getKeyCode() == 49) // 1
-			equipped = 0;																													//ITEM AUSWÄHLEN
+			equipped = 0; // ITEM AUSWÄHLEN
 		else if (e.getKeyCode() == 50) // 2
 			equipped = 1;
 		else if (e.getKeyCode() == 51) // 3
@@ -247,6 +204,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			equipped = 3;
 	}
 
+	// wenn eine Taste losgelassen wird:
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == 65 || e.getKeyCode() == 37) {
 			left = false;
@@ -255,7 +213,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		} else if (e.getKeyCode() == 65 && e.getKeyCode() == 37 && e.getKeyCode() == 68 && e.getKeyCode() == 39) {
 			walkcounter = 0;
 		} else if (e.getKeyCode() == 32) {
-			jump = false;																														//ALLE TASTEN LOS LASSUNGEN
+			jump = false; // ALLE TASTEN LOS LASSUNGEN
 		} else if (e.getKeyCode() == 16) {
 			this.velX = walkSpeed;
 			sprinting = false;
@@ -275,13 +233,18 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	}
 
-	public void mousePressed(MouseEvent m) {																											//ALLE MOUSE CLICKS
+	public void mousePressed(MouseEvent m) { // ALLE MOUSE CLICKS
 		if (item[1] && equipped == 1) {
-			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY())));									//SCHUSS FALLS GUN AUSGEWAEHLT
+			handler.addObject(new Shot(this.getPos('x'), this.getPos('y'), handler, new Vector2(m.getX(), m.getY()))); // SCHUSS
+																														// FALLS
+																														// GUN
+																														// AUSGEWAEHLT
 		}
 		if (item[2] && onWall() && !lookright && equipped == 2) {
-			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 0, 3));															//SLASH FALLS SWORD AUSGEWAEHLT (IN ALLE 3 RICHTUNGEN)
-		}																																		
+			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 0, 3)); // SLASH FALLS SWORD
+																								// AUSGEWAEHLT (IN ALLE
+																								// 3 RICHTUNGEN)
+		}
 		if (item[2] && onWall() && lookright && equipped == 2) {
 			handler.addObject(new Slash(this.getPos('x'), this.getPos('y'), handler, 1, 3));
 		}
@@ -299,7 +262,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		for (int i = 0; i < handler.tueren.size(); i++) {
 			if (this.getBounds().intersects(handler.tueren.get(i).getTpBounds())) {
-				door = handler.tueren.get(i);																									//TEST OB DER SPIELER AN DER TÜR IST
+				door = handler.tueren.get(i); // TEST OB DER SPIELER AN DER TÜR IST
 				return door;
 			}
 		}
@@ -309,24 +272,25 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 	public void enterDoor(Door door) {
 		if (door != null && door.exitDoor != null) {
-			this.setPos('x', door.getExitX());																									//TÜR BETRETEN METHODE
+			this.setPos('x', door.getExitX()); // TÜR BETRETEN METHODE
 			this.setPos('y', door.getExitY());
 			Camera.renderAll();
 		}
 	}
-	
-		public void tick(long dt) {																												//TICK METHODE
+
+	// Methode die ständig im Spiel aufgerufen wird, um Veränderungen herbeizuführen
+	public void tick(long dt) { // TICK METHODE
 
 		if (totalHP <= 0) {
-			game.closeGame();																													//FALLS 0 HP, DANN ENDET DAS SPIEL
+			game.closeGame(); // FALLS 0 HP, DANN ENDET DAS SPIEL
 		}
 
 		totalHP = 0;
 
 		for (int i = 0; i < 10; i++) {
 			if (hp[i]) {
-				hx[i].setVisible(true);	
-				totalHP++;																														//ES WIRD GEGUCKT WIE VIELE HP DER SPIELER IN DIESEM TICK
+				hx[i].setVisible(true);
+				totalHP++; // ES WIRD GEGUCKT WIE VIELE HP DER SPIELER IN DIESEM TICK
 			} else {
 				hx[i].setVisible(false);
 			}
@@ -335,7 +299,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		for (int i = 0; i < 3; i++) {
 			if (item[i]) {
 				ix[i].setVisible(true);
-			} else {																															//DIE ZU ZEIGENDEN ITEMS WERDEN ANGEZEIGT
+			} else { // DIE ZU ZEIGENDEN ITEMS WERDEN ANGEZEIGT
 				ix[i].setVisible(false);
 			}
 		}
@@ -343,7 +307,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 		for (int i = 0; i < 3; i++) {
 			if (item[i] && equipped == i) {
 				ex[i].setVisible(true);
-			} else {																															// DIE ZU ZEIGENDE EQUIPPED GRAFIK WIRD GEZEIGT
+			} else { // DIE ZU ZEIGENDE EQUIPPED GRAFIK WIRD GEZEIGT
 				ex[i].setVisible(false);
 			}
 		}
@@ -352,7 +316,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			this.velX = dashspeed;
 			dashcounter++;
 			if (dashcounter == dashlength) {
-				if (sprinting) {																												//DASH (ERHÖTE GESCHWINDIGKEIT FÜR FESTE ANZAHL TICKS)
+				if (sprinting) { // DASH (ERHÖTE GESCHWINDIGKEIT FÜR FESTE ANZAHL TICKS)
 					this.velX = sprintSpeed;
 				} else {
 					this.velX = walkSpeed;
@@ -360,7 +324,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 		}
 		if (cooldowncounter < dashcooldown) {
-			cooldowncounter++;																													//DASH COOLDOWN
+			cooldowncounter++; // DASH COOLDOWN
 		}
 
 		if (right && !left) {
@@ -373,7 +337,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
 				if (this.name != "walking2") {
 					this.changeName("walking2");
-				}																																//NACH RECHTS LAUFEN MIT ANIMATION (ALLE PAAR TICKS FRAMEWECHSEL)
+				} // NACH RECHTS LAUFEN MIT ANIMATION (ALLE PAAR TICKS FRAMEWECHSEL)
 				walkcounter++;
 			} else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
 				if (this.name != "walking3") {
@@ -402,7 +366,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			} else if (walkcounter >= walkspeed && walkcounter < 2 * walkspeed) {
 				if (this.name != "iwalking2") {
 					this.changeName("iwalking2");
-				}																																//NACH LINKS LAUFEN MIT ANIMATION (ALLE PAAR TICKS FRAMEWECHSEL)
+				} // NACH LINKS LAUFEN MIT ANIMATION (ALLE PAAR TICKS FRAMEWECHSEL)
 				walkcounter++;
 			} else if (walkcounter >= 2 * walkspeed && walkcounter < 3 * walkspeed) {
 				if (this.name != "iwalking3") {
@@ -438,8 +402,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 		}
 
-		if (onWall() && lookright && !right) {																						// HIER WERDEN VERSCHIEDENE SPRITES AUDGEWÄHLT
-			if (this.name != "player") {																							// JE NACH DEM, WIE DER PLAYER AUSGERICHTET IST (R/L/ SPRINGEND)
+		if (onWall() && lookright && !right) { // HIER WERDEN VERSCHIEDENE SPRITES AUDGEWÄHLT
+			if (this.name != "player") { // JE NACH DEM, WIE DER PLAYER AUSGERICHTET IST (R/L/ SPRINGEND)
 				this.changeName("player");
 			}
 		}
@@ -450,6 +414,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 		}
 
+		// generellee Veraenderungen:
 		addGravity();
 		posY += velY * dt;
 		inWall = false;
@@ -461,15 +426,16 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
 		}
 
-		if ((LK1.equals("Deutsch") || LK2.equals("Deutsch"))																	// FALS ENGLISCH UND DEUTSCH LKS DANN NO DAMAGE VON ENEMIES
+		if ((LK1.equals("Deutsch") || LK2.equals("Deutsch")) // FALS ENGLISCH UND DEUTSCH LKS DANN NO DAMAGE VON ENEMIES
 				&& (LK1.equals("Englisch") || LK2.equals("Englisch"))) {
 
 		} else if ((LK1.equals("Englisch") || LK2.equals("Englisch"))
-				&& (!LK1.equals("Deutsch") || !LK2.equals("Deutsch"))) {														// FALLS NUR ENGLISCH KEIN DAMAGE VON NORMALEN ENEMIES
+				&& (!LK1.equals("Deutsch") || !LK2.equals("Deutsch"))) { // FALLS NUR ENGLISCH KEIN DAMAGE VON NORMALEN
+																			// ENEMIES
 			if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 				if (hardEnemyCollision() > 1) {
 					if (totalHP < 2) {
-						totalHP -= 2;																							// PASSIVER UND AKTIVER DAMAGE VOM ENEMY (EINFACH ÜBERSCHNEIDEN UND ATTACKE)
+						totalHP -= 2; // PASSIVER UND AKTIVER DAMAGE VOM ENEMY (EINFACH ÜBERSCHNEIDEN UND ATTACKE)
 						for (int i = 9; i > -1; i--) {
 							hx[i].setVisible(false);
 						}
@@ -489,7 +455,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 				} else if (enemyCollision() > 1) {
 					if (totalHP < 2) {
 						totalHP -= 2;
-						for (int i = 9; i > -1; i--) {																			// PASSIVER DAMAGE VOM GEGNER (EINFACH ÜBERSCHNEIDEN)
+						for (int i = 9; i > -1; i--) { // PASSIVER DAMAGE VOM GEGNER (EINFACH ÜBERSCHNEIDEN)
 							hx[i].setVisible(false);
 						}
 						enemyContactCounter = System.currentTimeMillis();
@@ -515,7 +481,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 							hx[i].setVisible(false);
 						}
 						waveContactCounter = System.currentTimeMillis();
-					} else {																								// DAMAGE VOM FERNKAMPF OBJEKT DES GOLLUMS(SMALL ENEMY)
+					} else { // DAMAGE VOM FERNKAMPF OBJEKT DES GOLLUMS(SMALL ENEMY)
 						totalHP -= 2;
 						for (int i = 9; i > -1; i--) {
 							if (hp[i]) {
@@ -530,7 +496,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 			}
 		}
 
-		else if ((LK1.equals("Deutsch") || LK2.equals("Deutsch"))																		//FALLS NUR DEUTSCH DANN NUR DAMAGE VON BOSS
+		else if ((LK1.equals("Deutsch") || LK2.equals("Deutsch")) // FALLS NUR DEUTSCH DANN NUR DAMAGE VON BOSS
 				&& (!LK1.equals("Englisch") || !LK2.equals("Englisch"))) {
 			if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 				if ((0 == hardEnemyCollision()) || (hardEnemyCollision() == 1)) {
@@ -595,7 +561,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 				}
 			}
 		} else if ((!LK1.equals("Deutsch") || !LK2.equals("Deutsch"))
-				&& (!LK1.equals("Englisch") || !LK2.equals("Englisch"))) {														// FALLS WEDER ENG NOCH DEU DANN MACHEN ALLE ENEMIES DAMAGE
+				&& (!LK1.equals("Englisch") || !LK2.equals("Englisch"))) { // FALLS WEDER ENG NOCH DEU DANN MACHEN ALLE
+																			// ENEMIES DAMAGE
 			if (System.currentTimeMillis() - enemyContactCounter > 1000) {
 				if (hardEnemyCollision() != -1) {
 					if (totalHP < 2) {

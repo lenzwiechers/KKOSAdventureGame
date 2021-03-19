@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JLabel;
 
+// Klasse für Gegner
 public class Enemy extends GameObject {
 
 	private static final long serialVersionUID = 4573246985108449527L;
@@ -45,7 +46,7 @@ public class Enemy extends GameObject {
 	private int attackCooldown = 5000;
 	private long lastAttackCounter;
 
-	int type;
+	int type; // speichert von welchem typ der gegner ist
 
 	private int attackFrameCounter;
 
@@ -57,7 +58,7 @@ public class Enemy extends GameObject {
 
 	Font font;
 
-	public Enemy(int type, int posX, int posY, ObjectHandler handler) {
+	public Enemy(int type, int posX, int posY, ObjectHandler handler) { // Konstruktor
 
 		super("chonker", handler);
 
@@ -71,34 +72,36 @@ public class Enemy extends GameObject {
 
 		this.velX = 0.0000001f;
 
+		// Die velocity in x-Richtung wird in einem Intervall zufällig generiert, um
+		// clustern von Gegnern zu vermeiden:
 		randomNum = ThreadLocalRandom.current().nextInt(10, 30); // 0.0000001f
-
 		velX = randomNum / 100000000;
 
 		this.type = type;
 
-		if (type == 0) {
+		if (type == 0) { // Gollum
 			changeName("gollumneutral");
-			type = 0;
 			this.width = 35;
 			this.height = 35;
-		} else if (type == 1) {
+		} else if (type == 1) { // Chonker
 			changeName("chonker");
 			this.width = 57;
 			this.height = 96;
-			type = 1;
-		} else if (type == 2) {
+		} else if (type == 2) { // Endboss
 			changeName("direktorin");
 			velX = 0.0f;
 			velY = 0.0f;
-			type = 2;
 			this.height = 1000;
 			this.width = 400;
+
+			// Einstellen der Healthbar des Boss:
 			bossHealthBar = new JLabel();
 			bossHealthBar.setBackground(Color.RED);
 			bossHealthBar.setOpaque(true);
 			bossHealthBar.setText("D I R E K T O R I N");
 			bossHealthBar.setForeground(Color.BLACK);
+
+			// Einlesen einer custom Schriftart
 			try {
 				font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/puree____2.ttf")).deriveFont(50f);
 				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -124,16 +127,19 @@ public class Enemy extends GameObject {
 
 	}
 
+	// Methode die ständig im Spiel aufgerufen wird, um Veränderungen
+	// herbeizuführen:
 	public void tick(long dt) {
 
+		// Falls der Spieler im Bossraum ist:
 		if (handler.player.get(0).posX - posX < 2000 && handler.player.get(0).posY - posY < 2000 && type == 2) {
 			bossHealthBar.setVisible(true);
-			bossHealthBar.setBounds(20, 100, (int) (hp * (handler.screenWidth - 100) / totalHP),
-					70);
+			bossHealthBar.setBounds(20, 100, (int) (hp * (handler.screenWidth - 100) / totalHP), 70);
 		} else if (type == 2) {
 			bossHealthBar.setVisible(false);
 		}
 
+		// Wenn der Gegner stirbt:
 		if (hp < 0) {
 			handler.removeObject(this);
 			handler.player.get(0).money += rand.nextInt(201) + 200;
@@ -142,6 +148,7 @@ public class Enemy extends GameObject {
 			}
 		}
 
+		// Überprüft ob der Gegner angreifen soll:
 		if (checkContact() && System.currentTimeMillis() - lastAttackCounter > attackCooldown) {
 			attacking = true;
 			lastAttackCounter = System.currentTimeMillis();
@@ -151,6 +158,7 @@ public class Enemy extends GameObject {
 		sCollide = false;
 		slCollide = false;
 
+		// Lines of Sight:
 		l[0].setLine(posX + (width / 2), posY,
 				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
 				handler.player.get(0).getPos('y') + 1);
@@ -161,6 +169,7 @@ public class Enemy extends GameObject {
 				handler.player.get(0).getPos('x') + (handler.player.get(0).getSize('x') / 2),
 				handler.player.get(0).getPos('y') + handler.player.get(0).getSize('y') - 1);
 
+		// wenn der Gegner visual Kontakt hat mit dem Player:
 		if (checkContact() && !chonkerAttackRight && !chonkerAttackLeft) {
 			if (posX < handler.player.get(0).getPos('x')) {
 				posX += velX * dt;
@@ -248,8 +257,9 @@ public class Enemy extends GameObject {
 			}
 		}
 
+		// Laufanimationen:
 		if (!attacking) {
-			if (type == 0) {
+			if (type == 0) { // Für Gollum
 				if (lookright) {
 					if (walkcounter >= 0 && walkcounter < walkspeed) {
 						if (this.name != "gollumwalking1") {
@@ -283,7 +293,7 @@ public class Enemy extends GameObject {
 						walkcounter = 0;
 					}
 				}
-			} else if (type == 1) {
+			} else if (type == 1) { // Für chonker
 				if (lookright) {
 					if (walkcounter >= 0 && walkcounter < walkspeed) {
 						if (name != "chonkerwalking1") {
@@ -315,10 +325,10 @@ public class Enemy extends GameObject {
 						walkcounter = 0;
 					}
 				}
-			} else if (type == 2) {
-
 			}
 		}
+		
+		// Verändern der Position und generelles:
 		posY += velY * dt;
 		inWall = false;
 		if (wallCollision()) {
@@ -339,6 +349,7 @@ public class Enemy extends GameObject {
 			addGravity();
 		}
 
+		// Kollision mit Schuessen:
 		if (shotCollision()) {
 			if (handler.player.get(0).LK1.equals("Informatik") || handler.player.get(0).LK2.equals("Informatik")) {
 				hp -= 110;
@@ -347,6 +358,7 @@ public class Enemy extends GameObject {
 			}
 		}
 
+		// Kollision mit slashes:
 		if (slashCollision()) {
 			if (handler.player.get(0).LK1.equals("Sport") || handler.player.get(0).LK2.equals("Sport")) {
 				hp -= 300;
@@ -355,6 +367,7 @@ public class Enemy extends GameObject {
 			}
 		}
 
+		// verschiedene Attacken:
 		if (attacking) { // WENN ATTACKIEREND WIRD GOLLUM ERST ANGEHALTEN
 			if (type == 0) {
 				if (attackFrameCounter == 0) {
@@ -431,6 +444,7 @@ public class Enemy extends GameObject {
 		}
 	}
 
+	// Methode die überprüft ob der Enemy Kontakt zum Player hat:
 	public boolean checkContact() {
 
 		for (int j = 0; j < l.length; j++) {
@@ -446,10 +460,6 @@ public class Enemy extends GameObject {
 			}
 		}
 		return false;
-	}
-
-	public void attack() {
-
 	}
 
 }

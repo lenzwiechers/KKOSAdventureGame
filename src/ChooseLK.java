@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -16,14 +15,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+// Klasse zum Auswaehlen der LKs
 public class ChooseLK extends Window {
-	private Game game;
+	
+	private static final long serialVersionUID = 2434610442352320913L;
 
 	static JLabel backgroundLabel = new JLabel();
 	
 	static JLabel textLabel =  new JLabel();
 
-	static JComboBox LK1, LK2;
+	static JComboBox<?> LK1, LK2;
 
 	static JPanel b1Panel = new JPanel();
 
@@ -34,14 +35,14 @@ public class ChooseLK extends Window {
 
 		this.setVisible(false);
 
-		this.game = game;
+		
 		
 		//Setzt alle Menüs und Buttons
 
-		String LKs[] = { "Informatik", "Sport", "Biologie", "Deutsch", "Englisch", };
+		String LKs[] = { "Informatik", "Sport", "Biologie", "Deutsch", "Englisch", }; // mögliche LKs
 
-		LK1 = new JComboBox(LKs);
-		LK2 = new JComboBox(LKs);
+		LK1 = new JComboBox<Object>(LKs);
+		LK2 = new JComboBox<Object>(LKs);
 
 		LK1.setBounds(100, 200, 100, 20);
 		LK2.setBounds(300, 200, 100, 20);
@@ -58,7 +59,7 @@ public class ChooseLK extends Window {
 		this.add(backgroundLabel);
 
 		URL url1 = new URL("https://i.pinimg.com/originals/d8/c5/cb/d8c5cb4c53c31a1f7b166db644c5726b.gif");
-		URL url2 = new URL("https://i.pinimg.com/originals/17/d2/cd/17d2cdf8af071c636252bdfa7c4305bd.gif");
+		new URL("https://i.pinimg.com/originals/17/d2/cd/17d2cdf8af071c636252bdfa7c4305bd.gif");
 
 		try {
 
@@ -86,7 +87,8 @@ public class ChooseLK extends Window {
 		textLabel.setVisible(true);
 
 		b1Panel.setLayout(null);
-
+		
+		// startButton mit Listener:
 		JButton startButton = new JButton(b1Icon);
 
 		b1Panel.add(startButton);
@@ -113,12 +115,8 @@ public class ChooseLK extends Window {
 				System.out.println("-> LK window closed");
 				System.out.println();
 				
-				dispose();
+				dispose(); // schluss
 			}
 		});
-	}
-
-	public void init() {
-
 	}
 }

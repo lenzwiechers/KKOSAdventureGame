@@ -2,6 +2,7 @@ import java.awt.Component;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 
+// Klasse die alle Objekte verwaltet
 public class ObjectHandler {
 
 	public JPanel panel;

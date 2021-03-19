@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-// Diese Klasse ist die Grundlage zum Rendern von Elementen auf dem Frame, anhand der Javax Swing Bibliothek
+// Diese Klasse ist die Grundlage zum Rendern von Elementen auf dem Frame, anhand der Java Swing Bibliothek
 
 public class Picture extends JLabel { // Die übergeordnete Klasse ist JLabel
 

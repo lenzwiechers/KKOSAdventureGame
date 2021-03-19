@@ -1,4 +1,5 @@
 
+// Schüsse von Gollums und der Direktorin
 public class FlyingObject extends GameObject {
 
 	private static final long serialVersionUID = -3240563349601296826L;
@@ -19,18 +20,18 @@ public class FlyingObject extends GameObject {
 		this.posX = wx;
 		this.posY = wy;
 
-		if (name == "gollumWave") {																										//ENTWEDER WAVE VOM GOLLUM
+		if (name == "gollumWave") { // ENTWEDER WAVE VOM GOLLUM
 			width = 35;
 			height = 35;
-		} else if(name == "verwarnung") {																								// ODER ATTACKE DER DIREKTORIN
+		} else if (name == "verwarnung") { // ODER ATTACKE DER DIREKTORIN
 			width = 300;
 			height = 100;
 		}
 		this.handler = handler;
 
 		this.tar = newTar;
-		this.hom = new Vector2((float) posX, (float) posY);							//VEKTOR VOM START ZUM PLAYER
-		this.acv = Vector2.subtract(tar, hom);											//VEKTOR VON START ZU ZIEL - HEIMVEKTOR = VEKTOR VOM PLAYER ZUM ZIEL
+		this.hom = new Vector2((float) posX, (float) posY); // VEKTOR VOM START ZUM PLAYER
+		this.acv = Vector2.subtract(tar, hom); // VEKTOR VON START ZU ZIEL - HEIMVEKTOR = VEKTOR VOM PLAYER ZUM ZIEL
 		acv.norm();
 
 		this.velX = (float) acv.x;
@@ -39,24 +40,11 @@ public class FlyingObject extends GameObject {
 
 	public void tick(long dt) {
 
-		// if(right) {
-		posX += velX * dt * waveSpeed;												//// X UND Y GESCHWINDIGKEITEN WERDEN AUF RICHTIGE WERTE "GESTRECKT"
+		posX += velX * dt * waveSpeed; //// X UND Y GESCHWINDIGKEITEN WERDEN AUF RICHTIGE WERTE "GESTRECKT"
 		posY += velY * dt * waveSpeed;
-		// } else {
-		// posX += velX * dt * waveSpeed;
-		// posY += velY * dt * waveSpeed;
-		// }
-
-		/*
-		 * if (right) { posX += velX * dt * waveSpeed + (handler.player.get(0).velX*dt);
-		 * } else if(!handler.player.get(0).getLeft()) { posX += velX * dt * waveSpeed -
-		 * (handler.player.get(0).velX*dt); } else { posX += velX * dt * waveSpeed; } if
-		 * (!handler.player.get(0).onWall()) { posY += velY * dt * waveSpeed +
-		 * (handler.player.get(0).velY*dt); } else { posY += velY * dt * waveSpeed; }
-		 */
-
+		
 		if (wallCollision()) {
-			handler.removeObject(this);													// FALLS DAS OBJEKT GEGEN DIE WAND KNALLT WIRD ES ENTFERNT
+			handler.removeObject(this); // FALLS DAS OBJEKT GEGEN DIE WAND KNALLT WIRD ES ENTFERNT
 		}
 
 	}

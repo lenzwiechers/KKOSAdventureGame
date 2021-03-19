@@ -3,6 +3,7 @@ import java.util.LinkedList;
 
 import javax.swing.JLabel;
 
+// Klasse die die Map generiert
 public abstract class generateMap {
 
 	static LinkedList<Wand> waende = new LinkedList<Wand>();
@@ -22,8 +23,6 @@ public abstract class generateMap {
 
 		generateBossRoom(handler);
 
-		// generateTestRoom(handler);
-
 		for (int i = 0; i < waende.size(); i++) {
 			handler.addObject(waende.get(i));
 		}
@@ -40,25 +39,6 @@ public abstract class generateMap {
 			handler.addObject(tutorialLabels.get(i));
 		}
 
-	}
-
-	public static void generateTestRoom(ObjectHandler handler) {
-		Door doorDebug1 = new Door(250, 4900, 100, 100, handler);
-		Door doorDebug2 = new Door(100, -2000, 100, 100, handler);
-		doorDebug1.connectExit(doorDebug2);
-		doorDebug2.connectExit(doorDebug1);
-
-		tueren.add(doorDebug2);
-		tueren.add(doorDebug1);
-
-		waende.add(new Wand(0, -2000, 1000, 100, handler));
-		waende.add(new Wand(1000, -2000, 1000, 100, handler));
-		waende.add(new Wand(-100, -3000, 100, 1000, handler));
-		waende.add(new Wand(0, -3100, 1000, 100, handler));
-		waende.add(new Wand(1000, -3100, 1000, 100, handler));
-		waende.add(new Wand(2000, -3000, 100, 1000, handler));
-
-		enemies.add(new Enemy(2, 500, -1500, handler));
 	}
 
 	public static void generateStartRoom(ObjectHandler handler) {
@@ -89,25 +69,23 @@ public abstract class generateMap {
 
 		// Innen
 
+		// TutorialLabels:
 		tutorialLabels.add(new TutorialLabel(600, 600, 400, 400,
 				"<html><body>HELLO! MOVE YOUR PLAYER WITH THE 'A', AND 'D' KEYS, AND JUMP WITH SPACE!</body></html>",
 				Color.WHITE));
-		
+
 		tutorialLabels.add(new TutorialLabel(600, 0, 400, 400,
-				"<html><body>THIS IS AN ENEMY! WATCH OUT AND DON'T GET HIT!</body></html>",
-				Color.WHITE));
-		
+				"<html><body>THIS IS AN ENEMY! WATCH OUT AND DON'T GET HIT!</body></html>", Color.WHITE));
+
 		tutorialLabels.add(new TutorialLabel(2900, 300, 400, 400,
-				"<html><body>PRESS 'F' TO ENTER A DOOR!</body></html>",
-				Color.WHITE));
-		
+				"<html><body>PRESS 'F' TO ENTER A DOOR!</body></html>", Color.WHITE));
+
 		tutorialLabels.add(new TutorialLabel(3350, 300, 400, 400,
 				"<html><body>PRESSING 'L-SHIFT' MAKES YOU FASTER ALLOWING YOU TO JUMP FURTHER!</body></html>",
 				Color.WHITE));
-		
+
 		tutorialLabels.add(new TutorialLabel(3350, -400, 400, 400,
-				"<html><body>PRESS 'R' TO USE A HEALTH POTION!</body></html>",
-				Color.BLACK));
+				"<html><body>PRESS 'R' TO USE A HEALTH POTION!</body></html>", Color.BLACK));
 
 		waende.add(new Wand(500, 0, 50, 1000, handler));
 		waende.add(new Wand(300, 200, 200, 20, handler));
@@ -198,7 +176,7 @@ public abstract class generateMap {
 		waende.add(new Wand(8350, 980, 300, 20, handler));
 
 		items.add(new Item(8493, 930, handler, 2));
-		
+
 		tutorialLabels.add(new TutorialLabel(8300, 1000, 400, 400,
 				"<html><body>CYCLE THROUGH YOUR ITEMS USING '1', '2' AND '3'! ATTACK WITH YOUR MOUSE!</body></html>",
 				Color.WHITE));
@@ -510,10 +488,9 @@ public abstract class generateMap {
 		waende.add(new Wand(8350, 8980, 300, 20, handler));
 
 		items.add(new Item(8493, 8930, handler, 3));
-		
-		tutorialLabels.add(new TutorialLabel(8300, 9000, 400, 400,
-				"<html><body>PRESS 'S' TO DASH!</body></html>",
-				Color.WHITE));
+
+		tutorialLabels.add(
+				new TutorialLabel(8300, 9000, 400, 400, "<html><body>PRESS 'S' TO DASH!</body></html>", Color.WHITE));
 
 		Door door12 = new Door(5850, 8900, 100, 100, handler);
 		Door door13 = new Door(8050, 8900, 100, 100, handler);
@@ -657,13 +634,13 @@ public abstract class generateMap {
 		waende.add(new Wand(1720, 17000, 1000, 1000, handler));
 		waende.add(new Wand(-1000, 15920, 1000, 100, handler));
 		waende.add(new Wand(1720, 15920, 1000, 100, handler));
-		
+
 		// Umriss Ende
 
 		// Innen
 
 		waende.add(new Wand(0, 16780, 100, 20, handler));
-		
+
 		waende.add(new Wand(0, 16620, 50, 20, handler));
 
 		waende.add(new Wand(0, 16220, 50, 20, handler));
@@ -672,13 +649,13 @@ public abstract class generateMap {
 		waende.add(new Wand(0, 16420, 50, 20, handler));
 		items.add(new Item(10, 16370, handler, 0));
 
-		//waende.add(new Wand(200, 16600, 100, 20, handler));
+		// waende.add(new Wand(200, 16600, 100, 20, handler));
 
 		waende.add(new Wand(750, 16700, 200, 20, handler));
 		waende.add(new Wand(550, 16850, 50, 20, handler));
-		
+
 		enemies.add(new Enemy(2, 1300, 16000, handler)); // Boss wird gespawnt
-		
+
 		// Innen Ende
 	}
 }
