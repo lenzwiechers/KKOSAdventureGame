@@ -35,7 +35,7 @@ public class Slash extends GameObject {
 		this.posX = sx;
 		this.posY = sy;
 
-		this.timer = tim;
+		this.timer = tim;																	//TIMER ZEIGT WIE LANGE DER SLASH DA IST
 		this.dir = dir;
 
 		// this.hom = new Vector2((float) (posX - Game.cam.xPos), (float) (posY -
@@ -48,7 +48,7 @@ public class Slash extends GameObject {
 		// tar.norm();
 
 		// acv.norm();
-		if (dir == 0) {
+		if (dir == 0) {															//SLASH RICHTUNG WIRD FESTGELLEGT
 			this.velX = -1;
 			this.velY = 0;
 		} else if (dir == 1) {
@@ -92,7 +92,7 @@ public class Slash extends GameObject {
 		this.name = "slash";
 
 		if (timer < 0) {
-			handler.removeObject(this);
+			handler.removeObject(this);													//NACH AUSLAUFEN DER ZEIT: SLASH "LAEUFT AUS
 		}
 
 		timer--;
@@ -110,7 +110,7 @@ public class Slash extends GameObject {
 		if (handler.player.get(0).getRight()) {
 			posX += velX * dt * slashSpeed + (handler.player.get(0).velX*dt);
 		} else if(handler.player.get(0).getLeft()) {
-			posX += velX * dt * slashSpeed - (handler.player.get(0).velX*dt);
+			posX += velX * dt * slashSpeed - (handler.player.get(0).velX*dt);			//JUSTIERUNG UM PLAYER GESCHWINDIGKEIT
 		}
 		else {
 			posX += velX * dt * slashSpeed;
